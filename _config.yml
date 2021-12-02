@@ -109,3 +109,18 @@ search:
   field: post
   content: true
   format: html
+
+# Giscus comments system
+## Docs: https://github.com/next-theme/hexo-next-giscus
+giscus:
+  enable: true
+  repo: tisonkun/comments
+  repo_id: R_kgDOGc-oGw
+  category: General
+  category_id: DIC_kwDOGc-oG84CAEoB
+  # Available values: pathname | url | title | og:title
+  mapping: title
+  # Available values: 0 | 1
+  reactions_enabled: 1
+  # Available values: light | dark | dark_high_contrast | transparent_dark | preferred-color-scheme
+  theme: light
