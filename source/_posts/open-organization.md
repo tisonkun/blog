@@ -98,5 +98,3 @@ Linus 多次表示自己他只以技术论高低，PostgreSQL 社区和 Apache �
 3. 不论由谁提出，只要是最好的想法就能胜出。
 4. 我们鼓励并且期待开放、坦诚、充满热情的辩论。
 5. 我们欢迎反馈意见，本着“早发行，勤发行”的精神做出改变。
-
-{% img /media/wemp.png '"Subscribe Me" "Subscribe My WeChat Official Account: yatennosyo"' %}

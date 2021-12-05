@@ -184,6 +184,3 @@ Taichi 项目当中缺乏背景信息的还有这些例子。
 以这样的方式去寻找潜在的开发核心逻辑的成员，相信你的视野会更加广阔。
 
 其实，这才是“开源共同体”的含义。不止于项目，也不是社区居委会，而是围绕开源项目的发展，基于对项目的认同，形成的多层次合作共同体。
-
-
-{% img /media/wemp.png '"Subscribe Me" "Subscribe My WeChat Official Account: yatennosyo"' %}

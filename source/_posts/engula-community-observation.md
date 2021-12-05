@@ -95,5 +95,3 @@ v0.2 版本计划包含的主要内容就是存储引擎内核，包括底层的
 由于这个提案本身不是一种硬性的承诺，其中的提议也需要共同体成员认可和实际执行才有效，所以我不再计划把它发布到 Engula 的网站上，而是针对每一个关键的提议，以 contributor 文档或共识的方式逐个落实到 Engula 开源共同体当中。
 
 我希望 Engula 能够成为发源于本土的优秀开源共同体，不仅作为一个 serverless 存储引擎创造技术价值，也是开源协同模式下健壮成长的标杆。
-
-{% img /media/wemp.png '"Subscribe Me" "Subscribe My WeChat Official Account: yatennosyo"' %}
