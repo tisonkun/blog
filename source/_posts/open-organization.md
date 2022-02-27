@@ -3,8 +3,9 @@ title: 《开放式组织》书评
 date: 2021-12-05
 tags:
     - 开源
-    - 大图书馆
     - 组织管理
+categories:
+    - 大图书馆
 ---
 
 本文部分启发自在 [ALC Beijing](https://alc-beijing.github.io/alc-site/) 录制播客时讨论的内容，仅引用我个人的观点。播客内容应该近期会在前面链接的网站上发布。
