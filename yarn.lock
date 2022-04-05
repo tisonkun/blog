@@ -763,10 +763,10 @@ hexo-log@^3.0.0:
   dependencies:
     nanocolors "^0.2.12"
 
-hexo-next-giscus@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/hexo-next-giscus/-/hexo-next-giscus-1.0.2.tgz#789b51325fd8f37d2b46c0befe72b8c3cd8b71c3"
-  integrity sha512-APPk88pmSCV8DtlU2gVyY8uk8xJFexA5aKALwvEt62h9htIiYZVzQLw6njBW3yIPxVq3IszTDRP4LD0UPeX3cw==
+hexo-next-giscus@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/hexo-next-giscus/-/hexo-next-giscus-1.0.3.tgz#dca16efa6716c309b3dccbc30bcc5bd11ce58c3c"
+  integrity sha512-OhfwovEWntzB1FrHEQye2YWmde+P7KTHd6NSn1EWigjSaoxi7YuwImWSRY7xOligwaei14Y8C9wLRMa8sKEM2A==
   dependencies:
     "@next-theme/utils" "^1.3.0"
 
