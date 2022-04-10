@@ -8,7 +8,7 @@ categories:
     - 夜天之书
 ---
 
-几天前 [@Xuanwo](https://github.com/Xuanwo) 的一篇文章[《开源运营当论迹不论心》](https://xuanwo.io/reports/2022-13/)讨论了 [TDengine 代码灭虫计划](http://web.archive.org/web/20220403062947/https://mp.weixin.qq.com/s/mssWF5AoUG-vt-b5_QMtRA)活动中不尊重开源协同的规律，只是通过市场运营手段强行把开发者推进来的误区。
+几天前 [@Xuanwo](https://github.com/Xuanwo) 的一篇文章[《开源运营当论迹不论心》](https://xuanwo.io/reports/2022-13/)讨论了 [TDengine 代码灭虫计划](https://web.archive.org/web/20220403062947/https://mp.weixin.qq.com/s/mssWF5AoUG-vt-b5_QMtRA)活动中不尊重开源协同的规律，只是通过市场运营手段强行把开发者推进来的误区。
 
 本文从这个例子出发，进一步举例讨论开源社群需要什么样的代码贡献。
 
