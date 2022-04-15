@@ -31,7 +31,7 @@ $ (root) tree
 .
 ├── CMakeLists.txt
 └── main.cpp
-$ (root) cat CMakeLists.txt 
+$ (root) cat CMakeLists.txt
 cmake_minimum_required(VERSION 3.19)
 project (hello_cmake)
 add_executable(hello_cmake_exe main.cpp)
@@ -40,7 +40,7 @@ $ (root) mkdir build && cd build && cmake .. && make
 $ (root/build) ls
 CMakeCache.txt      Makefile            hello_cmake_exe
 CMakeFiles          cmake_install.cmake
-$ (root/build) ./hello_cmake_exe 
+$ (root/build) ./hello_cmake_exe
 Hello CMake!
 ```
 
