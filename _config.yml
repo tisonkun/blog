@@ -125,3 +125,22 @@ giscus:
   mapping: title
   reactions_enabled: 1
   theme: light_protanopia
+
+# Generate Atom 1.0 or RSS 2.0 feed.
+## Docs: https://github.com/hexojs/hexo-generator-feed
+feed:
+  enable: true
+  type:
+    - atom
+    - rss2
+  path:
+    - atom.xml
+    - rss2.xml
+  limit: 0
+  hub:
+  content: true
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+  icon: /media/yatennosyo.png
+  autodiscovery: true
