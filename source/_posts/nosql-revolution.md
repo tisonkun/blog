@@ -8,7 +8,7 @@ categories:
     - 天工开物
 ---
 
-从本世纪初谷歌的三篇论文发布以来，数据处理领域在大数据的方向上探索了将近二十年的时间。从三篇论文的开源实现 Hadoop 和 HBase 开始，到打破传统关系型数据库的分布式数据处理系统如雨后春笋般接连诞生，NoSQL 系统回答了移动互联时代的数据爆发式增长的挑战。
+从本世纪初谷歌的三篇论文发布以来，数据处理领域在大数据的方向上探索了将近二十年的时间。从三篇论文的开源实现 Apache Hadoop 和 Apache HBase 开始，到打破传统关系型数据库的分布式数据处理系统如雨后春笋般接连诞生，NoSQL 系统回答了移动互联时代的数据爆发式增长的挑战。
 
 诚然，传统的数据库专家对 NoSQL 也有像 [MapReduce: A major step backwards](https://homes.cs.washington.edu/~billhowe/mapreduce_a_major_step_backwards.html) 这样的批评，不过 NoSQL 系统本身也在向传统数据处理领域当中被证明有效的特性靠拢，向 Not Only SQL 系统转变。
 
@@ -66,19 +66,61 @@ NoSQL 系统崛起的另一个主要原因是打破了关系模型对数据处�
 
 ## Not Only SQL 的诉求
 
+NoSQL 系统一开始得名就是因为它的设计理念和数据模型都是反（NO）关系数据库（SQL）的。
+
+这种反叛的极致体现在谷歌的三篇论文当中完全无视数据库领域二三十年的积累，以一种非常土味的方式用廉价机器拼凑起来一个分布式存储系统 [GFS](https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf) 和仅仅支持 [MapReduce](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf) 这样简单算子的计算引擎。[Bigtable](https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf) 作为初代 NoSQL 引擎，不支持跨行跨表事务，不支持严格的表模式，没有关联查询，没有索引，没有存储过程。
+
+这些“离经叛道”的创举自然引来了数据库大佬们的批评，比如本文开篇引用的 MapReduce: A major step backwards 博客文章。这些批评主要就集中在上面提到的这些“不支持”和“没有”上，以及与数据库生态的不兼容。
+
+一开始，尝到了堆砌大量廉价机器就能解决业务问题甜头的开发者和公司对这些批评自然是不屑一顾的。只是随着业务越长越大，复杂性越来越高，人们面临着数据杂乱无章的失序的风险，以及缺乏传统数据库约束和索引带来的性能退化的痛点，逐渐开始认真考虑数据库领域一直以来的研究的价值。
+
+### 事务
+
+第一个被提出的议题就是事务，或者说其所代表的数据一致性问题。单机数据库能够保证简写为 ACID 的事务一致性，而分布式系统受到 CAP 理论的限制，往往无法实现单机关系数据库能达到的数据一致性。
+
+关于 CAP 理论的理解，在实际业务取舍的过程中，并不是简单的一致性、可用性和分区容忍性三选二，而是在分布式系统本来就需要能够做到分区容忍，以及业务必须保证服务可用的前提下，看看能够做到多少一致性。当然，有些一致性是以服务短暂不可用或者时延升高为代价的，但是业务绝对不会接受服务一直不可用。
+
+这种情况下首先被提出的解决方案是所谓的 BASE 性质，即基本可用、柔性状态和最终一致，或者我喜欢借用一个说法，叫做啥也不保证。BASE 性质基本已经被扫进历史的垃圾堆里了，不会再有系统标榜自己符合所谓的 BASE 性质。但是它确实提供了数据一致性上的一条基线，即最终一致性。也就是说，对于给定的有限的输入集合，NoSQL 系统当中的数据最终会收敛一个稳定状态，但是这个稳定状态下数据的值是否还有业务意义，不保证。
+
+一般来说，NoSQL 系统在此之上能够做到对自己数据模型下单个数据单元的基本操作是原子性的。比如说，KV NoSQL 系统当中 Put 一个字符串是原子的，不会出现两个 Put 操作的结果是值一部分由第一个操作提供，一部分由第二个操作提供的情况。不过，业务要求显然远远不止这点。对于业务来说，常见的一致性或者叫事务需求，是保证对一行数据的多个操作的原子性，乃至多行数据多个操作的原子性。例如单行数据的 CAS 操作，或者多行数据原子写乃至事务性的读后写的支持。
+
+HBase 和 Bigtable 都支持单行事务，这是因为它们的数据模型里单行数据一定存在单台机器上，保证同一台机器上操作的原子性是比较简单的。大部分系统根据自己物理数据分布的特性，也会向用户保证这类数据存储在同一台机器上的情况下事务能力的支持。
+
+对于跨多台机器的事务支持，则要牵扯到分布式事务的话题。对于 Pulsar 这样数据仅追加的消息系统来说，可以通过批量提交及该操作的幂等性来实现生产消息的事务支持。对于存在删改的系统来说，要么选择放弃隔离性，实现复杂的数据补偿逻辑来支持 Sagas 式的分布式“事务”，要么是采用 [Raft](https://raft.github.io/) 这样的共识算法加上某种形式的两阶段提交算法来支持分布式事务。例如 TiKV 采用了 Raft + [Percolator](https://tikv.org/deep-dive/distributed-transaction/percolator/) 算法来实现分布式事务，Percolator 本质上还是两阶段提交，但是在生产上会有一系列的优化，并且在某些特定条件满足的情况下可以简化成一阶段提交。
+
+一般来说，启用分布式事务会导致数据吞吐的下降和其他性能影响，因此大部分 NoSQL 系统都提供了用户自己调节数据一致性的选项，来保证只在需要对应级别的数据一致性的情况下，才付出相应的开销。
+
+### 模式
+
+前文提到，NoSQL 的一个优势是灵活的数据模式能够响应业务的高速迭代。不过，随着业务日渐复杂，开发团队人员更迭，维护 NoSQL 系统上存储的数据的质量就成为了一个难题。
+
+如果所有的数据都是无模式的，或者数据模式没有被良好的记录和检验，那么杂乱无章的数据就可能带来极大的存储空间浪费并阻碍业务开发。
+
+关系数据库和 SQL 当中有专门的数据定义语言（DDL）来描述表模式，通过定义清楚字段的类型和约束来保证数据是结构化的。虽然一旦这种约束过于繁琐和严格，且由于企业流程难于变更时，会影响业务开发的效率，但是清晰的类型约束和唯一性约束是有助于开发人员理解字段的属性和检验业务逻辑正确性的。
+
+这种思路体现在 NoSQL 的演进之路上就是渐进式模式定义。
+
+例如，MongoDB 就支持[数据模式校验](https://www.mongodb.com/docs/manual/core/schema-validation/)，Pulsar 也支持[定义消息的模式](https://pulsar.apache.org/docs/schema-get-started)。
+
+再以 Cassandra 为例，虽然一开始它对外暴露的是稀疏列簇式大宽表的接口，但是也逐渐地转向建议用户以 CQL 和 Cassandra 交互，同时也保留直接操作底下稀疏列簇式大宽表的手段。
+
+对于现有系统本身不支持数据模式定义的，也有其他系统来支持。例如 Apache Hive 支持为 Hadoop 上的数据定义模式，Apache Phoenix 支持为 HBase 定义数据模式。
+
+### 索引
+
+对于直截了当的查询来说，NoSQL 的性能优势是明显的。例如 HBase 上已知 rowkey 查询值，这样的操作是系统设计之初就考虑到的情况，属于舒适区。
+
+然而，随着业务发展逐渐复杂，各种新的查询维度也纷至沓来。例如，不再是以 rowkey 查询值，而是以某一列的值为筛选条件来查询匹配的所有行。比如一个用户表，一开始将用户 ID 作为主键存储，现在要根据用户所在地筛选出所有在某地的用户。由于 HBase 没有索引，这种查询只能扫全表后过滤。可想而知，每次查询都需要遍历全表数据，查询的性能肯定好不到哪去。
+
+关系数据库当中也有一样的问题，MySQL 每一行的主键是固定的，要么是创建表模式时指定，要么由插入行时自动生成的 rowid 取代。关系数据库当中可以针对某张表创建索引。一方面，唯一键索引可以施加键值唯一的约束；另一方面，创建索引通常会在存储系统当中额外创建出一个从索引列到逐渐的映射。实际以索引列为过滤条件查询的时候，会先从索引映射当中找到对应主键的集合，然后直接挑选出小部分相关行做后续操作。
+
+基本上现在的 NoSQL 系统都会实现一定的索引机制。例如业内前沿的数据湖存储 Apache Hudi 系统，一开始只是一个按照直觉写出的读取 Hadoop 上的文件，应用对给定记录的变更并写回 Hadoop 的 Apache Spark 程序。但是在后来投入生产之后，越来越多的开发人力加入和生产环境对性能无止境的追求，为 Hudi 添加了基于元数据文件的、基于 HBase 外存的，以及在选择 Apache Flink 处理引擎的情况下基于 Flink 内置 State 存储的多种索引方案。
+
+上一节提到的能为 HBase 定义数据模式的 Phoenix 项目，也支持为 HBase 创建索引。
+
+从这一系列 NoSQL 系统的转变来看，索引确实是其走向 Not Only SQL 的一个性能上的硬核需求。
+
 ## 新时代 NoSQL 的发展方向
-
-KV NoSQL Revolution
-
-- 企业当中用例和诉求的不同。
-	- RDBMS - 审核严格，数据资产持久化，数据平台生态。  
-	- NoSQL - 业务逻辑、衍生服务快速上线。  
-
-- 数据量的增长、数据模型的需要。
-	- Web Scale - 单机 RDBMS 的缺陷。  
-        NewSQL - 分库分表的难点（优点），NewSQL = NewNoSQL
-        利用协议层兼容其他负载，Kv 是基础，不是要颠覆 NewSQL
-	- 数据模型？
 
 - KV 解决方案当中的硬核诉求：  
 	- Schema
@@ -100,11 +142,3 @@ KV NoSQL Revolution
     - Apache Kvrocks (Incubating)
     - ScyllaDB
     - Redis
-
-## 参考材料
-
-谷歌拉开大数据时代的三篇论文：
-
-* [The Google File System](https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf)
-* [MapReduce: Simplified Data Processing on Large Clusters](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf)
-* [Bigtable: A Distributed Storage System for Structured Data](https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf)
