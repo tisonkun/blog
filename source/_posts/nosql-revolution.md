@@ -8,11 +8,11 @@ categories:
     - 天工开物
 ---
 
-从本世纪初谷歌的三篇论文发布以来，数据处理领域在大数据的方向上探索了将近二十年的时间。从三篇论文的开源实现 [Apache Hadoop](https://hadoop.apache.org/) 和 [Apache HBase](https://hbase.apache.org/) 开始，到打破传统关系型数据库的分布式数据处理系统如雨后春笋般接连诞生，NoSQL 系统回答了移动互联时代的数据爆发式增长的挑战。
+从本世纪初谷歌的三篇论文发布以来，数据处理领域在大数据的方向上探索了将近二十年的时间。从三篇论文的开源实现 [Apache Hadoop](https://hadoop.apache.org/) 和 [Apache HBase](https://hbase.apache.org/) 开始，到打破传统关系型数据库的分布式数据处理系统如雨后春笋般接连诞生，NoSQL 系统回应了移动互联时代的数据爆发式增长的挑战。
 
 诚然，传统的数据库专家对 NoSQL 也有像 [MapReduce: A major step backwards](https://homes.cs.washington.edu/~billhowe/mapreduce_a_major_step_backwards.html) 这样的批评，不过 NoSQL 系统本身也在向传统数据处理领域当中被证明有效的特性靠拢，向 Not Only SQL 系统转变。
 
-本文首先从移动互联时代数据增长和数据模型演进带来的实际问题出发，讨论 NoSQL 系统在现在企业数据处理生态当中的定位和价值。然后介绍 NoSQL 系统靠近 Not Only SQL 定位的过程中遇到的硬核诉求。最后分析新时代 NoSQL 的发展方向。
+本文首先从移动互联时代数据增长和数据模型演进带来的实际问题出发，讨论 NoSQL 系统在现在企业数据处理生态当中的定位和价值，然后介绍 NoSQL 系统靠近 Not Only SQL 定位的过程中遇到的硬核诉求，最后分析新时代 NoSQL 的发展方向。
 
 <!-- more -->
 
