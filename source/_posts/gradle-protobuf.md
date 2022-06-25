@@ -155,3 +155,11 @@ shadowJar {
 对于这个玩具项目来说，它需要的是保持跟 Apache Ratis 服务端一样的 protobuf 依赖的全限定名，保证能够嵌入到 Apache Ratis 的服务端实现当中。对于其中的 proto 定义部分，它并不需要真的把依赖项也打进自己的 JAR 包里，这个打大 JAR 包的工作会交给最终的 dist package 完成。所以我们还需要把 Gradle Shadow Plugin 默认打入所有运行时依赖的行为变掉。这就是 `configurations = []` 一行起的作用，把打入最终 JAR 包的依赖项置空，这样就只会包含 proto 文件编译出来的 class 文件了。这样的用例，其实与 Maven Shade Plugin 的惯用法有较大的差别，更像是 [Maven Replacer Plugin](https://code.google.com/archive/p/maven-replacer-plugin/) 的用法。
 
 最后作为小 tip 值得一提的是，上面提到 package relocation “也包括字符串当中的情况，以应对动态加载的用例”。这其实导致了 akka 项目很难利用常规的 package relocation 插件来完成这个工作。惯例上，Java 语言项目的全限定名以域名开头，形如 `com.google.protobuf` 或 `org.apache.ratis` 等等。一般而言这种形式的字符串只会出现在类的全限定名当中。然而，akka 作为一个 Scala 项目采用了 `akka.actor` 形式的全限定名前缀。不幸的是，这种前缀模式跟 akka 的配置项是重叠的。这就导致 package relocation 会同时改变配置项的名称。这其实不是我们想要的，因为这样用户也要跟着改配置项的名称才能跟 relocate 之后的 akka 库交互，这通常来说是非常难做到并且与大部分开发者的直觉和生态项目的假设是冲突的。
+
+## 20220626 更新
+
+1. 这样 relocated 以后的结果，只会体现在本仓库再次被依赖时。因为 shadowJar 作业发生在打包阶段，因此如果在同一个包内使用 Protobuf Plugin 生成的类，此时依赖的还是 relocated 前的全限定名。
+2. 多模块的 Gradle 项目中，一个子项目依赖 shadowJar 产生的另一个子项目需要形如 `implementation project(path: ':foo-proto', configuration: 'shadow')` 的语法。
+3. 如果使用 Intellij IDEA 来开发，需要在 `build.gradle` 里加载名为 `idea` 的 Gradle Plugin 才能正确索引 Protobuf Plugin 生成的文件。
+
+具体可以参考在线的完整案例 [Dryad](https://github.com/korandoru/dryad) 仓库。
