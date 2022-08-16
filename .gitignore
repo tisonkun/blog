@@ -2,7 +2,6 @@
 Thumbs.db
 db.json
 *.log
-node_modules/
-public/
-.deploy*/
-package-lock.json
+node_modules
+public
+.yarn
