@@ -87,7 +87,7 @@ Kvrocks 是一个 Redis 协议兼容的分布式 KV NoSQL 数据库，不同于 
 
 上面这篇 Kvrocks 发布的加入 Apache 孵化器的文章当中几次提到，社群维护团队选择加入 Apache 的核心原因是“建立更大和多样化的开发者社区”。事实上，Apache 开源之道的指导和 Apache 品牌的帮助确实为 Kvrocks 打开了一个新的大门。
 
-我在成为 Kvrocks 项目的导师之后，自然而然地参与到项目社群当中。如同[这条推文](https://twitter.com/stephenzhang233/status/1541025802191765505)提到的，接触一个新的开源项目，第一步就是克隆代码并尝试构建。我在构建过程 Kvrocks binary 当中发现了项目 CMake 脚本存在优化空间。这个时候，我想起来在[《CMake 是怎样工作的》](how-cmake-works.md)文章评论区里 [@PragmaTwice](https://github.com/PragmaTwice) 分享了他使用 CMake 的一些经验，正好跟我想做的改进相符合。因此，我邀请他把他的经验实践在 Kvrocks 项目上。
+我在成为 Kvrocks 项目的导师之后，自然而然地参与到项目社群当中。如同[这条推文](https://twitter.com/stephenzhang233/status/1541025802191765505)提到的，接触一个新的开源项目，第一步就是克隆代码并尝试构建。我在构建过程 Kvrocks binary 当中发现了项目 CMake 脚本存在优化空间。这个时候，我想起来在《{% post_link how-cmake-works %}》文章评论区里 [@PragmaTwice](https://github.com/PragmaTwice) 分享了他使用 CMake 的一些经验，正好跟我想做的改进相符合。因此，我邀请他把他的经验实践在 Kvrocks 项目上。
 
 很快，Twice 在我和 Kvrocks 的主要作者 [@git-hulk](https://github.com/git-hulk) 等人的帮助下系统地改造了基于 CMake 的构建逻辑，取代了此前 Git Submodule + Makefile 的方案。此外，Twice 出于自己对 C++ 编码实践的理解，在阅读源码的过程中发现了许多“这个软件还可以更好，只要我们再完成……”的点子。遵循开源社群一直以来的协同惯例，他把这些想法发布成若干个 issue 并自己开始实现。就在最近几周，他所发起的工作吸引到了更多开发者的参与。
 

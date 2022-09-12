@@ -8,7 +8,7 @@ categories:
     - 夜天之书
 ---
 
-我在[《企业实践开源的动机》](motivation-of-enterprise-open-source.md)和[《如何应对云厂商的“搭便车”行为》](open-source-free-rider.md)两篇文章中对这种商业模式已经有详细的介绍和议论。鉴于最近企业服务领域的创业公司以源代码可读为卖点，并大肆渲染“开源 vs. 云厂商”的对抗氛围，我从其中希望和 OSI 定义的开源区分开来的观点出发，尝试为这种模式做一个定义和说明。
+我在《{% post_link motivation-of-enterprise-open-source %}》和《{% post_link open-source-free-rider %}》两篇文章中对这种商业模式已经有详细的介绍和议论。鉴于最近企业服务领域的创业公司以源代码可读为卖点，并大肆渲染“开源 vs. 云厂商”的对抗氛围，我从其中希望和 OSI 定义的开源区分开来的观点出发，尝试为这种模式做一个定义和说明。
 
 <!-- more -->
 

@@ -98,7 +98,7 @@ Apache SkyWalking 的创始人[吴晟在推特上提到过](https://twitter.com/
 
 {% asset_img camelia-logo.png Perl 6 的吉祥物“幺蛾子” %}
 
-去年底的时候我写过一篇[《开放式组织》](https://book.douban.com/subject/26894636)的[书评](open-organization.md)，以及其中提到的[《企业的人性面》](https://book.douban.com/subject/27125968/)这本相关联的组织管理经典的观点，都是关于协同当中平级关系的支撑。
+去年底的时候我写过一篇[《开放式组织》](https://book.douban.com/subject/26894636)的书评《{% post_link open-organization %}》，以及其中提到的[《企业的人性面》](https://book.douban.com/subject/27125968/)这本相关联的组织管理经典的观点，都是关于协同当中平级关系的支撑。
 
 > 我赞同平级关系，不接受等级关系。我不想高于任何人，也不想低于任何人。如果我和别人不能像平级那样对待彼此，我就不想和他们交往了。
 
