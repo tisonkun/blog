@@ -9,6 +9,8 @@ categories:
     - 夜天之书
 ---
 
+本文已整理到【开源小镇】网站【企业沙盘】文档，最新更新请前往[对应页面](https://town.korandoru.io/enterprise/bait-and-switch-fauxpen-source-strategy)阅读。
+
 本文是我继《{% post_link motivation-of-enterprise-open-source %}》、《{% post_link open-source-free-rider %}》和《{% post_link freemium-business-model %}》之后再一次讨论免费增值相关的软件商业模式。主要受到 Percona 发布的 Open Source Bait and Switch: Licensing and Beyond 一文的启发，让我意识到 MongoDB Inc. 在很长一段时间里采用 AGPL 的免费增值战略仍然在开源的范畴之内，直到这些公司陆续切换到专有软件许可证，才真正走上了伪开源战略的道路。
 
 <!-- more -->
