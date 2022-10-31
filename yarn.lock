@@ -642,10 +642,10 @@ hexo-generator-index@^3.0.0:
   dependencies:
     hexo-pagination "3.0.0"
 
-hexo-generator-searchdb@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/hexo-generator-searchdb/-/hexo-generator-searchdb-1.4.0.tgz#e6774378d841cbaa6ccbc8206ce14a492b3a115e"
-  integrity sha512-TkwxlqxptRIXHwYeI/V32O2TxXkfqWa37Rrmg347Q+YT1eqk7vQ31vR4zLudBAcSr85ST0VUedYd1/gLBSJl9Q==
+hexo-generator-searchdb@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/hexo-generator-searchdb/-/hexo-generator-searchdb-1.4.1.tgz#e33c9bd22130a6705673e889b6497fcc3fe80fa5"
+  integrity sha512-7m8IBpZbI6iKb2jRYxs4pghD6Ln8ylQSRGl6MIC4G9wws21vYSXSD8rvC3MoCO+pWBHs6E/mTA/rjG+p2AZfVg==
   dependencies:
     nunjucks "^3.2.2"
 
