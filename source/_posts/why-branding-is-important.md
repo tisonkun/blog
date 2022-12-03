@@ -40,7 +40,7 @@ Apache License 2.0 虽然只是笼统地保留了所有商标权利，但是 ASF
 * [APACHE PROJECT WEBSITE BRANDING POLICY](https://www.apache.org/foundation/marks/pmcs)
 * [APACHE SOFTWARE FOUNDATION TRADEMARK POLICY](https://www.apache.org/foundation/marks/)
 
-一种典型地情况，是企业将专有软件开源并捐赠给 ASF 以后，仍然将软件宣传为自己的产品，或者宣称自己是该软件的作者，具有特殊的地位。本土化的称呼，叫做“某项目‘背后’的公司”。
+一种典型的情况，是企业将专有软件开源并捐赠给 ASF 以后，仍然将软件宣传为自己的产品，或者宣称自己是该软件的作者，具有特殊的地位。本土化的称呼，叫做“某项目‘背后’的公司”。
 
 这些做法严重影响了社会资本回流到 ASF 当中，试想当一名用户使用 Apache Spark 的时候，他首先想到的是 Databricks 而不是真正的上游 Apache 社群。ASF 从成立之初就是为了保护开发者免受软件开发过程中可能的法律风险影响：
 
@@ -71,7 +71,7 @@ Apache License 2.0 虽然只是笼统地保留了所有商标权利，但是 ASF
 * [A New License to Future Proof the Commoditization of Data Integration](https://airbyte.com/blog/a-new-license-to-future-proof-the-commoditization-of-data-integration)
 * [Why We Are Changing the License for Akka](https://www.lightbend.com/blog/why-we-are-changing-the-license-for-akka)
 
-这种做法导致的问题，是企业窃取了先前开源社群的共同成果，转而使用相同的商标发布软件的后续版本。
+这种做法导致的问题，是企业窃取了先前开源社群的共同成果，转而使用相同的商标发布软件的后续版本。关于这个问题，我在《{% post_link bait-and-switch-fauxpen-source-strategy %}》中有详细讨论。
 
 Lightbend 发布改变 Akka 软件协议的时候，就曾经有人评论道：
 
