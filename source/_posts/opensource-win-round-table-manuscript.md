@@ -11,7 +11,6 @@ categories:
 
 <!-- more -->
 
-
 ### Q: 得知自己上榜中国开源码力榜时是什么心情？
 
 [中国开源码力榜](https://opensource.win/)上[我的主要贡献](https://opensource.win/tisonkun/)主要在 TiDB 和 TiKV 项目群上，统计了 2021 年全年的开源参与。
