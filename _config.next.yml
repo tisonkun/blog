@@ -676,7 +676,7 @@ google_analytics:
 
 # Baidu Analytics
 # See: https://tongji.baidu.com
-baidu_analytics: d22c768f5037f7153401af3e0205bd8c
+baidu_analytics: # <app_id>
 
 # Growingio Analytics
 # See: https://www.growingio.com
@@ -703,10 +703,10 @@ leancloud_visitors:
 # Visit https://console.firebase.google.com/u/0/ to get apiKey and projectId.
 # Visit https://firebase.google.com/docs/firestore/ to get more information about firestore.
 firestore:
-  enable: false
+  enable: true
   collection: articles # Required, a string collection name to access firestore database
-  apiKey: # Required
-  projectId: # Required
+  apiKey: AIzaSyAq-rKaQc4TR-t6qm3oUVjbnWBFmMr6zaI
+  projectId: yatennosyo-17e5d
 
 # Show Views / Visitors of the website / page with busuanzi.
 # For more information: http://ibruce.info/2015/04/04/busuanzi/
