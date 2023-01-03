@@ -31,6 +31,8 @@ categories:
 
 从注释中我们可以看到 `force-shading` 的作用是强制触发 `maven-shade-plugin` 的执行，并且提到了这样会生成所谓的 effective pom 文件。这究竟是怎么一回事呢？我们先从一个实例中理解这个问题。
 
+<!-- more -->
+
 先创建一个任意 MAVEN 工程，将它的 pom.xml 文件中 `dependencies` 替换为以下内容。
 
 ```xml
