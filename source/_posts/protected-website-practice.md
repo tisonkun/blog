@@ -304,9 +304,9 @@ export default withMiddlewareAuthRequired(async function middleware(req) {
 
 最终效果，是当你访问任何受保护链接（即除了几个鉴权相关 API 端点以外的链接，包括静态文件）的时候，都会被重定向到 Auth0 提供的鉴权登录页，成功登录后会根据你是否在用户白名单上，分别导向实际页面内容，或者 403 页面。出于内容保护的考虑，这里就不插入对应的动态图演示了。
 
-**最终费用是 Auth0 的基础订阅费每月 $20 左右。**
+**最终费用是 $0 开销。**
 
-如果不嫌麻烦把 GitHub OAuth 的登录方式，不走 Auth0 提供的内置集成，而是手动用 Custom OAuth2 的方式集成上去，可以做到真正的 $0 开销。
+应用框架是开源的，无需付费。Vercel 的免费计划对于个人网站来说完全够用，Auth0 的免费额度也是没什么问题的，主要限制在只支持两个内置集成，我实际也只需要 GitHub 和 Google 这两个，甚至只要 GitHub 也行，这样就没有付费的理由了。
 
 ## Bonus: Logout Button
 
