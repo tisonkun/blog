@@ -1127,12 +1127,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hexo-next-giscus@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "hexo-next-giscus@npm:1.1.0"
+"hexo-next-giscus@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "hexo-next-giscus@npm:1.0.3"
   dependencies:
     "@next-theme/utils": ^1.3.0
-  checksum: 68ea8ed0cbf7e2d0b6a5e2407d5e6a35c320312715a3e7a8c7a65648412aa9361a6f115c8f84089119bb5ab8d78b7506f4d9dbaa9e778c45a7e3a6bcec169872
+  checksum: bbaa1fc4769bd6cda39498eae000b0572e3a1b1250b59cfbf2ddc85b0257a70849e02e6a7575eb1faeac1d3fb8eda38d073d45fb7f914eba0f4c5622a412f52e
   languageName: node
   linkType: hard
 
@@ -1201,13 +1201,13 @@ __metadata:
     hexo-generator-index: ^3.0.0
     hexo-generator-searchdb: ^1.4.0
     hexo-generator-tag: ^2.0.0
-    hexo-next-giscus: ^1.1.0
+    hexo-next-giscus: ^1.0.3
     hexo-renderer-ejs: ^2.0.0
     hexo-renderer-marked: ^6.0.0
     hexo-renderer-stylus: ^2.0.0
     hexo-server: ^3.0.0
     hexo-theme-landscape: ^0.0.3
-    hexo-theme-next: ^8.14.2
+    hexo-theme-next: ^8.14.1
     hexo-word-counter: ^0.1.0
   languageName: unknown
   linkType: soft
@@ -1219,10 +1219,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hexo-theme-next@npm:^8.14.2":
-  version: 8.14.2
-  resolution: "hexo-theme-next@npm:8.14.2"
-  checksum: 234d4735a0b9de2153047edd5bb1148a16b55e27dd6583f91355dd1a9e3c9b2a0e77e11d9e603faf56cb91d354f9582088616c970c57932e881c8f0a76f257b0
+"hexo-theme-next@npm:^8.14.1":
+  version: 8.14.1
+  resolution: "hexo-theme-next@npm:8.14.1"
+  checksum: c084bc50e78403890d1ecdf75e2a846048f4ee18c0830ba7df6cacb51f2395a225856426708bda6aa560503e04623c873d0605af32cf7c5d1539776334763876
   languageName: node
   linkType: hard
 
