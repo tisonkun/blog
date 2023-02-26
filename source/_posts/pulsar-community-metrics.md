@@ -31,7 +31,7 @@ GH Archive 提供的是 GitHub 全平台所有活动的数据。由于 GitHub �
 
 另一种方案是把 GH Archive 的工作也集成到数据源制作的工具集里，直接从 GitHub 的 Event 接口里仅拉取相关仓库的活动。这样做可行的原因是往往最近的数据才是最有价值的，一个仓库五年前是什么活跃水平，很大程度上只是一个图一乐的数字。不过，要想这么做，数据源生成的流水线也不简单，需要维护一个定期任务的调度，以及数据去重和补偿的逻辑。
 
-最终，我选择了国内 [X-Lab 开放实验室](http://www.x-lab.info/)维护的、基于 GH Archive 数据的、存储在 ClickHouse 当中并提供相同查询接口的 GitHub Event 数据集。该数据集的[数据模式](https://github.com/X-lab2017/open-digger/blob/master/docs/assets/data_description.csv)定义是公开的，相比与 ClickHouse.com 提供的 [github_events](https://ghe.clickhouse.tech/#how-to-choose-the-structure-for-the-data) 数据集，X-Lab 的数据集包含了实验室在开源数据指标工作中发现的有效提高数据可用性的字段，包括 `repo_id` 和 `actor_id` 等等。此外，X-Lab 的数据集本身是其开源数据指标工作的数据基础，维护投入力度和问题响应速度更可靠。
+最终，我选择了国内 [X-Lab 开放实验室](http://www.x-lab.info/)维护的、基于 GH Archive 数据的、存储在 ClickHouse 当中并提供相同查询接口的 GitHub Event 数据集。该数据集的[数据模式](https://github.com/X-lab2017/open-digger/blob/master/docs/assets/data_description.csv)定义是公开的，相比 ClickHouse.com 提供的 [github_events](https://ghe.clickhouse.tech/#how-to-choose-the-structure-for-the-data) 数据集，X-Lab 的数据集包含了实验室在开源数据指标工作中发现的有效提高数据可用性的字段，包括 `repo_id` 和 `actor_id` 等等。此外，X-Lab 的数据集本身是其开源数据指标工作的数据基础，维护投入力度和问题响应速度更可靠。
 
 在数据展示层面，我选择了 ClickHouse 去年官方支持的 Apache SuperSet 系统。你可以选择 follow 下面两个文档自建系统，或者直接使用 [Preset](https://preset.io/) 提供的 Free Tier 服务，其中已经预装了连接 ClickHouse 所需的组件。
 
@@ -77,7 +77,7 @@ ORDER BY timestamp
 
 最后，我们以 DISTINCT Reviewr 的人数为指标，比较一下知名的消息系统项目的活跃情况：
 
-{% asset_img mq-reviewers-comp.png Pulsar Pull Request Opened Count %}
+{% asset_img mq-reviewers-comp.png Reviewers Comparation %}
 
 可以看到，在这一维度下，Pulsar 的活跃度是最高的，Kafka 次之；RocketMQ 和 RedPanda 是下一个梯队；而 ActiveMQ 和 RabbitMQ 的活跃度就快见底了。当然，这个数据只计算和主仓库的数值，而没有把所有仓库群加总起来算，但是加总的结果应当也是大同小异的。另一方面，核心能力的绝大部分开发工作还是发生在主仓库上，计算主仓库的活跃度可以见微知著。
 
@@ -177,7 +177,7 @@ SELECT issue_number,
    ORDER BY issue_number
 ```
 
-由于 X-Lab 的数据做了一些预聚合，计算 PR 关闭时效可以不用 JOIN 语句：
+由于 X-Lab 的数据做了一些预聚合，计算 PR 合并时效可以不用 JOIN 语句：
 
 ```sql
 SELECT issue_number,
