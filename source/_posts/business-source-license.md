@@ -67,3 +67,39 @@ Apache Doris 由百度的研发团队开发并捐赠给 Apache 软件基金会�
 * Trino 是基于 Facebook Presto 的硬分支，后续 Trino 团队成立了 [Starburst](https://www.starburst.io/) 公司提出数据网格（Data Mesh）概念做为商业化方向。
 * [Lightbend](https://www.lightbend.com/) 公司将 Akka 切换成年收入在一千万美元以上的公司使用就需要商用协议以后，Akka 社群的中立成员随即 fork 了 Akka 并在 Apache 软件基金会的孵化器中以 [Pekko](https://pekko.apache.org/) 的名字继续运行。
 * AWS 在 Elastic 公司将 ElasticSearch 切换到 ELv2 后，发起了 [OpenSearch](https://opensearch.org/) 项目并基于它提供了类似的商业服务。
+
+### 策略：市场占有率与开放标准
+
+与其说这是策略，不如说这是促使企业完全开放源码的动机，即选择和坚持完全开放源码策略的一个主要原因，是企业希望完全开放源码的软件赢得广泛的市场占有率，甚至形成开放标准。
+
+以开源的程序设计语言实现为例，在语言本身赢得用户之前，很少有企业能够直接通过售卖语言实现的编译器或解释器来盈利。瑞典电信公司 Ericsson 支持工程师 Joe Armstrong 开发 Erlang 语言之后，将整个 [Erlang/OTP](https://github.com/erlang/otp) 平台完全开放。从当年的[发布文稿](https://web.archive.org/web/19991009002753/http://www.erlang.se/onlinenews/ErlangOTPos.shtml)中，我们可以看到开放标准的典型思路：
+
+> Erlang/OTP was invented within Ericsson and most Erlang/OTP users are still within Ericsson. In order to speed development of Erlang/OTP, ensure a good supply of Erlang/OTP fluent programmers, minimise maintenance and development costs for the language, and keep the OTP applications up to world class, we need to spread the technology outside of Ericsson.
+
+也就是说，Ericsson 内部的电信系统高度依赖 Erlang/OTP 平台，为了保证劳动力市场上一直有人熟练掌握这一语言和开发平台，从而保证 Ericsson 内部系统不至于无人能够维护，Ericsson 希望完全开发源码，以期在公司以外的广阔生态中推广 Erlang/OTP 平台。事实证明，这一决定为 Erlang/OTP 平台起初在电信行业内的推广，以及后来在游戏行业中的广泛应用，再到近些年其底层虚拟机 BEAM 借助新语言 Elixir 的发展再次得到关注，都起到了至关重要的作用。Joe 为 Ericsson 创建高可用的服务打造了一个完整的开源软件和开发平台，但是如果没有开放源码，这将只是 Ericsson 这个如今已不那么有名的企业的一个内部系统。或许会成为一个仅存于谈话之中的传说，但是不可能有今天的生态。
+
+同样是 Erlang 生态的一部分，José Valim 设计的 [Elixir](https://elixir-lang.org/) 语言及其开发的解释器和网站开发套件，代表了开放源码以赢得市场占有率的策略。
+
+José 起初在自己参与联合创办的 Plataformatec 开发出了 Elixir 语言的解释器，以及 [ecto](https://github.com/elixir-ecto) 工具和 [Phoenix](https://github.com/phoenixframework) 框架。后来，Elixir 的使用率日益增长，José 于是另外创办了 [Dashbit](https://dashbit.co/) 公司来提供 Elixir 应用的开发和运维支持。
+
+从 Dashbit 公司的视角出发，其拥有部分 Elixir 核心生态软件的知识产权，但是它却没有通过限制核心软件使用，要求用户购买 LICENSE 的方式来盈利。这是因为，Elixir 毕竟还是一个小众的语言，用户使用量的增长才是做企业支持的基本盘。如果小有成就马上杀鸡取卵、竭泽而渔，那么新用户就很难有信心上车，而存量用户也会想办法跳车，最终生态凋敝，没人有理由购买 LICENSE 授权。
+
+José 本人在 LinkedIn 上的头衔就是 Chief Adoption Officer 即首席（用户）采用官，可见 Dashbit 的开源策略当中对市场采用率的重视程度。同类的案例还有 [VMWare](https://tanzu.vmware.com/open-source) 的 Greenplum Database、Spring Framwork 和 RabbitMQ 等项目，这些公司（在相关方向）的主要商业模式是提供支持和咨询，而不是售卖软件或提供云服务，因此其提供支持和咨询的对象的使用率越高越好。
+
+再来看一种竞争型的开放标准策略，其中典型的当属 Google 的开源矩阵：
+
+1. Chromium 打下了浏览器内核的半壁江山。如今，多少网页应用都注明仅在 Chrome 上经过测试。
+2. Android 从 iOS 和 Symbian 的夹缝中取得了移动端市场的船票，并最终和 iOS 二分天下。
+3. Kubernetes 和 Istio 是 borg 技术溢出以后，Google 主动建立生态的尝试。在相当一段时间里，用上 Kuberneets 就“等于”云原生。
+
+Google 是重度参与 C++ 标准讨论或者说竞争的，这可从 C++ 之父 Bjarne Stroustrup 的论文 [Thriving in a Crowded and Changing World: C++ 2006–2020](https://www.stroustrup.com/hopl20main-p5-p-bfc9cd4--final.pdf) 中关于 C++ 标准委员会的讨论中窥见端倪。应该说，标准之争是激烈甚至残酷的。企业内部总有领先与行业标准所做的尝试，一旦行业后续面对相同问题时将另一种解法确定为标准，那么本公司不说此前的研发投入打了水瓢，至少也需要付出可观的额外努力来兼容新标准。Google 深知这点的厉害，而 Kuberneets 打赢容器战争，对比失败的 OpenStack、Docker Swarm 和 Apache Mesos 与重金投入它们的公司，Google 账面之外的获利不可计数。
+
+无独有偶，Facebook 的 [React](https://reactjs.org/) 前端应用开发框架已经成为无可置疑的标准，对应 Google 推出的 Angular 势弱，多少投资 Angular 的企业和开发者损失惨重。
+
+国内也不乏出于这个动机完全开放软件源码的企业。例如，[Apache InLong](https://inlong.apache.org/) 是腾讯大数据平台里数据集成能力的开放，[Apache Dubbo](https://dubbo.apache.org/en/index.html) 和 [Nacos](https://nacos.io/zh-cn/) 是阿里巴巴微服务架设和治理经验的开源表现，[CloudWeGo](https://www.cloudwego.io/) 是字节跳动中间件能力的系列开源行动，[Go Kratos](https://go-kratos.dev/) 是 Bilibili 开源的微服务框架。当然，这些软件集中在所谓的“中间件”领域，是另一个值得探讨分析的话题。
+
+最后，上面提到的都是体量巨大或至少相对较大的公司，对于小公司来说，有没有实践市场采用率和开放标准这一策略的空间呢？
+
+肯定还是有的。例如，近期已被 Apache 孵化器接受的 [OpenDAL](https://github.com/datafuselabs/opendal) 数据访问库，就是由 2021 年初创的企业 [DatafuseLabs](https://databend.rs/) 捐赠的。又例如，CockroachDB 的存储引擎 [Pebble](https://github.com/cockroachdb/pebble) 以 BSD-3-Clause 协议开源，连 PingCAP 的数据导入工具 Lightning 都在使用。
+
+一般来说，小公司更容易在细分领域或者新兴领域，通过开放源码软件来赢得大量声誉和共同维护生态成员都有需要的基础软件。
