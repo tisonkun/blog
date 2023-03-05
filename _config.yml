@@ -118,7 +118,7 @@ search:
 ## Giscus: https://giscus.app/
 giscus:
   enable: true
-  repo: tisonkun/tisonkun.github.io
+  repo: tisonkun/blog
   repo_id: R_kgDOGck1dQ
   category: Comments
   category_id: DIC_kwDOGck1dc4CBWwF
