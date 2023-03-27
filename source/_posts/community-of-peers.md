@@ -43,6 +43,10 @@ Apache SkyWalking 的[第一个例子](https://github.com/apache/skywalking/disc
 
 这个例子分享出来以后，包括我在内的几个长期参与开源社群的人都深感不解。在了解清楚这位 PMC member 的措辞是 `would you mind...` 之后，我分享了自己上周建议 Apache Curator 的新 PMC member 进行下次发版的[案例](https://github.com/apache/curator/pull/445#discussion_r1144156381)。
 
+{% asset_img curator-release.png %}
+
+在这个案例里，我询问这位新晋的 PMC member 是否愿意主导下次发版，并给出了需要了解的发版流程指南。这是因为他最近正活跃，且新版本将会包含若干个他贡献的补丁。
+
 对我来说，推动新人主持发版，虽然有一定的躺平成分在，但是主要还是出于主导版本发布是项目发展的重要工作之一，有机会让新人上手就尽量指导避免 release manager 日渐成为单点。另一位参与过多次版本发布的朋友补充到：“这种就是一般问问，你真做起来，其实他指导你，比自己做都麻烦”。
 
 事后，我仔细想了想为什么一开始的那位新 Committer 会认为自己是被赶着做版本发布的工作，其中最有可能的原因，还是在老板 vs 员工的模式下工作久了，下意识觉得这是在给自己派活儿。
