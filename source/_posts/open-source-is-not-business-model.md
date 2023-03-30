@@ -90,7 +90,7 @@ Databricks 基于 Apache Spark 研发定义了 AI Infra 和 Lakehouse 等产品�
 
 这些案例当中，往往企业不是开源软件的第一作者。哪怕大家都觉得 Databricks 是所谓 Spark 背后的公司，Spark 的核心逻辑其实是在高校实验室了开发出来的，项目捐赠给中立的 Apache 软件基金会也发生在公司成立之前。所以这不是 open-source from scratch 的模式，而是普通的有个好的开源软件拿来用。话语权足够强的，不需要 fork 开发，否则可以像 Trino 一样 hard fork PrestoDB 上游。核心商业价值在软件之外的，不需要 fork 后闭源，否则只要协议允许，可以像 Firebolt 和太多没有明说的企业一样，拿到企业内部魔改，而无需公开修改后的软件。
 
-最后，我想说，**目前仍然存在完全自研的核心软件（几乎）完全开源的商业公司**。例如，
+最后，我想说，**目前仍然存在原创核心软件开源的商业公司**。例如，
 
 * Alluxio (Alluxio)
 * Chef (Chef)
