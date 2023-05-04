@@ -13,8 +13,8 @@
 
 ## 欢迎订阅同名知识星球
 
-![](source/media/zsxq.png)
+<img alt="wechatpay.png" style="border-width:0" width="400" height="200" src="source/media/zsxq.png"/>
 
-## ...或支持我的创作
+## ...或直接支持我的创作
 
-![](source/media/wechatpay.png)
+<img alt="wechatpay.png" style="border-width:0" width="300" height="300" src="source/media/wechatpay.png"/>
