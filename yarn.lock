@@ -1207,7 +1207,7 @@ __metadata:
     hexo-renderer-stylus: ^2.0.0
     hexo-server: ^3.0.0
     hexo-theme-landscape: ^0.0.3
-    hexo-theme-next: ^8.15.1
+    hexo-theme-next: ^8.16.0
     hexo-word-counter: ^0.1.0
   languageName: unknown
   linkType: soft
@@ -1219,10 +1219,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hexo-theme-next@npm:^8.15.1":
-  version: 8.15.1
-  resolution: "hexo-theme-next@npm:8.15.1"
-  checksum: 7e758968019cd0e131065a3b69a76ca6c665283631683db0cb3755f703a2bbd3c4793d7a11f433ad317f3711c38b59ace0582380bd38d0762c772809ab5e8ff2
+"hexo-theme-next@npm:^8.16.0":
+  version: 8.16.0
+  resolution: "hexo-theme-next@npm:8.16.0"
+  checksum: 6adb7f158e476a11c177500798cc046403ae094d4936d3143aa2752cc031d8548f1eb320f4041168d3a764bb238359dbd606e5d064efe54b0839e925f8fc7e22
   languageName: node
   linkType: hard
 
