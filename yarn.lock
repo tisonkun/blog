@@ -1206,18 +1206,10 @@ __metadata:
     hexo-renderer-marked: ^6.0.0
     hexo-renderer-stylus: ^2.0.0
     hexo-server: ^3.0.0
-    hexo-theme-landscape: ^0.0.3
     hexo-theme-next: ^8.16.0
     hexo-word-counter: ^0.1.0
   languageName: unknown
   linkType: soft
-
-"hexo-theme-landscape@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "hexo-theme-landscape@npm:0.0.3"
-  checksum: 6e30e49ed623024484ab14fe43889d7d634660b965be59507ed2690751c63c1fe3075bc658957af18144478dd2312c87a7fb95f013db10abb50aef216366b058
-  languageName: node
-  linkType: hard
 
 "hexo-theme-next@npm:^8.16.0":
   version: 8.16.0
