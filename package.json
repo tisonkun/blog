@@ -25,7 +25,7 @@
     "hexo-renderer-marked": "^6.1.0",
     "hexo-renderer-stylus": "^3.0.0",
     "hexo-server": "^3.0.0",
-    "hexo-theme-next": "^8.16.0",
+    "hexo-theme-next": "^8.17.0",
     "hexo-word-counter": "^0.1.0"
   },
   "packageManager": "yarn@3.5.1",
