@@ -709,7 +709,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"domutils@npm:^3.0.1":
+"domutils@npm:^3.1.0":
   version: 3.1.0
   resolution: "domutils@npm:3.1.0"
   dependencies:
@@ -775,7 +775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"entities@npm:^4.2.0":
+"entities@npm:^4.2.0, entities@npm:^4.5.0":
   version: 4.5.0
   resolution: "entities@npm:4.5.0"
   checksum: 853f8ebd5b425d350bffa97dd6958143179a5938352ccae092c62d1267c4e392a039be1bae7d51b6e4ffad25f51f9617531fedf5237f15df302ccfb452cbf2d7
@@ -1197,15 +1197,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hexo-renderer-marked@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "hexo-renderer-marked@npm:6.1.0"
+"hexo-renderer-marked@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "hexo-renderer-marked@npm:6.1.1"
   dependencies:
     dompurify: ^3.0.3
-    hexo-util: ^3.0.1
+    hexo-util: ^3.1.0
     jsdom: ^20.0.1
     marked: ^4.3.0
-  checksum: 61562c99e2f12556e4959c7bde768575b8c005fb06aacac6b76731f6d9324a73e200cf497c30b69b280aee831fa2086c05f119d6d7adce76f4e99d023b238471
+  checksum: 1941511f7c7355788333910d413b7a27c344a58fbdbefb0229e7655f96946056c3538bc24b0089a8b532af6ef3bb3c6ce95e202ade2496330ff4d61b8eb6cf74
   languageName: node
   linkType: hard
 
@@ -1249,7 +1249,7 @@ __metadata:
     hexo-generator-tag: ^2.0.0
     hexo-next-giscus: ^1.0.3
     hexo-renderer-ejs: ^2.0.0
-    hexo-renderer-marked: ^6.1.0
+    hexo-renderer-marked: ^6.1.1
     hexo-renderer-stylus: ^3.0.0
     hexo-server: ^3.0.0
     hexo-theme-next: ^8.16.0
@@ -1296,19 +1296,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hexo-util@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "hexo-util@npm:3.0.1"
+"hexo-util@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "hexo-util@npm:3.1.0"
   dependencies:
-    bluebird: ^3.7.2
     camel-case: ^4.1.2
     cross-spawn: ^7.0.3
     deepmerge: ^4.2.2
     highlight.js: ^11.6.0
-    htmlparser2: ^8.0.1
+    htmlparser2: ^9.0.0
     prismjs: ^1.29.0
     strip-indent: ^3.0.0
-  checksum: 0156262b935ae958999b25c7b279d8266bfd595b08f2df6624cd026e7308219b094b375f39832c8df5380df8c7f450c6af5edde3f80f071f1c19ca8ec6a960bd
+  checksum: a077b78bea886047ffd4cd311c09ed1b4eef5feb8a89103ca554b0ae7d7e35d26c3d7de3ed41ad934de5caadeeb01903573f904e627fef00abb8a2886eaeff3f
   languageName: node
   linkType: hard
 
@@ -1410,15 +1409,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"htmlparser2@npm:^8.0.1":
-  version: 8.0.2
-  resolution: "htmlparser2@npm:8.0.2"
+"htmlparser2@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "htmlparser2@npm:9.0.0"
   dependencies:
     domelementtype: ^2.3.0
     domhandler: ^5.0.3
-    domutils: ^3.0.1
-    entities: ^4.4.0
-  checksum: 29167a0f9282f181da8a6d0311b76820c8a59bc9e3c87009e21968264c2987d2723d6fde5a964d4b7b6cba663fca96ffb373c06d8223a85f52a6089ced942700
+    domutils: ^3.1.0
+    entities: ^4.5.0
+  checksum: a234c3add821cae8308ca61ce4b8ad3e88af83cf9c3c2003059adc89c46a06ffc39cc2a92b39af8d16c3705e1055df6769d80877acb6529983867f0d7e74098d
   languageName: node
   linkType: hard
 
