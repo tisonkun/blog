@@ -1252,15 +1252,15 @@ __metadata:
     hexo-renderer-marked: ^6.1.0
     hexo-renderer-stylus: ^3.0.0
     hexo-server: ^3.0.0
-    hexo-theme-next: ^8.16.0
+    hexo-theme-next: ^8.18.0
     hexo-word-counter: ^0.1.0
   languageName: unknown
   linkType: soft
 
-"hexo-theme-next@npm:^8.16.0":
-  version: 8.16.0
-  resolution: "hexo-theme-next@npm:8.16.0"
-  checksum: 6adb7f158e476a11c177500798cc046403ae094d4936d3143aa2752cc031d8548f1eb320f4041168d3a764bb238359dbd606e5d064efe54b0839e925f8fc7e22
+"hexo-theme-next@npm:^8.18.0":
+  version: 8.18.0
+  resolution: "hexo-theme-next@npm:8.18.0"
+  checksum: 08a7ca5826e16f4677706529a6b051c87c926dcf176e73b39d7de860310d4d079844b85c1a21d852bca6b02de0c052f6e5b007c06422254d8dd450de32427827
   languageName: node
   linkType: hard
 
