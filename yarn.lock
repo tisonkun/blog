@@ -1240,7 +1240,7 @@ __metadata:
   resolution: "hexo-site@workspace:."
   dependencies:
     css: ^3.0.0
-    hexo: ^6.2.0
+    hexo: 6.3.0
     hexo-generator-archive: ^2.0.0
     hexo-generator-category: ^2.0.0
     hexo-generator-feed: ^3.0.0
@@ -1321,7 +1321,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hexo@npm:^6.2.0":
+"hexo@npm:6.3.0":
   version: 6.3.0
   resolution: "hexo@npm:6.3.0"
   dependencies:
