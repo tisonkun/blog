@@ -75,7 +75,7 @@ Twice 在 Kvrocks 的具体工作可以参考我在[《Apache Kvrocks 毕业随�
 
 另一位新晋的活跃开源社区维护者是 OpenDAL 的作者 [@Xuanwo](https://github.com/Xuanwo) 漩涡。
 
-他曾经经历过在青云发起运作 [BeyondStoragde 项目的失败](https://xuanwo.io/2023/01-beyond-storage-why-we-failed/)，也遇到过[参与开源社群的种种问题](https://xuanwo.io/reports/2023-24/)。在 2021 年年底加入 DatafuseLabds 之后，他将 BeyondStorage 项目的理念跟 Databend 数据仓库对数据存储访问的需求相结合，创造了统一数据访问层 OpenDAL 库。
+他曾经经历过在青云发起运作 [BeyondStoragde 项目的失败](https://xuanwo.io/2023/01-beyond-storage-why-we-failed/)，也遇到过[参与开源社群的种种问题](https://xuanwo.io/reports/2023-24/)。在 2021 年年底加入 DatafuseLabs 之后，他将 BeyondStorage 项目的理念跟 Databend 数据仓库对数据存储访问的需求相结合，创造了统一数据访问层 OpenDAL 库。
 
 漩涡是一个非常外向的开源开发者，且有市场工作的相关经验。OpenDAL 满足了一众 Rust 写作的新项目简化数据访问逻辑开发的需求，独立运作后不久，就在 Databend 之外被 GreptimeDB 和 RisingWave 等项目采用。同时，漩涡主动出击，将 OpenDAL 推销到 Mozilla 的 sccache 项目里；基于 Python 绑定，将 OpenDAL 推销到一众 AI 项目当中解决它们访问存储在不同系统上的模型的需求。
 
@@ -109,7 +109,7 @@ XXL-JOB 由大众点评的工程师许雪里 [@xuxueli](https://github.com/xuxue
 
 这一方式最极端的是完全从头开发一个系统，例如前青云工程师 [@BohuTANG](https://github.com/BohuTANG) 创造的 [Databend](https://github.com/datafuselabs/databend) 数据仓库。@BohuTANG 曾经是 MySQL 的一个著名分支 TokuDB 的核心维护者，也是深度了解 ClickHouse 并参与贡献的开发者。Databend 起源于 @BohuTANG 用 Rust 写一个 ClickHouse 的想法，但是在后来的发展过程中，其核心技术几乎完全换了一遍。软件开发不可能不借鉴现有系统，以 Databend 的实际情况而言，这就是完全从头开发的项目。
 
-与之相比稍有基础的是基于成功内部实践再造开源项目。例如，GreptimeDB 的创始人冯嘉纯 [@fengjiachun](https://github.com/fengjiachun) 曾经创造过 SOFAJRaft 等知名开源软件。在蚂蚁集团工作的后期，他负责了蚂蚁集团智能监控的设计开发工作，并基于这段工作经验创造了 [GreptimeDB](https://github.com/GreptimeTeam/greptimedb) 项目。
+与之相比稍有基础的是基于成功内部实践再造开源项目。例如，GreptimeDB 的创始人庄晓丹 [@killme2008](https://github.com/killme2008) 曾经创造过 SOFAJRaft 等知名开源软件。在蚂蚁集团工作的后期，他负责了蚂蚁集团智能监控的设计开发工作，并基于这段工作经验创造了 [GreptimeDB](https://github.com/GreptimeTeam/greptimedb) 项目。
 
 接着是基于成熟开源软件打造商业产品的模式。其实上面提到的飞致云也可算入这一类别，不过这里与之区别的是基于开源软件创造新的产品并反馈上游，而不就是开源软件一模一样的产品，只是额外提供交付和服务。
 
@@ -206,7 +206,7 @@ XXL-JOB 由大众点评的工程师许雪里 [@xuxueli](https://github.com/xuxue
 * [Open Source Guides](https://opensource.guide/)
 * [Producing Open Source Software](https://producingoss.com/en/producingoss.html)
 
-我在今年的 ApacheCon Asia 2023 上做了一个名为《社群长青：开源社群如何可持续发展》的主题演讲，也是因为看到在中国开源大跨步式地从一无所有直接进入到发起创造项目的阶段，这个过程里从国外吸取的经验大多是如何参与到现有的开源社群，反而缺少帮助开源软件的作者建立起一个社群的知识。
+我在今年的 ApacheCon Asia 2023 上做了一个名为[《社群长青：开源社群如何可持续发展》](https://www.bilibili.com/video/BV17u4y1r7ei)的主题演讲，也是因为看到在中国开源大跨步式地从一无所有直接进入到发起创造项目的阶段，这个过程里从国外吸取的经验大多是如何参与到现有的开源社群，反而缺少帮助开源软件的作者建立起一个社群的知识。
 
 开源社群建设的内涵太过丰富，我在这里如果展开恐怕收不住。只简单讲一点，有任何其他问题可以加入我的知识星球〖夜天之书〗提问交流。
 
