@@ -181,6 +181,7 @@ impl Future for MyFuture {
 fn main() {
     println!("Start {}", chrono::Utc::now());
     block_on(MyFuture {
+        id: 1,
         start: Instant::now(),
         duration: Duration::from_secs(10),
     });
