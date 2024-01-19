@@ -1097,6 +1097,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hexo-generator-alias@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "hexo-generator-alias@npm:1.0.0"
+  dependencies:
+    hexo-util: ^2.4.0
+  checksum: 719e28488c78919ae8620ffbc66b4782a0080f91f00770af4d953ed89c9128fc7e22ffc49157f0eb6adfccc2f309424aa3e3c99f196cc96af6ba16028acbcce0
+  languageName: node
+  linkType: hard
+
 "hexo-generator-archive@npm:^2.0.0":
   version: 2.0.0
   resolution: "hexo-generator-archive@npm:2.0.0"
@@ -1248,6 +1257,7 @@ __metadata:
   dependencies:
     css: ^3.0.0
     hexo: 6.3.0
+    hexo-generator-alias: ^1.0.0
     hexo-generator-archive: ^2.0.0
     hexo-generator-category: ^2.0.0
     hexo-generator-feed: ^3.0.0
@@ -1287,7 +1297,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hexo-util@npm:2.7.0, hexo-util@npm:^2.0.0, hexo-util@npm:^2.1.0, hexo-util@npm:^2.7.0":
+"hexo-util@npm:2.7.0, hexo-util@npm:^2.0.0, hexo-util@npm:^2.1.0, hexo-util@npm:^2.4.0, hexo-util@npm:^2.7.0":
   version: 2.7.0
   resolution: "hexo-util@npm:2.7.0"
   dependencies:
