@@ -323,4 +323,4 @@ Apache OpenDAL 一方面遇上了 Justin 近期跟品牌问题较劲的点子上
 
 > The ASF is well past the point where a small number of folks who have huge "tribal knowledge" can guide the number of projects and podlings that we now have.
 
-我在探讨这些问题的时候，推动和主动修复了一系列文档的缺失，促进了最佳时间的产生和归纳，并且思考到底我们怎么把这些政策、理念和文化传播给更多的人，让他们主动的承担起列表传播的责任。我想这是 ASF 在走过 25 年之后，面对新的开源社群形势和软件开发方法，应该要考虑和改进的问题。实际上，这也是从参与 ASF 项目接触 Apache 社群理念和方法论的人，成长为基金会成员的一条康庄大道。
+我在探讨这些问题的时候，推动和主动修复了一系列文档的缺失，促进了最佳实践的产生和归纳，并且思考到底我们怎么把这些政策、理念和文化传播给更多的人，让他们主动的承担起列表传播的责任。我想这是 ASF 在走过 25 年之后，面对新的开源社群形势和软件开发方法，应该要考虑和改进的问题。实际上，这也是从参与 ASF 项目接触 Apache 社群理念和方法论的人，成长为基金会成员的一条康庄大道。
