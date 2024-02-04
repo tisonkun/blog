@@ -32,7 +32,7 @@ GreptimeDB 是格睿科技（Greptime）公司研发的一款开源时序数据�
 
 上面两张图展示了 2023 年，即 [GreptimeDB 开源运营第一年](https://mp.weixin.qq.com/s/iFbMb1kw4LOc6V2JtxG-bg)，从 [OpenDigger](https://github.com/X-lab2017/open-digger) 数据集生成的每月 OpenRank 和活跃指数（Activity）数据折线图。
 
-可以看到，从 OpenRank 的维度看，GreptimdDB 显著超越了近年来发展乏力的 InfluxDB 项目，跟 TimescaleDB 和 Prometheus 不分伯仲，相比起战斗民族出品的商业开源产品 VictoriaMetrics 仍有差距。从项目活跃指数的维度看，GreptimdDB 则与 InfluxDB 之外的主流项目同属第一梯队。
+可以看到，从 OpenRank 的维度看，GreptimeDB 显著超越了近年来发展乏力的 InfluxDB 项目，跟 TimescaleDB 和 Prometheus 不分伯仲，相比起战斗民族出品的商业开源产品 VictoriaMetrics 仍有差距。从项目活跃指数的维度看，GreptimeDB 则与 InfluxDB 之外的主流项目同属第一梯队。
 
 > [OpenRank](https://blog.frankzhao.cn/open_rank_and_open_galaxy/) 是同济大学赵生宇博士定义的一个开源价值流分析指标。相比于容易受先发优势影响的 Star 数和 DB Engines 分数等指标，上面展示的每月 OpenRank 和 Activity 变化情况更能体现出项目当前的发展情况和未来趋势。
 
@@ -99,7 +99,7 @@ GreptimeDB 的创始团队认为，这三类数据可以共用同一套查询层
 
 Greptime 公司目前有两条商业产品线：
 
-* [GreptimeCloud](https://greptime.com/product/cloud) 提供了全托管的云上时序数据库服务，其内核是 GreptimDB 系统。这个服务可以[免费试用](https://console.greptime.cloud/)，其 Playground 和 Dashboard 做的技术品味都很好。
+* [GreptimeCloud](https://greptime.com/product/cloud) 提供了全托管的云上时序数据库服务，其内核是 GreptimeDB 系统。这个服务可以[免费试用](https://console.greptime.cloud/)，其 Playground 和 Dashboard 做的技术品味都很好。
 
 {% asset_img greptime-playground.png "Greptime Playgorund" %}
 
