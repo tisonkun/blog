@@ -43,7 +43,7 @@ GreptimeDB 是格睿科技（Greptime）公司研发的一款开源时序数据�
 * [Biweekly Report (Jun.5 - Jun.18) – A Key Milestone, First External Committer Onboard](https://greptime.com/blogs/2023-06-21-biweekly-report)
 * [Biweekly Report (Jul.17 - Jul.30) – Welcome the Second External Committer!](https://greptime.com/blogs/2023-08-02-biweekly-report)
 
-这两位 Committer 都是通过代码贡献被提名的，提名前都提交了大约二十个代码补丁，且质量被项目团队所任何。此外，这两位 Committer 从开始参与项目发展到成为 Committer 都经过了若干个月的持续投入。可以看到，这个标准下筛选和认可的两位 Committer 在上个月仍然有活跃参与。
+这两位 Committer 都是通过代码贡献被提名的，提名前都提交了大约二十个代码补丁，且质量被项目团队所认可。此外，这两位 Committer 从开始参与项目发展到成为 Committer 都经过了若干个月的持续投入。可以看到，这个标准下筛选和认可的两位 Committer 在上个月仍然有活跃参与。
 
 应该说，目前 GreptimeDB 的项目功能已经初具规模，能够达到线上交付的标准。这也意味着开荒阶段的大量初创工作已经完成，新加入的社群成员可以在一个坚实的工程基础上发挥自己的创造力。同时，GreptimeDB 在实现优化上还有很大的进步空间，倒排索引、WAL 和存储引擎等技术方向上还有很多未解决的设计实现问题。现在仍然是参与 GreptimeDB 成为 Committer 的机遇期。
 
