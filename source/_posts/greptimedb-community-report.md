@@ -12,7 +12,7 @@ categories:
 
 GreptimeDB 是格睿科技（Greptime）公司研发的一款开源时序数据库，其[源代码](https://github.com/greptimeteam/greptimedb)在 GitHub 平台公开发布。
 
-{% asset_img greptimedb-github.png %}
+[{% asset_img greptimedb-github.png %}](https://github.com/greptimeteam/greptimedb)
 
 我从 2022 年开始知道有 GreptimeDB 这个项目。2023 年，我注意到他们的 [Community Program](https://github.com/greptimeteam/community) 是有认真写的，不是无脑复制所谓成功项目的大段规则，于是开始跟相关成员探讨开源治理和社群运营的话题。后来，我读过 GreptimeDB 的源代码，发现他们的工程能力很不错，于是就[开始参与贡献](https://github.com/GreptimeTeam/greptimedb/issues?q=author:tisonkun)。
 
