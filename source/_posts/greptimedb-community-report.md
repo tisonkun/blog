@@ -49,11 +49,11 @@ GreptimeDB 是格睿科技（Greptime）公司研发的一款开源时序数据�
 
 不过，GreptimeDB 的 Community Program 距离成为一个商业开源标杆还有不少可以改进的地方。
 
-例如目前邀请新的 Committer 只在 Biweekly 上简单提及，Community Program 所设计的结构上并没有即时体现出它正常运转，社群存在公司之外的 Committer 的事实。对于活跃参与者和 Committer 的介绍和成功经验分享也尚有欠缺，处于代码写得好的人就给你一份权限的朴素运营阶段。
+例如目前邀请新的 Committer 只在 Biweekly 上简单提及。Community Program 设计的结构上并没有即时体现出它正常运转，以及社群存在公司之外的 Committer 的事实。对于活跃参与者和 Committer 的介绍和成功经验分享，也尚有欠缺。目前社群基本处于给代码写得好的人一份权限的朴素运营阶段。
 
 此外，Community Program 虽然已经相比其他船货崇拜的同行删减了许多内容，以保证它能够务实地运作，但是仍然存在一些空洞的组织结构。例如设计出的 Steering Committee 做技术和社群发展决策，但是实际上当前阶段大部分工作就是公司团队商议决定后公开；例如还是定义了 SIG 乃至 OSPO 的组织，但是根本没有人力填充运营这些机构。
 
-我认为，Community Program 应该继续依托当前社群实际运行的状态，结合期望达成且有能力达成的下一个状态，来做修订。例如，提高成为 Committer 的标准和路径的透明性，积极分享案例和邀请 Committer 说出自己的故事。例如，精简冗余和虚假的组织架构的同时，保留在社群征求意见和决策结果向社群公开的关键动作。例如，强调社群成员参与渠道的多样性，鼓励在不同渠道帮助他人使用 GreptimeDB 和参与贡献，这部分是 Ambassador/Advocate 的核心。
+我认为，Community Program 应该继续依托当前社群实际运行的状态，结合期望达成且有能力达成的下一个状态，来做修订。例如，提高成为 Committer 的标准和路径的透明性，积极分享案例和邀请 Committer 说出自己的故事。例如，精简冗余和虚假的组织架构的同时，保留在社群征求意见和决策结果向社群公开的关键动作。例如，强调社群成员参与渠道的多样性，鼓励在不同渠道帮助他人使用 GreptimeDB 和参与贡献。这部分是 Ambassador/Advocate 的核心。
 
 除了这个堪称开拓性探索工作的 Community Program 之外，GreptimeDB 社群还有两件事情让我印象深刻。
 
