@@ -1213,15 +1213,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hexo-renderer-marked@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "hexo-renderer-marked@npm:6.2.0"
+"hexo-renderer-marked@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "hexo-renderer-marked@npm:6.3.0"
   dependencies:
     dompurify: ^3.0.3
     hexo-util: ^3.1.0
     jsdom: ^20.0.1
     marked: ^4.3.0
-  checksum: b7e972b7f5ea4c2a5226f112c6eb8cd2f4ed3c887fc50120640dfb2374c5c8b6274c9a41a4c3f739052b5a938cf3fff26059a932f6a9d73d440294d31de556a8
+  checksum: f116cb8a182722b2de169a42d521a3d3abf856a1d42e87286c410a262ccdc7016e0089552c67e1b4ef407f13a97f15282607ced9b04df429c778ba9a1b332b3f
   languageName: node
   linkType: hard
 
@@ -1266,7 +1266,7 @@ __metadata:
     hexo-generator-tag: ^2.0.0
     hexo-next-giscus: ^1.2.0
     hexo-renderer-ejs: ^2.0.0
-    hexo-renderer-marked: ^6.2.0
+    hexo-renderer-marked: ^6.3.0
     hexo-renderer-stylus: ^3.0.0
     hexo-server: ^3.0.0
     hexo-theme-next: ^8.18.1

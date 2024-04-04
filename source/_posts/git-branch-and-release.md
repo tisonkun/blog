@@ -77,7 +77,7 @@ Git 最大的创新就是轻量级的分支实现，鼓励分布式的开发者�
 
 [OpenJDK](https://github.com/openjdk/) 是特性分支的成熟实践者，他们甚至会为特性分支创建单独的代码仓库。
 
-{% asset_img openjdk-projects.png OpenJDK 的特性分支仓库 %}
+![OpenJDK 的特性分支仓库](git-branch-and-release/openjdk-projects.png)
 
 上图中，loom / amber / valhalla 都对应到一个或多个 JDK 功能提案，最终都是会以合入 JDK 主分支结束自己的生命周期。
 
