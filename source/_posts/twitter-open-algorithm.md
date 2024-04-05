@@ -11,7 +11,7 @@ categories:
 
 3 月 31 日，马斯克如约开源了一系列[推特推荐算法代码](https://github.com/twitter/the-algorithm)。
 
-{% asset_img elon-tweet.png Twitter 开源推荐算法代码 %}
+![Twitter 开源推荐算法代码](elon-tweet.png)
 
 <!-- more -->
 
@@ -21,21 +21,21 @@ categories:
 
 这次推特开源推荐算法代码，是史无前例的。以往接近的类型，当属阿里巴巴公开 [BLINK](https://github.com/apache/flink/tree/blink) 代码，或者苹果公开 [Darwin XNU](https://github.com/apple/darwin-xnu) 代码。不过，后两者都是基础软件，而推荐算法是业务代码。
 
-{% asset_img blink-oneshot.png BLINK 的一次性开源 %}
+![BLINK 的一次性开源](blink-oneshot.png)
 
-{% asset_img xun-one-direction.png XNU 的单向开源 %}
+![XNU 的单向开源](xun-one-direction.png)
 
 这些代码公众只能阅读，而没有任何参与协同开发的途径，甚至代码应该如何跑起来，都是不知道的。
 
 这样的开源，放在基础软件系统上，就像是一篇代码写成的论文，可以阅读和理解，但是不能共同创作，距离实际能工作的软件也还有一定距离。而放在业务软件系统上，其基础技术研究意义并不明显，因为业务系统往往跟具体场景绑定颇深，许多的代码逻辑没有对应的环境非常难以理解，更遑论复用。
 
-{% asset_img lack-of-context.png 业务系统开源缺乏实际环境与数据 %}
+![业务系统开源缺乏实际环境与数据](lack-of-context.png)
 
 我不是马斯克，也不知道推特做出这一决定真实的原因，但是从它当前产生的结果来看，这样的开源动作不是商业诉求推动的，除了可能满足马斯克的表现欲，这一事件将极大鼓舞推动社会开放革命和传播自由文化理念的人群。
 
 权当这一猜测的佐证，就在几周之前，马斯克在推特上发文，称研发 ChatGPT 的组织 OpenAI 成立之初的目的是作为一个平衡谷歌影响力的开源非营利组织。
 
-{% asset_img elon-tweet-openai.png OpenAI 的初心是开源非盈利组织 %}
+![OpenAI 的初心是开源非盈利组织](elon-tweet-openai.png)
 
 开放革命的理念有两种出发点。
 
@@ -49,7 +49,7 @@ categories:
 
 只有开放垄断平台运行规则的代码，如今生活与在线空间密不可分的大众才有可能监督自己贡献注意力、创作内容的平台到底有没有公平的对待它的每一个用户。马斯克也是推特的用户之一，这次代码开源就发现了推荐算法中判断推文作者是否是马斯克做特殊处理的逻辑。
 
-{% asset_img author-is-elon.png 算法中特判老板的逻辑 %}
+![算法中特判老板的逻辑](author-is-elon.png)
 
 应当说，开放革命和自由文化的理念离我们所生活的社会还很远，推特这次开源推荐算法代码的动作会不会引起一连串的连锁反应，尚且是未知数。除了凑个热闹和分析开源出来的代码以外，大家不妨也读一读相关的书籍文章，了解一下这些理念的背景和发展，为可能到来的变革做好准备。
 

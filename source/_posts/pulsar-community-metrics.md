@@ -15,7 +15,7 @@ categories:
 
 关于如何高效地、分门别类地处理社群积压的议题和补丁，我可能会用另一篇文章来讨论。本文想讲的是在这个过程里我产生的另一个想法，那就是如何分析在这类过程中产生的活动，从而判断社群的健康情况呢？
 
-{% asset_img tisonkun-activities-2022.png tisonkun activities in 2022 %}
+![tisonkun activities in 2022](tisonkun-activities-2022.png)
 
 <!-- more -->
 
@@ -65,7 +65,7 @@ ORDER BY timestamp
 
 在 SuperSet 的 UI 上做一些配置，我们可以把上面的 SQL 对应到下面的折线图：
 
-{% asset_img pulsar-reviews-count.png Pulsar Reviews Count in 2022 %}
+![Pulsar Reviews Count in 2022](pulsar-reviews-count.png)
 
 可以看到，Pulsar 社群在去年一年的 Reviewer 数量维持在 60~70 人之间，而在 10 月之后 Review 人次计数有所下降。
 
@@ -73,11 +73,11 @@ ORDER BY timestamp
 
 交叉对比 PR 创建数量的图，可以印证这个想法：
 
-{% asset_img pulsar-pr-open-count.png Pulsar Pull Request Opened Count %}
+![Pulsar Pull Request Opened Count](pulsar-pr-open-count.png)
 
 最后，我们以 DISTINCT Reviewr 的人数为指标，比较一下知名的消息系统项目的活跃情况：
 
-{% asset_img mq-reviewers-comp.png Reviewers Comparation %}
+![Reviewers Comparation](mq-reviewers-comp.png)
 
 可以看到，在这一维度下，Pulsar 的活跃度是最高的，Kafka 次之；RocketMQ 和 RedPanda 是下一个梯队；而 ActiveMQ 和 RabbitMQ 的活跃度就快见底了。当然，这个数据只计算和主仓库的数值，而没有把所有仓库群加总起来算，但是加总的结果应当也是大同小异的。另一方面，核心能力的绝大部分开发工作还是发生在主仓库上，计算主仓库的活跃度可以见微知著。
 
@@ -112,9 +112,9 @@ SQL 查询要想得到正确的结果，能不能正确关联上多个事件是�
 
 [OSSInsight](https://ossinsight.io/) 和 [OpenDigger](http://www.x-lab.info/open-digger/#/) 对上述两个时间数据的算法是以结束时间为基准的，即它们所说的 2022 年 12 月 Pulsar 社群 Issue 创建到关闭的平均时间，指的是在 2022 年 12 月被关闭的 Issue 从创建到关闭的平均时间。这样说你可能还没感觉出问题，我举个实例：我在 2022 年 11~12 月关闭了一大批年代久远的 Issue 和 PR 的行为导致 OSSInsight 上的指标在这两个月突然变差：
 
-{% asset_img ossinsight-pulsar-pr-time.png OSSInsight Pull Request Time to Merge %}
+![OSSInsight Pull Request Time to Merge](ossinsight-pulsar-pr-time.png)
 
-{% asset_img ossinsight-pulsar-issue-time.png OSSInsight Issue Time to Respond %}
+![OSSInsight Issue Time to Respond](ossinsight-pulsar-issue-time.png)
 
 但是，实际上这与这两个月新创建的 Issue 和 PR 的处理实效关联不大。
 
@@ -130,7 +130,7 @@ SQL 查询要想得到正确的结果，能不能正确关联上多个事件是�
 
 为了辅助以开始时间作基准的指标逻辑，这里需要额外计算 Issue 和 PR 被处理的比例。我先展示最终计算得到的图表：
 
-{% asset_img pulsar-time-matrix.png Pulsar 社群 Issue 和 PR 响应时效 %}
+![Pulsar 社群 Issue 和 PR 响应时效](pulsar-time-matrix.png)
 
 右边一列就是区分所有在给定时间段内创建的 Issue 或 PR 的响应情况占比。可以看到，如同上面说明的，Issue 和 PR 创建的时间越近，其得到处理的比例就越小。而处理时效仅考虑被处理的情况，近期的数据总是相对较好。
 
@@ -218,11 +218,11 @@ Issue 的情况大同小异，需要注意的是也需要从 IssuesEvent + opene
 
 PR 响应时效的比较结果如下：
 
-{% asset_img pulsar-vs-kafka-pr-respond.png Pulsar vs. Kafka PR 响应时效 %}
+![Pulsar vs. Kafka PR 响应时效](pulsar-vs-kafka-pr-respond.png)
 
 PR 合并时效的比较结果如下：
 
-{% asset_img pulsar-vs-kafka-pr-merge.png Pulsar vs. Kafka PR 合并时效 %}
+![Pulsar vs. Kafka PR 合并时效](pulsar-vs-kafka-pr-merge.png)
 
 可以看到，在去年一年的时间里，Pulsar 的社群活跃度在这个维度上全面超过了 Kafka 社群。
 

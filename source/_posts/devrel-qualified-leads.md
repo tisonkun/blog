@@ -35,9 +35,9 @@ Star 数这个指标没什么额外的变化空间，唯一能想到的价值是
 
 针对页面点击行为，简单的有 [Google Analytics](https://analytics.google.com/) 分析点击来源的不同地区、不同源网站，分析各个页面的跳入跳出率。复杂一点的有 [ReadMe](https://readme.com/) 做的访客全路途分析，甚至集成到 API 页面调用和结果反馈。在数字指标以外，类似 Vercel 和 GitHub 的官方网站尤其是文档，都会添加交互反馈的小组件。这些指标或组件的目的都是优化网站内容的组织呈现，改善用户访问体验。
 
-{% asset_img vercel-docs-widget.png %}
+![vercel-docs-widget](vercel-docs-widget.png)
 
-{% asset_img github-rest-api-widget.png %}
+![github-rest-api-widget](github-rest-api-widget.png)
 
 针对下载行为，主要增加信息量的途径是区分下载的来源和目的，尤其是：
 
@@ -151,7 +151,7 @@ PingCAP 的社群团队建立起了版主制度，让 AskTUG 成为一个能自�
 
 同样有送礼品的环节，PingCAP 送出的奖品比起换赞的量级所能承受的小礼品要高级许多。与之相对应，作为这个“荣誉体验官”所要做的工作也比点个 Star 要复杂，但是确有指导手册和技术讲解的支持。PingCAP 没有期待参与测试体验的开发者此后就一定会选型 TiDB 到线上环境，也没有期待他们会投入额外的时间做测试指导手册要求以外的工作。因此，奖品和交换而来的产出是相对应的。而这个过程当中参与的开发者总之是花了时间了解 TiDB 等产品，那么从长期主义的角度来说，他们会投入更多时间就是有可能的，同时选型时也至少对 TiDB 有更全面的了解。
 
-{% asset_img tidb-beta-test.png %}
+![tidb-beta-test](tidb-beta-test.png)
 
 ### 研发部门
 
@@ -165,7 +165,7 @@ DevRel 团队能够改善这个状况。我帮助了来自丹麦的开发者完�
 
 这个过程当中主要的挑战是 DevRel 团队需要有建立起信赖的研发团队合作者，或者本身就了解一些具体的研发知识。否则只是充当一个传声筒，像个监工一样催促研发部门的开发者“处理”这些输入，而不能说明这些输入具体做了什么，有什么价值，需要他们提供什么帮助，那么他们就会像忽略开发者的邮件提醒一样忽略掉 DevRel 团队传来的同样没有额外附加值的信息。
 
-{% asset_img devrel-notify-challenge.png %}
+![devrel-notify-challenge](devrel-notify-challenge.png)
 
 ### 商业拓展
 
@@ -175,7 +175,7 @@ TiDB 的 Flink CDC Connector 维护在 [Ververica](https://github.com/ververica/
 
 Airbyte 的成功高度依赖第三方开发者创造的集成。一个 DevRel 团队能够跟集成开发者保持沟通，确保软件提供的扩展点是易于实现的，相关文档是齐全的，甚至有开箱即用的测试套件来支持集成开发。所有这些事情并不都需要 DevRel 团队的成员实施，但是 DevRel 团队能够将这些工作的必要性和优先级说清楚，以推动它们得到公司的投资并最终能够交付，从而帮助集成开发者和依赖集成的应用开发者成功。
 
-{% asset_img airbyte-develop-connector.png %}
+![airbyte-develop-connector](airbyte-develop-connector.png)
 
 ### 人才招聘
 

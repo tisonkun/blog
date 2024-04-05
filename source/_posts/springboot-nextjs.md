@@ -275,7 +275,7 @@ Spring Boot 项目在默认配置下会自动添加 `classpath:/static/` 路径�
 
 打开 http://localhost:8080/ 页面，确认导出页面已经被 Spring Boot 应用正确识别为静态资源：
 
-{% asset_img springboot-nextjs-index.png %}
+![springboot-nextjs-index](springboot-nextjs-index.png)
 
 ### Step 5. 从 Next.js 页面访问 API 接口
 
@@ -394,7 +394,7 @@ function CheckboxList({data}: DataEntryProps) {
 
 打开 http://localhost:8080/my-awesome-page.html 页面，最终效果如下图所示：
 
-{% asset_img springboot-nextjs-page.png %}
+![springboot-nextjs-page](springboot-nextjs-page.png)
 
 页面样式没有针对 Dark Mode 适配配色，如果系统配色选择 Dark Mode 的话，可以把 `src/main/frontend/public` 目录下的 CSS 文件里标记 `@media (prefers-color-scheme: dark)` 的片段删除，以获得和上图相同的渲染结果。
 
@@ -404,7 +404,7 @@ function CheckboxList({data}: DataEntryProps) {
 
 如果使用 http://localhost:8080/my-awesome-page 尝试访问页面，将会被重定向到 Spring Boot 应用默认的 error 页面：
 
-{% asset_img springboot-nextjs-error.png %}
+![springboot-nextjs-error](springboot-nextjs-error.png)
 
 这是为什么呢？
 

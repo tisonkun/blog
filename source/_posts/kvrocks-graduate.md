@@ -53,7 +53,7 @@ Kvrocks 进入孵化后的第一位 committer [@PragmaTwice](https://github.com/
 
 1. 官方网站 https://kvrocks.apache.org/docs/getting-started
 
-{% asset_img website-docs.png %}
+![website-docs](website-docs.png)
 
 尽管 GitHub 自动渲染 README 能够解决一部分项目门户的问题，但是一个软件正式发布最好还是需要一个撑得起门面的官方网站。得益于 Facebook 开源的 Docusaurus 网站框架，今天一个开源项目想要快速搭建起一个技术范儿的官网并非难事。
 

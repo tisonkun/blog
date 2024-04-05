@@ -152,7 +152,7 @@ export default function Root({children}): JSX.Element {
 
 幸运的是，Vercel 提供了 [Edge Middleware](https://vercel.com/docs/concepts/functions/edge-middleware) 的方案来支持这类需求。
 
-{% asset_img vercel-edge-middleware.png Edge Middleware location within Vercel infrastructure. %}
+![Edge Middleware location within Vercel infrastructure.](vercel-edge-middleware.png)
 
 上图展示了 Edge Middleware 在 Vercel 平台上的位置：浏览器的请求首先会经过 Edge Middleware 处理，再被转发到实际托管资源的服务器进程上。
 

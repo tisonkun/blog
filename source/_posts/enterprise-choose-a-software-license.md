@@ -221,7 +221,7 @@ MongoDB 随后发布了 [Server Side Public License](https://www.mongodb.com/lic
 
 随着“开源商业化”的发展和众多先驱的探索，现如今，“开源商业公司”已经很少用单一的软件许可证来覆盖自己的所有代码了。相反，企业往往采用多种软件协议许可不同组件，形成一个复杂的软件协议栈来满足企业面向不同对象的需求。
 
-{% asset_img airbyte-components-license-model.png Airbyte 的软件协议模型 %}
+![Airbyte 的软件协议模型](airbyte-components-license-model.png)
 
 上图是 Airbyte 的软件协议模型，其核心服务部分是由 ELv2 许可的，而作为周边生态的命令行工具和连接器框架则是 MIT 许可的。这很像 GitHub 的商业模式，核心服务器的代码是专有软件，Airbyte 在 ELv2 下公开其源代码，而 GitHub 完全不公开源代码。周边生态，对于 Airbyte 来说是重要的各个不同数据源和数据汇的连接器，对于 GitHub 来说则是 REST API 和 CLI 及其衍生工具，以及 GitHub Actions 的社群实现，则是完全开放的。
 

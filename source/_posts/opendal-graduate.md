@@ -20,7 +20,7 @@ OpenDAL 以库形式提供，因此使用 OpenDAL 无需部署额外的服务。
 
 下图列举了 Apache OpenDAL 多语言实现的线上用户：
 
-{% asset_img real-users.png %}
+![real-users](real-users.png)
 
 OpenDAL 核心的统一 API 设计，其使用方式如下：
 
@@ -75,7 +75,7 @@ OpenDAL 起初是 [@Xuanwo](https://xuanwo.io/about/) 在 DatafuseLabs 为 [Data
 
 接下来的一年，Apache OpenDAL 孵化项目社群高速发展，在功能开发、版本发布和社群成长等各个方面全面取得可观的成绩：
 
-{% asset_img incubation-status.png%}
+![incubation-status](incubation-status.png)
 
 上图所显示的是，孵化期间 OpenDAL 发展了 10 名新 Committer 和 3 名新 PPMC 成员，并有 8 名不同的 Release Manager 发布了 11 个符合 Apache 标准的版本。
 
@@ -83,7 +83,7 @@ OpenDAL 起初是 [@Xuanwo](https://xuanwo.io/about/) 在 DatafuseLabs 为 [Data
 
 早在 2023 年 8 月，我就判断 OpenDAL 已经接近孵化毕业的标准。2023 年 10 月，在进行过一些沟通之后，项目导师之一吴晟将他发现的毕业前需要完成的工作列了一份[清单](https://github.com/apache/opendal/issues/3283)，正式开始推进毕业工作：
 
-{% asset_img graduation-todos.png %}
+![graduation-todos](graduation-todos.png)
 
 这份清单上的工作对于 OpenDAL PPMC 来说并不全是简单易懂的，甚至有很多项内容颇有挑战。后面展开讨论 OpenDAL 毕业面临的挑战时，你将看到一些挑战解决起来是很有难度的。于是，在部分简单易懂的工作完成后，清单上的项目有四五周的时间没有任何推进。
 
@@ -123,7 +123,7 @@ ASF 词汇体系下，PMC Member 即项目管理委员会成员，大致上相�
 
 ## 官方网站和文档
 
-{% asset_img homepage.png %}
+![homepage](homepage.png)
 
 OpenDAL 的官方网站并不算非常“惊艳”。这一方面是由于核心开发者大多缺乏前端开发技能，另一方面也是作为一个被应用集成的软件库，OpenDAL 不需要独立部署服务，自然也就没有一个独立服务配套的管控页面相关的需求可以展示。大部分情况下，OpenDAL 的使用方式是在软件当中以代码的形式被调用。
 
@@ -133,11 +133,11 @@ OpenDAL 的官方网站并不算非常“惊艳”。这一方面是由于核心
 2. OpenDAL 的核心价值是屏蔽不同存储服务后端，从而使得用户可以用统一的 API 访问不同位置的数据。提供新的存储后端集成是一个扩展点。
 3. OpenDAL 设计了 Layer 抽象，以在统一 API 的访问链路上提供不同切面的增强，包括重试、日志、监控、超时等功能。
 
-{% asset_img docs.png %}
+![docs](docs.png)
 
 紧接着文档导航页几乎就展示了所有文档内容：OpenDAL 的设计理念，以及跳转到 QuickStart 页面的如何配置四个已经正式发布的语言的软件库。侧边栏的 Services 与其说是文档，不如说是已经支持的部分存储后端的参考手册。
 
-{% asset_img community.png %}
+![community](community.png)
 
 相反，关于如何参与 OpenDAL 开发和作为 Committer 或 PMC Member 如何处理事务性工作的文档，由于有实际需要，是相对完整的。
 
@@ -156,7 +156,7 @@ OpenDAL PMC 成员之一 @suyanhanx 初步完成了[文档版本化的调研工�
 
 我认为，OpenDAL 接下来的文档优化方向，除了继续完成所有语言的版本化发布以外，应该注重阐明概念的定义和常见的设计、使用模式，以及不同语言之间的翻译定式。在这一前提下，把实际的文档内容用引用链接导向 Rust 核心实现当中伴随代码的活文档，就可以把存在于 Rust API 文档中的完整文档给利用上。
 
-{% asset_img rust-docs.png %}
+![rust-docs](rust-docs.png)
 
 用户实际的阅读路径，首先从设计、使用模式的文档中确定自己要到 Rust API 文档中查看哪部分模块的具体文档，了解相应的接口契约之后，对应自己使用的语言，查看不同语言直接接口翻译的定式，完成逻辑开发。
 
@@ -255,7 +255,7 @@ OpenDAL 的捐赠没有经历过改名，所以大部分材料和项目核心成
 
 我于是专门写了一篇文章《{% post_link community-of-peers-1 %}》批评这种行为。实际上，最后 OpenDAL 的[毕业提案确实没有“全票通过”](https://lists.apache.org/thread/nxd3218gdnylp8g2w7jhcjktorthjydl)。
 
-{% asset_img opendal-graduation-result.png %}
+![opendal-graduation-result](opendal-graduation-result.png)
 
 不过，Justin 本人是 Board Member 之一，哪怕孵化项目在 IPMC 中如上图决策通过，最终是否可以建立顶级项目，还需要 Board 核准。
 

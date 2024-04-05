@@ -21,11 +21,11 @@ Web API 作为许多软件的第一道门面，提升其体验的努力从来没
 
 早期广外流传的 Web API 工具非 [GNU wget](https://www.gnu.org/software/wget/) 莫属。今天，你仍然可以在许多软件的官方网站上看到形如 `wget ...` 的下载安装指南。
 
-{% asset_img gharchive-wget.png GH Archive 网站提供了 wget 的下载指南 %}
+![GH Archive 网站提供了 wget 的下载指南](gharchive-wget.png)
 
 通过 `man wget` 可以查看其使用手册，共约 2000 行。wget 作为初代 Web API 工具，提供的是基础的下载网络资源的功能。随着网络技术的迭代，它会引入一系列新的参数来支持新的功能，但是整体还是偏向于简单，并且新参数的引入很有时代特色：后来的工具，往往能对早先的技术探索作扬弃和合并，但是一路跟进技术发展的工具，尤其是大众工具，常常因为需要保持向后兼容而不能移除跟进早期探索的不完美实现。
 
-{% asset_img man-wget.png wget 的手册 %}
+![wget 的手册](man-wget.png)
 
 wget 支持的功能可以这么分类：
 
@@ -42,7 +42,7 @@ wget 支持的功能可以这么分类：
 
 如果说 wget 有一个后继者，那一定就是 [curl](https://curl.se/) 了。
 
-{% asset_img rustup-curl.png 许多软件提供基于 curl 的下载命令 %}
+![许多软件提供基于 curl 的下载命令](rustup-curl.png)
 
 wget 只支持 HTTP(S) 和 FTP 两种协议，而 curl 作为 Web API 开发的瑞士军刀，支持的网络通信协议就非常多了：
 
@@ -67,17 +67,17 @@ curl 的参考手册有 6000 余行，是 wget 的三倍。这都显示出 curl 
 
 [jq](https://stedolan.github.io/jq/) 是一个非常年轻的命令行工具，专门用来分析 JSON 数据。从 2012 年开始开发，十年间已经获得 2.5 万个 star 的成绩。由于其广泛使用，甚至在 GitHub Actions 的官方 Runner 中都预装了这个软件。
 
-{% asset_img star-history-jq.png jq star history %}
+![jq star history](star-history-jq.png)
 
 作为一个专门的 JSON 数据分析工具，它在 Web API 的开发工具中占据一席之地的原因，是目前几乎所有返回复杂结果的 Web API 都采用 JSON 的格式编码数据。
 
 jq 最基本的使用方式是 `curl ... | jq` 也就是先用 curl 拉取数据，然后丢进 jq 处理器解析。哪怕什么参数都不带，jq 默认格式化 JSON 数据，也能极大提升一个长行返回结果的接口的体验，而 jq 默认将结果染色，也能极大改善阅读 API 返回结果的体验。
 
-{% asset_img sample-full-jq.png %}
+![sample-full-jq](sample-full-jq.png)
 
 除此以外，最常用的方法就是选择 JSON 文本的部分属性，筛选出感兴趣的内容。这在 REST API 总是无差别的返回大量内容的情况下尤为有用。
 
-{% asset_img sample-transform-jq.png %}
+![sample-transform-jq](sample-transform-jq.png)
 
 ### HTTPie
 
@@ -137,7 +137,7 @@ REQUEST_ITEM
 
 最后，HTTPie 的输出默认就是以最佳阅读效果为目标上色的。
 
-{% asset_img sample-full-httpie.png %}
+![sample-full-httpie](sample-full-httpie.png)
 
 可以看到，HTTPie 有很多专门为 Web API 开发者定制设计的特性，这也对得起它的定位：
 
@@ -149,7 +149,7 @@ REQUEST_ITEM
 
 HTTPie 的团队提供了一个简易的 [Web UI 工作台](https://httpie.io/app)。
 
-{% asset_img webui-httpie.png %}
+![webui-httpie](webui-httpie.png)
 
 这个平台后端应该复用了 HTTPie Web 客户端的代码，但是跟命令行参数的解析应该就没什么关系了。这种通过 Web UI 填入参数和查看结果的做法，跟 Postman 的设计是高度一致的，适合不喜欢终端交互，更喜欢跟图形界面打交道的人。同时，Web UI 缓存用户数据的能力，也比命令行自己管理输入输出要省事儿不少。
 
@@ -209,7 +209,7 @@ paths:
 
 这些定义就像 Kubernetes Operator 领域里的 CRD 那样，通常都不是人写的，而是使用 [swagger-core](https://github.com/swagger-api/swagger-core/wiki) 一类的库先用某种程序设计语言写出 REST API 的定义和实现，再转成 OpenAPI 的定义。而后，如果要提供其他语言的客户端或服务端实现，再从 OpenAPI 标准的定义里生成对应的 stub 代码。
 
-{% asset_img platform-swagger.png 平台化开发、测试和自动文档化 %}
+![平台化开发、测试和自动文档化](platform-swagger.png)
 
 OpenAPI 的生态非常繁荣，只要把 Web API 导出成 OpenAPI 的格式，基本就可以轻易地接入其他工具和平台做文档化、自动化测试和代码生成。
 
@@ -219,13 +219,13 @@ OpenAPI 的生态非常繁荣，只要把 Web API 导出成 OpenAPI 的格式，
 
 Postman 最基本的功能是帮助开发者调试应用开发时需要访问的一众 API 并保存测试结果。进一步地，Postman 对常见的请求参数构造做了集成，帮助开发者更快速全面地测试 API 的可用性。最后，Postman 面向 API 的设计者推出了一系列辅助设计和管理 API 的功能。
 
-{% asset_img postman-demo.png Postman 的主页案例 %}
+![Postman 的主页案例](postman-demo.png)
 
 Postman 的功能非常简单，但是它充当了连接开发者和服务提供方的重要桥梁。
 
 在 Postman 上，你可以立即开始测试业务流程中对 Slack API 或者 Twitter API 的请求。国内的竞品 Apifox 抓住了这个重点，通过 [API Hub](https://apifox.com/apihub/) 提供了企业微信 API 和钉钉 API 等等业务实际依赖的服务的在线调试界面。
 
-{% asset_img webui-apifox.png %}
+![webui-apifox](webui-apifox.png)
 
 ### ReadMe
 
@@ -237,7 +237,7 @@ Postman 的功能非常简单，但是它充当了连接开发者和服务提供
 
 因此，它关注的不是 API 的开发，而是已有 API 并发布以后，用户实际在 API Doc 页面上调试的路径和正负反馈。
 
-{% asset_img platform-readme.png ReadMe 后台数据 %}
+![ReadMe 后台数据](platform-readme.png)
 
 ## API 开发的基础设施的意义
 

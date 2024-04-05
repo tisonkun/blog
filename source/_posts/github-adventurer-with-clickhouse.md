@@ -76,7 +76,7 @@ ClickHouse 官方博客写成的时候，数据是从 2011 年到 2020 年，压
 
 很明显，GitHub 的增长是飞快的，每年事件数也呈明显上升趋势。实际下载数据时候也能感受到逐年向前的数据下载压力。
 
-{% asset_img count-event-by-year.png Count Events by Year %}
+![Count Events by Year](count-event-by-year.png)
 
 由于 GitHub Events 只有公开仓库的数据，所以 public 之前私下开发的活动是不被记录的。此外，大家都知道 GitHub 的可靠性非常感人，实际上有一些时间段的数据是缺失的。
 

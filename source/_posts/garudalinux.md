@@ -11,7 +11,7 @@ categories:
 
 首先说一下结论：最终我选择了基于 [Arch Linux](https://archlinux.org/) 的 [Garuda Linux](http://garudalinux.org/) 发行版作为基础来搭建自己的 Linux 开发机。
 
-{% asset_img garuda-desktop.png Neofetch 时刻 %}
+![Neofetch 时刻](garuda-desktop.png)
 
 <!-- more -->
 
@@ -39,7 +39,7 @@ categories:
 
 然后就发现 N 卡不愧是 Linux 的两大噩梦硬件之一。
 
-{% asset_img torvalds-nvidia.jpeg 你知道我要说什么 %}
+![你知道我要说什么](torvalds-nvidia.jpeg)
 
 我使用的是 GTX 4090 Ti 的显卡，毕竟这次是一揽子计划，估计一劳永逸个五年起步，而且买新不买旧嘛。但是 4090 确实是太新了，而黄老爷自然是不太在乎开源拖拉机能不能用上他的新卡的。Garuda Linux 在我的机器上，如果选择安装开源驱动，Live USB 都起不来；如果选择安装专有软件驱动，则会在安装完成后进入系统的时候起不来。
 
@@ -84,7 +84,7 @@ Garuda Linux 在官网提供了 Garuda Installer 轻松愉快的点两下就能�
 
 放弃 Ubuntu 的速度比闪电战还快：它还是我熟悉的配方，每个操作都充满了一卡一卡的摸鱼气息。别说 GNOME 的美工和 UI 确实不如 KDE 了，Ubuntu 这老小子居然也对 4090 水土不服，N 卡果然是噩梦。花了几十分钟试图解决 N 卡驱动问题未果，直接选择和解跑路。
 
-{% asset_img torvalds-nvidia.jpeg 梅开二度 %}
+![梅开二度](torvalds-nvidia.jpeg)
 
 其实不选 Ubuntu 这种超重量级的发行版是有原因的。
 
@@ -106,7 +106,7 @@ Ubuntu 走的是 Windows 和 Mac OS X 的道路，也就是虽然用了 Linux �
 
 然后这个过程就卡死在装好系统以后设置了 KDE 桌面却打不开了。KDE 桌面的安装和 SDDM (Simple Desktop Display Manager) 服务应该都是好的，还是 N 卡拉了胯。
 
-{% asset_img torvalds-nvidia.jpeg 帽子戏法 %}
+![帽子戏法](torvalds-nvidia.jpeg)
 
 试过几个驱动方案无果后和解。
 
@@ -181,7 +181,7 @@ patch:
 
 我也趁着这次换工作机器的契机把输入法切换到了小鹤双拼，确实第一天对着键位图打个几小时就能记住了，打了几天以后虽然不算流畅，但是双拼本身键程短，误输入概率低，所以我的输入速度已经恢复到原来的 80% 有余。误输入的典型案例是，全拼很容易把“时间”（shijian）输入成“时间爱你”（shijain），由于双拼多韵母也是一个键输入，就不会出现这种多韵母字母错位带来的误输入，从而提高打字效率。
 
-{% asset_img flypy.png 双拼键位图 %}
+![双拼键位图](flypy.png)
 
 ## Dotfiles
 

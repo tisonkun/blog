@@ -17,7 +17,7 @@ Rust 语言的基本目标之一就是替代 C++ 在这些领域的位置，为�
 
 [Apache OpenDAL (incubating)](https://opendal.apache.org/) 是 Databend 工程师 Xuanwo 开发的一个 Rust 语言实现的开放数据访问层。它的核心设计支持通过相同的对象存储 API 访问不同的存储服务（Service），并提供可扩展的中间件（Layer）来支持通用的请求重试、限流和指标上报功能。目前，包括 Databend / RisingWave / GreptimeDB / mozilla sccache 在内的多个软件都选用 OpenDAL 作为其存储访问接口。
 
-{% asset_img opendal-arch.png OpenDAL 架构概念图 %}
+![OpenDAL 架构概念图](opendal-arch.png)
 
 在 Rust 核心实现的基础上，OpenDAL 提供了 Java / Python / Node.js 等不同语言的 API 绑定（Binding），以支持更广泛的生态利用 OpenDAL 已经完成的工作。例如，使用 Python 绑定，诸多大模型应用库能够在不同云厂商的对象存储服务间无缝迁移，支持用户使用任意对象存储服务。而在开发期间，则可以用内存或文件实现来模拟测试相同 API 的语义。
 

@@ -31,29 +31,29 @@ categories:
 
 这一方面做得尤为出色的是 [Rust 的标准库注释](https://doc.rust-lang.org/stable/std/)。虽说是注释，但是在 rustdoc 渲染工具的加持下，这份注释其实直接就可以作为实现文档呈现出来。Rust 的标准库注释从最上层介绍了标准库的构成和各个模块的职能，到每个模块细分之后同样复刻最上层的介绍模式，直到每一个具体的数据结构和方法的接口定义。可以说，开发 Rust 标准库的程序员和使用 Rust 标准库的程序员，都反复多次阅读过这些注释文档。
 
-{% asset_img rustdoc-std.jpeg Rust 的标准库注释 %}
+![Rust 的标准库注释](rustdoc-std.jpeg)
 
 广泛使用的编程语言的标准库注释似乎总能做得十分完善，[Java 的标准库注释](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/module-summary.html)也类似。尤其是我时常翻阅的 [Java 并发模块的注释](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/package-summary.html)，由于并发的复杂性和设计上依赖约定的特性，详实的注释文档显得尤为重要。
 
-{% asset_img javadoc-concurrent.png Java 标准库并发模块的注释 %}
+![Java 标准库并发模块的注释](javadoc-concurrent.png)
 
 由于标准库做出了好的示范，并且提供了好的注释文档化支持，Rust 生态的软件和 Java 生态的软件，大多能够考虑写好模块注释。语言对注释的支持是很重要的。
 
 例如 Rust 按照模块拆分，支持了简单的模块注释手段和 Markdown 语法，程序员就很容易顺着这条预设路径写出好的注释。反观 Java 是以类来组织代码的，优秀的项目往往会在类注释内写好详实的注释，但是 `package-info.java` 的用例并不流行，甚至很多程序员都不知道有这么个东西，JavaDoc 生成出来的内容比起 rustdoc 更加难以阅读，尤其是因为缺乏模块的概要注释，以至于根本不知道应该看哪部分代码。所以 Java 程序员往往是直接阅读源码上的注释，而不是到对应的 JavaDoc 网站上阅读。
 
-{% asset_img javadoc-bookkeeper-lifecycle.png 状态机经常需要注释定义 %}
+![状态机经常需要注释定义](javadoc-bookkeeper-lifecycle.png)
 
 回过头看 Rust 的文档，虽然生成的页面非常精致，对模块文档的高度支持让 rustdoc 生成的内容几乎就是一份形式上优质的实现文档，但是在代码内链接的部分，如果直接读源码注释则很难像 Java 注释一样方便的跳转。当然这有可能是编辑器和集成开发套件对这类跳转支持还不足的原因，但是确实会影响注释产生的实际价值。
 
-{% asset_img rustdoc-tokio.png 缺少工具支持，直接阅读注释不方便 %}
+![缺少工具支持，直接阅读注释不方便](rustdoc-tokio.png)
 
 第一点的第二部分是对第一部分的补充。除了大段的模块注释，组成软件对外契约的接口和公共数据结构，需要有基本的说明注释。也就是说，这个数据结构的用途和各个字段的定义，接口方法的用途和输入输出的约束等等。这些接口和数据结构往往被下游所引用和依赖，软件分层、抽象和封装的目的就在于使用者只需要阅读接口契约就够。
 
-{% asset_img javadoc-zookeeper-asynccallback.png 典型的接口文档 %}
+![典型的接口文档](javadoc-zookeeper-asynccallback.png)
 
 第二点比较好理解。如同前几天我发出的[讨论技术债问题的推特](https://twitter.com/tison1096/status/1521758171928223744)，很多时候实现上为了速度或者确实有客观复杂度难以理解，需要对实现做具体注释，例如经典地告诉别人不要乱动某几行代码。这样的注释是不可避免的。
 
-{% asset_img javadoc-flink-hack.png THIS IS A HACK %}
+![THIS IS A HACK](javadoc-flink-hack.png)
 
 第三点某种意义上是对前两点的总结，也就是说除了公开定义的数据结构和接口和模块的注释，以及实现上必须澄清的细节，其他的注释能少则少。这也是[《重构》](https://book.douban.com/subject/30468597/)当中颇为反直觉的一个论断，书中给出的解释如下
 
@@ -89,7 +89,7 @@ categories:
 
 讨论文档问题，可以从一个项目的 README 文件说起。这是开源运动伊始时就在开源项目的创作者中间传播开来的最佳实践。简单来说，无论你是一个开发者，获取到了开源软件的源码压缩包，还是一个用户，获取到了可供编译的源码压缩包或预编译的二进制文件发布包，解压缩以后的文件集合里，通常都会有一个 README 文件简要介绍该软件的名称、定位用途、使用方式、作者和著作权，以及其他联系方式或相关材料的信息。可以说，开源软件最初的专门文档，就是从 README 开始的。即使在今天，浏览托管在 GitHub 上的软件代码仓库，首页上最引人注目篇幅最大的，还是渲染 README 文件展示出来的页面。
 
-{% asset_img readme-cpython.png Python 解释器的 README 文件 %}
+![Python 解释器的 README 文件](readme-cpython.png)
 
 对于国际化和本地化的问题，往往首先被考虑的也是 README 文件。例如 [Perl](https://github.com/perl/perl5) 就完成了中日韩等语言的 README 文档翻译和本地化。
 
@@ -139,11 +139,11 @@ Spring 文档矩阵在 Quickstart 之下，是针对大量细分用户场景的 
 
 例如，Flink 不仅通过 Connector 抽象了与其他数据源的对接，还通过 State Backend 的抽象和 High Availability Service 的抽象允许生态开发者对接其他能够提供相应能力的存储系统。例如，被某公司高管认为难以扩展生态的数据库领域，PostgreSQL 通过 Foreign Data Wrapper 和 Extension 等一系列插件化模块，激发了生态开发者极大的开发热情。又例如，Spring 这样一个提供了基础的控制反转和面向切面编程的方法论的软件，通过对接不同数据源，不同鉴权服务，不同部署环境，形成了庞大的 Java 开发生态。
 
-{% asset_img ecosystem-flink.png Apache Flink 的开源生态 %}
+![Apache Flink 的开源生态](ecosystem-flink.png)
 
 开发文档要为生态开发者解决的问题，就是明确这些框架接口的定义和约定，让他们能够放心地依赖并创造出新的价值，构建出生态护城河。此外，开发文档网站可以罗列已有的生态开发项目，一方面能够激励生态开发者“名留青史”，另一方面对于新人来说，有一个天然的不用刻意编写的参考教程，即使是经验丰富的生态开发者，也有可能从其他人的作品当中汲取灵感。
 
-{% asset_img ecosystem-skywalking.png Apache SkyWalking 的开源生态 %}
+![Apache SkyWalking 的开源生态](ecosystem-skywalking.png)
 
 内核开发者指的是开发文档所属的开源软件的人。如果软件范畴小，那么它可能代指的是所谓的核心团队；如果软件足够复杂，那么内核开发者可能分成好几个团队。例如 Rust 的内核开发团队就分成编译器团队和标准库团队，而包管理器、资源网站开发和开发工具开发的团队，则介于内核开发者和生态开发者之间。
 
@@ -181,7 +181,7 @@ Spring 文档矩阵在 Quickstart 之下，是针对大量细分用户场景的 
 
 例如 Facebook 某团队基于 React 框架提出的 Docusaurus 网站框架，就支持切换多语言的功能。Apache InLong (Incubating) 和 Apache APISIX 等采用这一框架来开发自己文档网站的开源项目，也就因此能够顺利的支持国际化和本地化的需求。
 
-{% asset_img i18n-docusaurus.png Docusaurus 的多语言功能 %}
+![Docusaurus 的多语言功能](i18n-docusaurus.png)
 
 除去展示阶段的趋势，另一个问题是内容翻译的专家如何参与进来。上面提到的 Docusaurus 框架，或者许多手工完成国际化的文档页面，往往采用一个页面写两次的手段，依靠人来维持不同版本之间的同步。这样很容易导致文档之间及时性不足不说，对于内容翻译者来说，他们更想关注的是内容的翻译，而非页面方式用于描述如何渲染和其他网站相关的元素。
 
@@ -189,7 +189,7 @@ Spring 文档矩阵在 Quickstart 之下，是针对大量细分用户场景的 
 
 [Python 的用户文档](https://docs.python.org/3/)多语言支持做得是公认的好，其背后就是这样一套体系在支撑。具体的内容可以参考 PyCon Taiwan 2016 的演讲[《多语系 Sphinx 与 Python 官方文件中文化》](https://blog.liang2.tw/2016Talk-PyDoc-TW/)，这也是我最初接触文档国际化和本地化的重要材料之一。
 
-{% asset_img i18n-pydoctw-transifex.png Python 官方文件中文化 %}
+![Python 官方文件中文化](i18n-pydoctw-transifex.png)
 
 工具之外，开源共同体当中自发组成的内容翻译团队的力量也不容小觑。上面提到的 Python 官方文档的翻译，就是一个自发运行的小组。另一个颇有名气的翻译组，是 [Linux 中国的翻译组](https://linux.cn/lctt)。他们翻译了大量 Linux 社群的高质量文章，并且推进了许多实用工具文档的中文化，是一个很有行动力的组织。
 

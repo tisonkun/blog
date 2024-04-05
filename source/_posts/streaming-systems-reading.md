@@ -27,7 +27,7 @@ categories:
 
 具体的 API 指南目录下，涉及时间（Time）和状态（State）的章节是流式计算核心的差异点。
 
-{% asset_img flink-core-docs.png 核心文档章节 %}
+![核心文档章节](flink-core-docs.png)
 
 此外，Flink 还有 Flink Imrpovement Proposal (FLIP) 页面记录和核心设计决策，这里同样介绍流式计算与众不同的一些。
 

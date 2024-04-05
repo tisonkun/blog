@@ -12,7 +12,7 @@ categories:
 
 GreptimeDB 是格睿科技（Greptime）公司研发的一款开源时序数据库，其[源代码](https://github.com/greptimeteam/greptimedb)在 GitHub 平台公开发布。
 
-[{% asset_img greptimedb-github.png %}](https://github.com/greptimeteam/greptimedb)
+[![https://github.com/greptimeteam/greptimedb](greptimedb-github.png)](https://github.com/greptimeteam/greptimedb)
 
 我从 2022 年开始知道有 GreptimeDB 这个项目。2023 年，我注意到他们的 [Community Program](https://github.com/greptimeteam/community) 是有认真写的，不是无脑复制所谓成功项目的大段规则，于是开始跟相关成员探讨开源治理和社群运营的话题。后来，我读过 GreptimeDB 的源代码，发现他们的工程能力很不错，于是就[开始参与贡献](https://github.com/GreptimeTeam/greptimedb/issues?q=author:tisonkun)。
 
@@ -26,9 +26,9 @@ GreptimeDB 是格睿科技（Greptime）公司研发的一款开源时序数据�
 
 不过两年过去，回过头看能够坚持下来不断发展的项目，GreptimeDB 就是为数不多硕果仅存的一员。哪怕跟主流时序数据库项目社群相比，GreptimeDB 的活力也可圈可点。
 
-{% asset_img tsdb-openrank.png %}
+![](tsdb-openrank.png)
 
-{% asset_img tsdb-activity.png %}
+![](tsdb-activity.png)
 
 上面两张图展示了 2023 年，即 [GreptimeDB 开源运营第一年](https://mp.weixin.qq.com/s/iFbMb1kw4LOc6V2JtxG-bg)，从 [OpenDigger](https://github.com/X-lab2017/open-digger) 数据集生成的每月 OpenRank 和活跃指数（Activity）数据折线图。
 
@@ -101,9 +101,9 @@ Greptime 公司目前有两条商业产品线：
 
 * [GreptimeCloud](https://greptime.com/product/cloud) 提供了全托管的云上时序数据库服务，其内核是 GreptimeDB 系统。这个服务可以[免费试用](https://console.greptime.cloud/)，其 Playground 和 Dashboard 做的技术品味都很好。
 
-{% asset_img greptime-playground.png "Greptime Playgorund" %}
+![Greptime Playgorund](greptime-playground.png)
 
-{% asset_img greptime-dashboard.png "Greptime Dashboard" %}
+![Greptime Dashboard](greptime-dashboard.png)
 
 * [GreptimeAI](https://greptime.com/product/ai) 是为 AI 应用提供可观测性的服务。不同于其他数据库在赶上 AI 浪潮时采用的 PoweredBy AI 增强自身产品的思路，GreptimeAI 是 For AI 增强 AI 产品的思路。其实本轮语言大模型带动的 AI 浪潮对 Database 服务本身的提升还十分有限，反而是这些 AI 应用自身产生的数据需要 Database 来存储和管理。
 
@@ -111,7 +111,7 @@ Greptime 公司目前有两条商业产品线：
 
 至于为什么要开源 GreptimeDB 数据库核心代码，而不是干脆全部都是私有的商业代码，前几天 Meta 的财报上介绍的 Llama 开源的理由帮我省去了很多口水：
 
-{% asset_img llama-open-source.png %}
+![LLaMa 开源的理由](llama-open-source.png)
 
 应用在 GreptimeDB 的情况，在 Greptime 团队决心做这个产品的时候，先发的主流时序数据库已经取得极大的优势，且它们几乎全是开源的。这种情况下，就算 GreptimeDB 存在没有历史包袱的优势，直接朝着正确的方向飞奔，但是软件工程的固有复杂度和必要劳动时间并不能无限减少，所以开源是追赶现有主流产品和赢得用户信赖的必选项。
 

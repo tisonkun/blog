@@ -28,19 +28,19 @@ Graydon Hoare 是 Rust 的第一作者，但是如果你不对 Rust 的历史感
 
 通过查看 Graydon 在 [Rust 仓库的提交记录](https://github.com/rust-lang/rust/graphs/contributors)，我们可以看到自 2014 年起，他就可以说不再参与 Rust 核心的开发了。
 
-{% asset_img graydon-contribution.png %}
+![](graydon-contribution.png)
 
 2014 年起，Graydon 的主要精力就投入在某区块链项目和 Swift 语言上：
 
-{% asset_img graydon-contribution-swift.png "apple/swift" %}
+![apple/swift](graydon-contribution-swift.png)
 
-{% asset_img graydon-contribution-swift-source-compat-suite.png "apple/swift-source-compat-suite" %}
+![apple/swift-source-compat-suite](graydon-contribution-swift-source-compat-suite.png)
 
 不过，有趣的是，随着 Rust 在区块链领域越来越火，近一段时间 [Graydon 又开始写起了 Rust 代码](https://github.com/graydon)。
 
 [Rust 1.0 的发布](https://blog.rust-lang.org/2015/05/15/Rust-1.0.html)要追溯到 2015 年，而此时 Graydon 早已从 Rust 的核心开发中离开。这其中的原因可以从 Garydon 今年发布的一篇博文[《我想要的 Rust 语言没有未来》](https://graydon2.dreamwidth.org/307291.html)中窥得端倪。
 
-{% asset_img graydon-blog-no-future.png %}
+![](graydon-blog-no-future.png)
 
 文章讨论了 Garydon 在设计 Rust 之初和早期开发过程中对 Rust 的定位，以及他对 Rust 语言当前某些特性的锐评，其中包括他不喜欢的一系列语言特性：
 
@@ -106,11 +106,11 @@ Garydon Hoare 的博文分享了上古时期 Rust 团队的争论，而 @without
 
 如果我们看看 @withoutboats 文章中提到的另外两位 Async Rust 的核心开发者，情况会更加有趣。
 
-{% asset_img aturon-contribution.png %}
+![aturon-contribution](aturon-contribution.png)
 
 Aaron Turon 从 2017 年开始就没有任何参与了。
 
-{% asset_img alexcrichton-contribution.png %}
+![alexcrichton-contribution](alexcrichton-contribution.png)
 
 Alex Crichton 是非常重要的 Rust 核心开发者。除了 Async Rust 的开发以外，他是 [Cargo 项目的核心作者](https://github.com/rust-lang/cargo/graphs/contributors)，且以 [rust-lang-nursery](https://github.com/rust-lang-nursery) 为阵地，打造了一批 Rust 早期的关键生态。
 
@@ -118,7 +118,7 @@ Alex Crichton 是非常重要的 Rust 核心开发者。除了 Async Rust 的开
 
 当然，wasmtime 项目的核心也是以 Rust 语言编写的。Alex Crichton 的这一决定，其实有点像从 2018 年开始淡出了 Rust 项目社群，2019 年加入 PingCAP 开发 TiKV 项目的 Brian Anderson
 
-{% asset_img brson-contribution.png %}
+![brson-contribution](brson-contribution.png)
 
 2021 年，Brian Anderson 从 PingCAP 离开，关注起区块链公司 Solana Labs 的项目，甚至最近还跟 Graydon Hoare 主持的 Rust 项目 [stellar/rs-soroban-env](https://github.com/stellar/rs-soroban-env) 有些合作，也是一种循环。
 
@@ -157,7 +157,7 @@ Alex Crichton 是非常重要的 Rust 核心开发者。除了 Async Rust 的开
 
 那么，Nick Cameron 又是谁？
 
-{% asset_img nrc-contribution.png %}
+![nrc-contribution](nrc-contribution.png)
 
 他是 Rust 语言团队曾经的成员，Rust 曾经的核心开发者。跟 Brian Anderson 一样，他在 2019 年加入了 PingCAP 公司，并于 2021 年离开 PingCAP 加入 VS Code 团队做 Rust 语言集成。于是，他在 Rust 主仓库的参与也从 2019 年开始消失，只在做回 Rust 语言层面相关的工作后做了一点工作。可以说，他所写的代码，如今也进入到上一节里提到的困境中：他是作者，但是已经离开太久，且他并未找到明确的继任者，于是这些代码如今是无主的。他对相关代码的演进没有说一不二的话语权，其他人也没有。
 
