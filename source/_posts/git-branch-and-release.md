@@ -39,7 +39,7 @@ Git 最大的创新就是轻量级的分支实现，鼓励分布式的开发者�
 
 [Flink Release Management](https://cwiki.apache.org/confluence/display/FLINK/Flink+Release+Management) 提到，Flink 上游社群维护最近的两个特性版本，而其过往发布记录大致如下：
 
-{% asset_img flink-release-matrix.png Flink 版本发布历史 %}
+![Flink 版本发布历史](flink-release-matrix.png)
 
 值得注意的是，其版本发布时间并不随着语义版本号单调递增，例如 1.16.0 的发布日期（2022-10-28）就早于 1.15.4 的发布日期（2023-03-15）。
 
@@ -77,13 +77,13 @@ Git 最大的创新就是轻量级的分支实现，鼓励分布式的开发者�
 
 [OpenJDK](https://github.com/openjdk/) 是特性分支的成熟实践者，他们甚至会为特性分支创建单独的代码仓库。
 
-![OpenJDK 的特性分支仓库](git-branch-and-release/openjdk-projects.png)
+![OpenJDK 的特性分支仓库](openjdk-projects.png)
 
 上图中，loom / amber / valhalla 都对应到一个或多个 JDK 功能提案，最终都是会以合入 JDK 主分支结束自己的生命周期。
 
 [Implementation of Foreign Function and Memory API (Third Preview)](https://github.com/openjdk/jdk/pull/13079) 是一个特性分支在稳定后提交到上游的例子。可以看到，上游 Reviewer 对特性分支进行评审，特性分支的开发者在分支上共同开发，并定期合并上游的变更。最终，整个 Thrid Preview 完成后[一次性合入上游](https://github.com/openjdk/jdk/commit/cbccc4c8172797ea2f1b7c301d00add3f517546d)。
 
-{% asset_img openjdk-feature-branch.png +6,924 -8,006 %}
+![+6,924 -8,006](openjdk-feature-branch.png)
 
 从 feature branch 这种模式来看，实现这一模式的前提是软件代码的模块化。
 
@@ -107,7 +107,7 @@ Git 最大的创新就是轻量级的分支实现，鼓励分布式的开发者�
 
 同样作为编程语言，[Rust](https://github.com/rust-lang/rust/branches/all) 选择的分支策略略有不同：从 Git branches 页面上看，它维护了 master / beta / stable 三个分支。
 
-{% asset_img rust-branches.png %}
+![rust-branches](rust-branches.png)
 
 这一版本和分支策略的详细说明可以从 [Rust Forge](https://forge.rust-lang.org/#current-release-versions) 页面上查到，或者从下游 rustup 的 [Channels](https://rust-lang.github.io/rustup/concepts/channels.html) 说明做补充。
 
@@ -165,13 +165,13 @@ no warnings qw(experimental::signatures);
 
 例如，我在 Zeronos 项目里就保护了 main 分支和归档以前尝试的 archive- 分支。
 
-{% asset_img zeronos-protect-branches.png %}
+![zeronos-protect-branches](zeronos-protect-branches.png)
 
 ASF 项目的 committer 没有 GitHub 上 admin 的权限，不过 ASF INFRA 提供了一个 `.asf.yaml` 的配置文件支持指定保护分支。
 
-{% asset_img pulsar-protect-branches.png Pulsar 保护了所有版本发布分支 %}
+![Pulsar 保护了所有版本发布分支](pulsar-protect-branches.png)
 
-{% asset_img pulsar-site-protect-branches.png Pulsar Site 保护了生产环境分支 %}
+![Pulsar Site 保护了生产环境分支](pulsar-site-protect-branches.png)
 
 ### 合并策略
 
@@ -183,7 +183,7 @@ ASF 项目的 committer 没有 GitHub 上 admin 的权限，不过 ASF INFRA 提
 
 我的个人倾向是参考 Flink 社群的经验，禁用 merge commit 的方式，大部分情况下采用 Squash and merge 的方式，少数情况下使用 Rebase and merge 合并。
 
-{% asset_img github-pull-request-strategy.png GitHub 最佳配置推荐 %}
+![GitHub 最佳配置推荐](github-pull-request-strategy.png)
 
 Squash and merge 大于 Create a merge commit 是为了保持主分支相对简洁。很多 Pull Request 尤其是被 GitHub 合并展示 changeset 以后，很容易出现各种 "fix" "save" "tempsave" 的 commit 历史，这些内容极度干扰检索 Git 历史发现问题的效率。Squash and merge 能够把一个逻辑单元以单一的 commit 合到上游，避免了 commit 膨胀。
 

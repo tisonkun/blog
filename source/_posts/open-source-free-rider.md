@@ -108,9 +108,9 @@ categories:
 
 最后，生产开源软件的参与者们到底还是一个一个具体的工程师。不是每个人都必须要创建公司，不是每家公司都必须要做得像微软那样大。Vue.js 的作者尤雨溪曾经透露他通过 Patreon 接受捐赠和其他途径获得的收入，在 2016 年就已经超过在 Meteor 和 Google 的收入。前端圈子的曝光量和捐助习惯是值得学习的，可以看看其中几位的 Sponsor 情况。
 
-{% asset_img antfu-github-sponsor.png 256 "324 人 funding @antfu" %}
+![256 "324 人 funding @antfu"](antfu-github-sponsor.png)
 
-{% asset_img squidfunk-github-sponsor.png 256 "407 人 funding @squidfunk" %}
+![256 "407 人 funding @squidfunk"](squidfunk-github-sponsor.png)
 
 其中，由于重度使用 @squidfunk 的作品 Materials for Mkdocs 作为网站框架，我发现一些关键的功能只在 Insider 版本当中才有，作者实现得很好，而我没有时间精力在开源版本上做出一样好的改动，这就促使我也成为这 407 个赞助者的一员。
 

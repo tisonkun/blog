@@ -25,29 +25,29 @@ categories:
 
 如果业务团队已经标明相关的开源软件，例如流式计算工程师最好掌握 Storm / Flink / Spark Streaming 等技能，那么使用 GitHub + 对应词组的关键词 Google 搜索，认准 `github.com` 地址的网页，很容易就能导航到对应的代码仓库。
 
-{% asset_img google-search-flink.png Google Search Flink %}
+![Google Search Flink](google-search-flink.png)
 
 否则，如果业务团队只提供了模糊的关键词，就需要先发现对应的仓库。一般来说，最好是反馈到业务团队重新提供候选仓库，哪怕只有一个，也可以从代码仓库为自己打上的标签里找到靠谱的那个点进去发现其他类似的仓库。
 
-{% asset_img github-tags-foundationdb.png FoundationDB 的标签 %}
+![FoundationDB 的标签](github-tags-foundationdb.png)
 
 例如想要招募存储方向的人才，如果知道了 FoundationDB 是符合条件的，从标签里的 [key-value-store](https://github.com/topics/key-value-store) / [transactional](https://github.com/topics/transactional) / [distributed-database](https://github.com/topics/distributed-database) 都可以顺藤摸瓜抓出一批来。
 
 如果想要再仔细的圈选，就需要数据分析团队或者开源社群运营团队开发对应的分析工具了。比如基于 ClickHouse 的 GitHub 事件公开数据集，可以以提交补丁为维度圈选出关系最紧密的项目。下面就是一个发现和 Apache Flink 项目相关的其他项目的示例。
 
-{% asset_img github-repo-affinity-by-prs.png 基于 ClickHouse 的公开数据集发现关联项目 %}
+![基于 ClickHouse 的公开数据集发现关联项目](github-repo-affinity-by-prs.png)
 
 **第二步，从代码仓库的 Contributors 页面发现活跃的参与者。**
 
-{% asset_img github-contributors-link.png 跳转 Contributors 页面 %}
+![跳转 Contributors 页面](github-contributors-link.png)
 
 例如从 TiDB 的 Contributors 页面当中，我们就可以看到 @tiancaiamao / @coocood / @zimulala / @crazycs520 几位是提交最多 commit 的开发者。GitHub 支持以 commit 数或代码增减行数来排序，最多显示前一百名参与者。虽然有其他手段列出所有有代码提交的参与者，但是对于圈选候选人来说，前一百名应该已经足够。
 
-{% asset_img tidb-contributors-all.png TiDB Contributors %}
+![TiDB Contributors](tidb-contributors-all.png)
 
 另外，默认的排序是基于历史全部事件的。HR 圈选的时候可能会更关注最近还活跃在项目上的开发者，这点可以通过鼠标在上图的时间线里拖出一段时间来筛选。下图显示出从 2021 年至今最活跃的参与者。可以看到 @coocood 工作重点转向之后前一百名都看不到人了，而虽然我在图上名列第四，但是具体曲线图可以看出和前三名相比，我在最近一段时间都没有新的 commit 了。
 
-{% asset_img tidb-contributos-recent.png TiDB Contributors after 2021 %}
+![TiDB Contributors after 2021](tidb-contributos-recent.png)
 
 **第三步，全面评估圈选出的候选人，并找到联系方式。**
 
@@ -55,7 +55,7 @@ categories:
 
 通过点击 Contributors 页面参与者的头像或用户名，或者直接输入 `http://github.com/` + 用户名可以看到候选人的 GitHub 个人主页。
 
-{% asset_img pragmatwice-github-profile.png @PragmaTwice 个人主页 %}
+![@PragmaTwice 个人主页](pragmatwice-github-profile.png)
 
 例如，想要招聘熟悉分布式系统开发的 C++ 工程师，从 Kvrocks 或 OneFlow 等项目里发现 @PragmaTwice 之后，查阅 [@PragmaTwice 的个人主页](https://github.com/pragmatwice)。
 
@@ -69,7 +69,7 @@ categories:
 
 再介绍其他一些常见的评估工具和角度。要想看到一个候选人在 GitHub 上全时间的活跃情况，从个人页一年一年看是一种方式，但是也可以在 [github-contributions](https://github-contributions.vercel.app/) 网站上输入用户名直接列出来会简便一些。
 
-{% asset_img github-contributions-tisonkun.png @tisonkun's Contributions %}
+![@tisonkun's Contributions](github-contributions-tisonkun.png)
 
 可以看到，我从 2017 年底开始涉足开源软件开发。陆续参与到 2020 年 5 月加入拼多多，明显出现了一段真空期。2021 年初加入 PingCAP 后工作又和开源软件相关，活跃程度逐渐恢复并超越过去。当然，从 HR 的角度没办法知道这么详细的个人工作变动，但是可以从活跃度的变化做出相应的假设并验证，勾勒出候选人的工作经历。
 
@@ -77,7 +77,7 @@ categories:
 
 如果想要不区分代码仓库的查看一个 GitHub 用户的活动，可以从以下界面搜索筛选。
 
-{% asset_img github-user-activities-search.png GitHub 用户搜索 %}
+![GitHub 用户搜索](github-user-activities-search.png)
 
 这个页面的搜索功能是很丰富的，除了直接从用户界面的按钮探索以外，也可以从 [GitHub 搜索文档](https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax)里发现更多的筛选方法，这里就不展开了。
 
@@ -163,7 +163,7 @@ Date:   Sun Aug 21 23:07:49 2022 +0800
 
 对于项目管理者来说，GitHub 提供了 milestone 功能，可以将 issue 或 PR 和某个里程碑相关联。通常，里程碑就是某个版本。可以从 Issue 页面点击看到项目的里程碑，或者直接输入 `http://github.com/` + 项目名 + `/milestones` 跳转对应页面。下图展示了 Apache Pulsar 目前正要发布的 2.11.0 版本的里程碑，Release Manager 会从这个面板里重点关注仍然 open 的 issue 和 PR 并推动解决，尽数解决后着手打包发布新版本。
 
-{% asset_img pulsar-milestones.png Apache Pulsar 里程碑 %}
+![Apache Pulsar 里程碑](pulsar-milestones.png)
 
 **第三个，项目管理的主要对象有哪些？**
 
@@ -171,7 +171,7 @@ Date:   Sun Aug 21 23:07:49 2022 +0800
 
 GitHub 仓库本身只提供 issue 和 PR 维度的筛选和排序，Contributions 页面是少有的排序参与者的页面。我们可以从讨论度高的 issue 里找到潜在的高效开发者。以 comments 数量为指标找到最热烈的 issue 可以直接从 Issues 页面点击 Sort 按钮选择 Most commented 排序来实现。
 
-{% asset_img github-issues-most-commented.png Most commented %}
+![Most commented](github-issues-most-commented.png)
 
 我个人比较喜欢的方式，是找到被 requested review 最多的开发者，这些人通常是社群成员公认的专家和领袖。另一个维度是按照年份或月份罗列出某个项目或项目群上最活跃的开发者，以此来描绘出社群生产力的变迁。这些指标就需要额外的开发工作了，我会在闲暇时间逐步在[开源小镇的社群看板](https://town.korandoru.io/docs/dashboard/overview)页面一个个开发和发布。
 

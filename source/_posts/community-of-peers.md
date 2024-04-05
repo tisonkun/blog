@@ -29,7 +29,7 @@ Apache SkyWalking 的[第一个例子](https://github.com/apache/skywalking/disc
 
 如果你发现对方误解了你的意思，那么你可以进行解释澄清；如果对方提出的建议你也可以接受，那么可以做出折衷。否则，ASF 项目社群没有仁慈的独裁者意味着可以投票解决争端。唯一不需要的，就是投入大量时间和心力说服一个只是意见相左的人。
 
-{% asset_img duty_calls.png Someone is wrong on the Internet %}
+![Someone is wrong on the Internet](duty_calls.png)
 
 换个角度看，为什么 @wu-sheng 的意见很大程度上能影响乃至决定社群最后的整体意见呢？这是因为他是 SkyWalking 项目的第一作者，前面提到的“软件发展到今天做出的假设和取舍”，许多决定就是他做的。根据 ASF 开源理念的另一条 Earned Authority 即赢得的权威，个人对项目发展的影响力取决于他为项目做出了多少公开的贡献。这种权威没有直接为投票带来加权，但是它在社群当中深刻影响了每一位成员对项目定位和什么该做、什么不该做的判断。
 
@@ -43,7 +43,7 @@ Apache SkyWalking 的[第一个例子](https://github.com/apache/skywalking/disc
 
 这个例子分享出来以后，包括我在内的几个长期参与开源社群的人都深感不解。在了解清楚这位 PMC member 的措辞是 `would you mind...` 之后，我分享了自己上周建议 Apache Curator 的新 PMC member 进行下次发版的[案例](https://github.com/apache/curator/pull/445#discussion_r1144156381)。
 
-{% asset_img curator-release.png %}
+![curator-release](curator-release.png)
 
 在这个案例里，我询问这位新晋的 PMC member 是否愿意主导下次发版，并给出了需要了解的发版流程指南。这是因为他最近正活跃，且新版本将会包含若干个他贡献的补丁。
 

@@ -60,7 +60,7 @@ Twice 在 Kvrocks 的具体工作可以参考我在[《Apache Kvrocks 毕业随�
 
 开源社群建设的中坚力量是各个项目的维护者。健康发展的开源社群离不开维护者们的默默付出和及时响应，这几乎是判断一个开源项目到底是真的建设起了一个社群，还是仅公开源码的一个重要标准。
 
-{% asset_img netty-maintainer.png 512 "" %}
+![512 ""](netty-maintainer.png)
 
 上图中提到两个项目，Apache SkyWalking 的作者吴晟 [@wu-sheng](https://github.com/wu-sheng) 就是一名中国工程师。他创造的 SkyWalking 应用监控系统享誉海内外，被大量生产系统应用集成。
 
@@ -210,7 +210,7 @@ XXL-JOB 由大众点评的工程师许雪里 [@xuxueli](https://github.com/xuxue
 
 开源社群建设的内涵太过丰富，我在这里如果展开恐怕收不住。只简单讲一点，有任何其他问题可以加入我的知识星球〖夜天之书〗提问交流。
 
-{% asset_img zsxq.jpeg 256 "" %}
+![256 ""](zsxq.jpeg)
 
 这一点就是加入基金会对开源项目的帮助。
 

@@ -48,7 +48,7 @@ GitHub 会返回以下信息：
 
 把范围缩小到 Web API 上来，这样的应用程序接口只会被调用方经由网络访问，这同时也意味着其访问方式是独立于特定编程语言的。
 
-{% asset_img orbit-api-users.png Orbit API 实例 %}
+![Orbit API 实例](orbit-api-users.png)
 
 例如，在上面的 API 实例中，右上角展示的访问该 API 的方式，基本是一个语言无关的 HTTP 请求，而使用各个语言通用的 HTTP client 库，就可以对这一 API 进行集成。
 
@@ -62,7 +62,7 @@ GitHub 会返回以下信息：
 
 不过，SDK 也有如果跟开发者常用的语言不符合，就很难发挥作用，以及如果不能保证和 API 提供的功能的同步，就会让开发者不得不 fallback 到 API 接口上的问题。例如，OpenDAL 在经过一段时间使用后，从 AWS S3 SDK 切换到[纯粹 HTTP client 访问](https://github.com/apache/incubator-opendal/pull/152)。
 
-{% asset_img opendal-replace-aws-s3-sdk.png say goodbye to aws-s3-sdk %}
+![say goodbye to aws-s3-sdk](opendal-replace-aws-s3-sdk.png)
 
 ## Web API 的范式
 
@@ -88,15 +88,15 @@ REST API 定义了一系列可以访问的资源，并使用标准的 HTTP 方�
 
 GitHub 提供的[更新仓库的 API](https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#update-a-repository) 支持传入 archive 参数代表把仓库归档。
 
-{% asset_img github-rest-api-archive.png %}
+![github-rest-api-archive](github-rest-api-archive.png)
 
 GitHub 的 Pull Request API 有一个 [merge](https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#merge-a-pull-request) “资源”来表示合并一个 Pull Request 的请求。
 
-{% asset_img github-rest-api-merge.png %}
+![github-rest-api-merge](github-rest-api-merge.png)
 
 GitHub 提供了一个[通用的查找接口](https://docs.github.com/en/rest/search?apiVersion=2022-11-28)来查询不同的资源，其请求采用 `GET /search/code?q=:query` 的形式指定查询的资源和模式。
 
-{% asset_img github-rest-api-search.png %}
+![github-rest-api-search](github-rest-api-search.png)
 
 ### GraphQL
 
@@ -112,7 +112,7 @@ curl -H "Authorization: bearer TOKEN" https://api.github.com/graphql
 
 这个巨大的优势就是 GraphQL 允许用户在一个请求当中做嵌套查询和跨资源获取数据，同时指定需要返回哪些字段。这样，一个用户视角的综合需求可以通过一次请求完成，同时跨网络传输的字节尽可能的少。只要你试过用 GitHub REST API 查询数据，你就会知道那些常用的端点它会返回多少你永远不会使用的字段数据。
 
-{% asset_img github-rest-api-result.png REST API 可能返回大量用不上的字段 %}
+![REST API 可能返回大量用不上的字段](github-rest-api-result.png)
 
 ### 事件驱动型 API 范式
 
@@ -136,7 +136,7 @@ WebSocket 是一种全双工通信的 Web API 范式。客户端发送请求到�
 
 ChatGPT 底层的 OpenAI API 就[支持 HTTP Streaming](https://github.com/openai/openai-cookbook/blob/main/examples/How_to_stream_completions.ipynb) 的 API 范式，这也是你在网页端能够看到 ChatGPT 源源不断地返回结果，而不需要等待服务器计算出完整的响应，再一次性返回整个答复的技术原理。
 
-{% asset_img openai-streaming.png %}
+![openai-streaming](openai-streaming.png)
 
 ## Web API 的体验
 
@@ -152,7 +152,7 @@ ChatGPT 底层的 OpenAI API 就[支持 HTTP Streaming](https://github.com/opena
 
 其中最有名的当属在 2021 年融资 2.25 亿美元的 [Postman](https://www.postman.com/) 公司。它最基本的功能是帮助开发者调试应用开发时需要访问的一众 API 并保存测试结果。进一步地，Postman 对常见的请求参数构造做了集成，帮助开发者更快速全面地测试 API 的可用性。最后，Postman 面向 API 的设计者推出了一系列辅助设计和管理 API 的功能。
 
-{% asset_img postman-demo.png Postman 的主页案例 %}
+![Postman 的主页案例](postman-demo.png)
 
 此外，Orbit 提供的可以在线交互调试的 API 文档页面也不是自研的，而是 [readme.com](https://readme.com/) 的产品。它在交付一整个 API 文档站的基础上，支持用户在线交互调试，并在后台记录这些交互数据，以帮助 API 的设计者得到用户真实的使用反馈。
 

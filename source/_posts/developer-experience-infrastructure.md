@@ -185,7 +185,7 @@ DXI 按照前文讲述的分类方式，提供构成完整的开发者体验的�
 
 下图是原文引用的 DXI 全景图。这张图显然是不完全的，同时也有许多新兴的提供 DXI 能力的公司不断出现。
 
-{% asset_img dxi-map.png Developer Experience Infrastructure market map %}
+![Developer Experience Infrastructure market map](dxi-map.png)
 
 ## 开发者体验的基础设施的未来
 

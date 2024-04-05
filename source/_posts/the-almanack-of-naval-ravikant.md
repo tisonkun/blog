@@ -96,7 +96,7 @@ Apache SkyWalking 的创始人[吴晟在推特上提到过](https://twitter.com/
 
 我首先接触的集体合作模式就是开源社群的开源协同模式。在 2017 年的 Perl 6 网络聊天室当中，我可以和 Perl 语言的创始人 Larry Wall 直接沟通，当时他用的是 @[TimToady](https://en.wikipedia.org/wiki/There%27s_more_than_one_way_to_do_it) 的昵称。我在读文档的时候看到关于面向切面编程（AOP）相关的描述，完全不明白说的是啥，就在聊天室里询问，而他正好在线，就跟我分享了对这个范式的见解。直到几个月之后，我才知道这位聊天室的 TimToday 成员，GitHub 上挂着 Perl 6 吉祥物[“幺蛾子”](https://www.raku.org/camelia-logo.png)的这个人，就是 Larry Wall 本人。
 
-{% asset_img camelia-logo.png Perl 6 的吉祥物“幺蛾子” %}
+![Perl 6 的吉祥物“幺蛾子”](camelia-logo.png)
 
 去年底的时候我写过一篇[《开放式组织》](https://book.douban.com/subject/26894636)的书评《{% post_link open-organization %}》，以及其中提到的[《企业的人性面》](https://book.douban.com/subject/27125968/)这本相关联的组织管理经典的观点，都是关于协同当中平级关系的支撑。
 

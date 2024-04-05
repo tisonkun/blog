@@ -45,7 +45,7 @@ categories:
 
 不过，抛开以专有协议许可的核心部分不谈，这些企业共同选择了在生态连接所需要的接口和模块方面，采用宽容的开源协议例如 Apache 2.0 或者 MIT 来许可。尤其是 Airbyte 提出的核心以 ELv2 许可的软件及其相应协议的模型，对于 CLI 和 Connector 等部分，都是开源软件。
 
-{% asset_img airbyte-components-license-model.png Airbyte 的软件协议模型 %}
+![Airbyte 的软件协议模型](airbyte-components-license-model.png)
 
 如果把源码公开的专有协议部分视作商业软件而非传统意义上的开源软件，那么这种形式与接下来要讨论的依托于开源软件的商业模型就有很大的相似性了。只不过，当下的市场没能很好地区分开开源软件和源码可得的专有软件。如果一个企业的商业模型就是销售“开源”软件本身的功能，例如前面提到的 MongoDB Inc. 和 Elastic 还有 CockroachLabs 这样的，那么他们的核心功能转向专有软件只不过是时间问题，或者说只要面临商业竞争，就是经不起挑战的。
 
@@ -85,7 +85,7 @@ categories:
 
 Firebolt 仅将 ClickHouse 作为自己的计算执行引擎，在这一选型之外，完全专有化的实现了前台管控、集群管理和元数据管理、查询优化、数据索引和面向云存储的访问层。这样的商业模型也是依托于开源软件的，但是其依赖深度已经处于临界值。例如某些完全闭源的 Java 开发的专有软件，其中的网络模块也有可能使用开源软件 Netty 来实现，但是这种情形下，恐怕就不是我们这里所想讨论的企业实践开源的商业模式了。
 
-{% asset_img firebolt-architecture.png Query Engine 起初完全就是 ClickHouse %}
+![Query Engine 起初完全就是 ClickHouse](firebolt-architecture.png)
 
 Firebolt 这样的选型也算是自然的。如果你回顾 Databricks 的发展历程，它实际上可以被认为是选择了 Apache Spark 作为自己的计算执行引擎，逐渐发展出场景化的解决方案和 LakeHouse 一站式数据处理平台。不过，Databricks 的方向是逐渐走向开源。利用自己的先发优势，赚到行业内唯一提供商的收益以后，逐渐将自己的能力开源出来，以形成强凝聚力和活力的生态。这在下一节“开源标准以保护现有软件”会展开讨论。
 

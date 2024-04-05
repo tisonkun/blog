@@ -34,8 +34,8 @@ categories:
 
 在开源运营概念炙手可热的时候，不少企业为自己发起的开源社群招聘的运营人员就是用同样的方式在做用户运营的。
 
-{% asset_img ob-stars.png 256 "OceanBase 点赞送好礼" %}
-{% asset_img tdengine-bugs.png 512 "TDengine 的灭虫计划" %}
+![256 "OceanBase 点赞送好礼"](ob-stars.png)
+![512 "TDengine 的灭虫计划"](tdengine-bugs.png)
 
 这两个例子都引起开发者的强烈反感。
 
@@ -51,7 +51,7 @@ categories:
 
 对于 TDengine 搞灭虫计划，这个问题还微妙一些。因为它看起来是跟写代码相关的，似乎也是给开源软件的发展创造了价值，这样的活动难难道不值得推广吗？OceanBase 的运营人员就觉得可以推广，也搞了一波复刻：
 
-{% asset_img ob-typos.png "OceanBase 的同质活动" %}
+![OceanBase 的同质活动](ob-typos.png)
 
 这些活动的问题，@Xuanwo 在《开源运营当论迹不论心》的评论代表了开源开发者的主要观点：
 
@@ -183,4 +183,4 @@ SkyWalking 的作者吴晟在[《开源没有黑魔法，两年后泡沫将会�
 
 如果你想就开源参与和社群建设的问题做深入的交流，或者想要订阅的不成文的一线内容输出，欢迎加入我的同名知识星球《夜天之书》。
 
-{% asset_img zsxq.jpeg 256 "" %}
+![256 ""](zsxq.jpeg)

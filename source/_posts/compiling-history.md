@@ -20,7 +20,7 @@ categories:
 
 编纂历史的第一步是汇集史料。汇集史料这一步，是从各种输入源获取对已经发生的事情的记录。例如[庄表伟](https://zhuangbiaowei.github.io/)翻译的[《自由和开源软件的历史》](https://zhuangbiaowei.github.io/opensource/history/2022/04/03/history-of-free-and-open-source-software.html)从维基百科摘录而来，维基百科当中又有相应史实的出处标记，例如上文原文在维基百科上就有 76 条引用。
 
-{% asset_img references-history-of-foss.png References of history of free and open-source software %}
+![References of history of free and open-source software](references-history-of-foss.png)
 
 得益于互联网的发展，大众创作的维基法则也在汇集史料这一点上体现。例如，关于自由软件运动的发展，核心成员在各阶段的观点，以及不同时期发生的事件，在 [Philosophy of the GNU Project](https://www.gnu.org/philosophy/philosophy.html) 和 [Current campaigns by Free Software Foundation](https://www.fsf.org/campaigns/) 等页面都有记录。开源促进会也在自己的博客 [VOICES OF OPEN SOURCE](https://blog.opensource.org/) 上记录了诸多时事。研究互联网时代的历史，史料的数量只会更多不会更少。
 

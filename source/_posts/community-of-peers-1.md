@@ -136,17 +136,17 @@ Justin 进一步提出，按照 ASF 品牌政策的字面意思，所有 OpenDAL
 
 上面说到要用 Apache OpenDAL™ 来指称项目的事情，OpenDAL PMC 觉得也不无道理，一些显著的引用改改也行的。于是 Python API [文档的首页](https://opendal.apache.org/docs/python/opendal.html)就用 Apache OpenDAL™ 来指称了：
 
-{% asset_img opendal-python-apidocs.png %}
+![opendal-python-apidocs](opendal-python-apidocs.png)
 
 Justin 说这不行，你第一个 opendal 是包名，没有 Apache 字样。所幸我强忍恶心，耐心问了下商标团队的成员这个问题。商标团队的成员是个正常人，曰：“如果工具限制就是这样的，那也没事”。我补了一刀，说你非要说那 PMC 高低得自己做个 API 文档工具来解决合规问题。
 
 当然，只有这个怎么够呢？这首页行了，没说其他页不行啊。pdoc 生成页面是按 Python 模块生成的，Justin 找来一个[模块的文档页](https://opendal.apache.org/docs/python/opendal/layers.html)，指着说：你看，没有 Apache，不行。
 
-{% asset_img opendal-python-apidocs-layer.png %}
+![opendal-python-apidocs-layer](opendal-python-apidocs-layer.png)
 
 真要较真，合着以后大家搞网站全别分页了，塞成一个大单页，就像 [Kafka 这样](https://kafka.apache.org/documentation/)：
 
-{% asset_img kafka-single-page.png %}
+![kafka-single-page](kafka-single-page.png)
 
 合规只要做一次，岂不美哉？哦，Kafka 这个大单页也不符合 Policy 呢。
 

@@ -74,7 +74,7 @@ Lightbend 公司和 MariaDB 公司更进一步。它们不仅仅希望通过协�
 
 例如 Airbyte 修改软件协议之后，其内核和 UI 是不允许商业竞争的，而 CLI 和 Connectors 则是开放的，鼓励开发者进行生态集成。这种模式走到极端，就是 GitHub 的服务端完全闭源，但是 API/SDK 开放，甚至有全开源的 GitHub Actions 生态，当然这个生态是绑定在 GitHub 平台的。
 
-{% asset_img airbyte-components-license-model.png Airbyte 的软件协议模型 %}
+![Airbyte 的软件协议模型](airbyte-components-license-model.png)
 
 **第二种是核心开源，高级功能付费。**
 

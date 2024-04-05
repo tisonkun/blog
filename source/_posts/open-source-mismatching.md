@@ -53,7 +53,7 @@ categories:
 
 同样，腾讯开源的影响力标杆 [ncnn](https://github.com/tencent/ncnn) 有一个完整的 HowTo 列表，告诉用户怎么在各种环境下跑起来，生成用户内容。通过用户内容的传播聚集人气，并在解决一个又一个用户问题的正循环里不断打磨软件的成熟度。
 
-{% asset_img ncnn-howtos.png NCNN 的起步指南 %}
+![NCNN 的起步指南](ncnn-howtos.png)
 
 [Apollo](https://github.com/apolloconfig/apollo) 和 [Kvrocks](https://github.com/apache/kvrocks) 是另外两个来自企业的有口皆碑的开源项目，前者孵化于携程，后者来自美图。它们后来都脱离了大厂的开源体系，独立运营，在面对真正的用户需求时较好地解决了问题，从而得到了用户的信赖，也就有了源头活水。
 
@@ -117,7 +117,7 @@ TiDB 项目虽然不是大厂开源，但是从来自大厂的工程效能团队
 
 [《开发者关系：方法与实践》](https://book.douban.com/subject/36337667/)介绍了一种开发者关系团队在企业当中充当开发者和产品研发部门信息枢纽的模式图：
 
-{% asset_img devrel.png 开发者关系团队的定位 %}
+![开发者关系团队的定位](devrel.png)
 
 开发者关系团队了解开发者的特点，掌握社群当中开发者关注的内容，通过向产品研发部门提供开发者反馈，共同制作出开发者友好的 RoadMap 和使用说明。StreamNative 的开发者关系团队和研发团队紧密合作，推动 Apache Pulsar 网站 Getting Started 章节和 Landing Page 的改造，使得用户更好的了解 Pulsar 如何解决他们的问题，以及如何快速的在自己的环境上启动和试用 Pulsar 系统。
 
