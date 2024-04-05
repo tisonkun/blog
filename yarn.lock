@@ -1269,15 +1269,15 @@ __metadata:
     hexo-renderer-marked: ^6.3.0
     hexo-renderer-stylus: ^3.0.0
     hexo-server: ^3.0.0
-    hexo-theme-next: ^8.18.1
+    hexo-theme-next: ^8.19.2
     hexo-word-counter: ^0.1.0
   languageName: unknown
   linkType: soft
 
-"hexo-theme-next@npm:^8.18.1":
-  version: 8.18.1
-  resolution: "hexo-theme-next@npm:8.18.1"
-  checksum: 8475e3633529b8d7ed86d2eb575d81e69cad780ab8eb688362fb1b4ab2d9e89643ef2d52e4c29a8cb24756642cc4505e1ac124002ed12ea82b6ed34ccdd66587
+"hexo-theme-next@npm:^8.19.2":
+  version: 8.19.2
+  resolution: "hexo-theme-next@npm:8.19.2"
+  checksum: c7f5e01076c09e9ce99fd227da3831f69cf8151cb16dc2fc3a6641fb93223aa90f2735c26ef2241cca73b1459c119317b4aca6654fa37aaf5757eb74736edda9
   languageName: node
   linkType: hard
 
