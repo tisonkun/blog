@@ -1217,12 +1217,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hexo-next-giscus@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "hexo-next-giscus@npm:1.2.0"
+"hexo-next-giscus@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "hexo-next-giscus@npm:1.3.0"
   dependencies:
     "@next-theme/utils": ^1.3.0
-  checksum: cdda21ec9db71f7881b50f81333382a917a341f7557726aab2f34ba2a716ddd9cc24773d9f349a757c816c4702ba7340cf4a98a2bba96ee67f836a1bcc877a38
+  checksum: 9a2df0a4f804991885f614dd39a726b1b6102b2f5140da680147d2464d4fe6b3ac2815e4cfa9a89a043ac53ffb131d859d99939ceb3dfb806e394dc78ce44579
   languageName: node
   linkType: hard
 
@@ -1293,7 +1293,7 @@ __metadata:
     hexo-generator-index: ^3.0.0
     hexo-generator-searchdb: ^1.4.1
     hexo-generator-tag: ^2.0.0
-    hexo-next-giscus: ^1.2.0
+    hexo-next-giscus: ^1.3.0
     hexo-renderer-ejs: ^2.0.0
     hexo-renderer-marked: ^6.3.0
     hexo-renderer-stylus: ^3.0.1
