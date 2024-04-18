@@ -338,6 +338,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cargo-cp-artifact@npm:^0.1":
+  version: 0.1.8
+  resolution: "cargo-cp-artifact@npm:0.1.8"
+  bin:
+    cargo-cp-artifact: bin/cargo-cp-artifact.js
+  checksum: 06e774dbf032c79ef9d84d08dc6dc1e8842008b784098faa53f9e320acb930ac3898296e4af1d33cb11557bed9b8324c118d20ad6492ea7291cf92da641b6cb1
+  languageName: node
+  linkType: hard
+
 "chalk@npm:^4.0.0, chalk@npm:^4.0.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
@@ -1299,6 +1308,7 @@ __metadata:
     hexo-renderer-stylus: ^3.0.1
     hexo-server: ^3.0.0
     hexo-theme-next: ^8.19.2
+    hexo-word-counter: ^0.2.0
   languageName: unknown
   linkType: soft
 
@@ -1368,6 +1378,15 @@ __metadata:
     prismjs: ^1.29.0
     strip-indent: ^3.0.0
   checksum: a077b78bea886047ffd4cd311c09ed1b4eef5feb8a89103ca554b0ae7d7e35d26c3d7de3ed41ad934de5caadeeb01903573f904e627fef00abb8a2886eaeff3f
+  languageName: node
+  linkType: hard
+
+"hexo-word-counter@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "hexo-word-counter@npm:0.2.0"
+  dependencies:
+    cargo-cp-artifact: ^0.1
+  checksum: c011e884b150ca4c7b90ccebe98e9b846d4191de660c5d2bc3307db6448992a2333eec759e9b4941e625463461e27cc3e4fa836f65aad0996a2454954060206b
   languageName: node
   linkType: hard
 
