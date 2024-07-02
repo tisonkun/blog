@@ -9,8 +9,8 @@ dependencies:
     specifier: ^3.0.0
     version: 3.0.0
   hexo:
-    specifier: 7.2.0
-    version: 7.2.0
+    specifier: 7.3.0
+    version: 7.3.0
   hexo-generator-alias:
     specifier: ^1.0.0
     version: 1.0.0
@@ -854,8 +854,8 @@ packages:
       cargo-cp-artifact: 0.1.8
     dev: false
 
-  /hexo@7.2.0:
-    resolution: {integrity: sha512-RYIzl7jfG0i2jH/k5IZg4C1anyHfmKHNUsBKIn9LU0V3iQ0WQrwuOLFDJwaZDenqmzHYJhAVCGAkrBDfF/IlVg==}
+  /hexo@7.3.0:
+    resolution: {integrity: sha512-dOe8mzBKrvjubW5oBmyhcnQDpC+M2xmAMLae5K+o+SkHxyvAhShkS2VQZoTsOLIJKY6xilv7dzCjCvE7ol/NHQ==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
