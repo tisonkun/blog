@@ -24,8 +24,8 @@ dependencies:
     specifier: ^3.0.0
     version: 3.0.0
   hexo-generator-index:
-    specifier: ^3.0.0
-    version: 3.0.0
+    specifier: ^4.0.0
+    version: 4.0.0
   hexo-generator-searchdb:
     specifier: ^1.4.1
     version: 1.4.1
@@ -706,9 +706,9 @@ packages:
       - chokidar
     dev: false
 
-  /hexo-generator-index@3.0.0:
-    resolution: {integrity: sha512-83AuNN4cWdLVi//3ugR8E3kR6rrOwhXZt+hOCm1IjtIGj353/GlrtpMHpqZHU5kqipzj4miy9dweVdukXglVWw==}
-    engines: {node: '>=14'}
+  /hexo-generator-index@4.0.0:
+    resolution: {integrity: sha512-KeM7mOCKWINGFAk1E+CkjMMgqFIv8oaRbGxR7ipkQAp44o4aopkVftma4sdIplOq9WQEWfVYDUK5gEv9J3nzUg==}
+    engines: {node: '>=18'}
     dependencies:
       hexo-pagination: 3.0.0
     dev: false
