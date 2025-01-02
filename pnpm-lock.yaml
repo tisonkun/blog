@@ -48,8 +48,8 @@ dependencies:
     specifier: ^3.0.0
     version: 3.0.0
   hexo-theme-next:
-    specifier: ^8.21.1
-    version: 8.21.1
+    specifier: ^8.22.0
+    version: 8.22.0
   hexo-word-counter:
     specifier: ^0.2.0
     version: 0.2.0
@@ -801,8 +801,8 @@ packages:
       - supports-color
     dev: false
 
-  /hexo-theme-next@8.21.1:
-    resolution: {integrity: sha512-837Ycl/LWvp3CH7MhROComTncy23FuhSHkIIh418iTaU5Nc88tgb5aXtq53nD1eUgbKKMdmBm6AJBgr8FAGP2g==}
+  /hexo-theme-next@8.22.0:
+    resolution: {integrity: sha512-5ygjwme0LUlwmeuyHAll8977PAGbepUzit9N4cxQEW2jDMiEMQDWZj8GaTJ1dMzJ67RXQCIIVOwxlQ8jywYIMg==}
     dev: false
 
   /hexo-util@2.5.0:
