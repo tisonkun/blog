@@ -26,8 +26,8 @@
     "hexo-renderer-marked": "^7.0.1",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
-    "hexo-theme-next": "^8.23.0",
-    "hexo-word-counter": "^0.2.0"
+    "hexo-theme-next": "^8.23.2",
+    "hexo-word-counter": "^0.2.1"
   },
   "engines": {
     "node": ">=20"
