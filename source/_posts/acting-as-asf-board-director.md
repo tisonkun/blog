@@ -1,6 +1,6 @@
 ---
 title: 担任 ASF 董事会成员及技术创业
-date:
+date: 2025-03-15
 tags:
     - 开源
     - ScopeDB
