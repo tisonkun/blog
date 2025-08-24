@@ -158,8 +158,6 @@ Confluent 手册原文把 [The Apache Way](https://www.apache.org/theapacheway/)
 
 国内没有侵权的大额罚金，所以我跟许多厂商沟通的时候，因为不熟悉，经常会听到类似“这么麻烦吗”的反馈。但是这是约定的一部分，实际上在引用任何注册商标时，都有类似的问题。你就想想迪士尼或者 Oracle 的经典操作，这也就不奇怪了。
 
-![国内厂商了解清楚以后也可以做到](automq-case.png)
-
 ASF 公开提供了所有[商标和注册商标的列表](https://www.apache.org/foundation/marks/list/)。
 
 ## 商标归属信息
