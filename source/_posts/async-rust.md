@@ -3,7 +3,7 @@ title: Async Rust 的实现
 date: 2023-11-05
 tags:
     - Rust
-    - Async
+    - async
 categories:
     - 天工开物
 ---
