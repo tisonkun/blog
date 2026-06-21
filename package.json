@@ -10,7 +10,7 @@
     "preview": "pnpm run build && wrangler dev"
   },
   "hexo": {
-    "version": "8.1.1"
+    "version": "8.1.2"
   },
   "dependencies": {
     "css": "^3.0.0",
