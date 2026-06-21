@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+packageExtensionsChecksum: sha256-BBkV8LTiEBwceHQvrXJoG8tYDq2hknxzS+20iuluBIU=
+
 importers:
 
   .:
@@ -2308,7 +2310,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  hexo-theme-next@8.27.0: {}
+  hexo-theme-next@8.27.0:
+    dependencies:
+      hexo-util: 4.0.0
+      js-yaml: 4.2.0
 
   hexo-util@2.5.0:
     dependencies:

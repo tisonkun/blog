@@ -4,3 +4,9 @@ allowBuilds:
   hexo-word-counter: true
   sharp: true
   workerd: true
+
+packageExtensions:
+  hexo-theme-next@*:
+    dependencies:
+      hexo-util: 4.0.0
+      js-yaml: 4.2.0
