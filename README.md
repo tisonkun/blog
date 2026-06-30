@@ -11,10 +11,6 @@
 * [《大教堂与集市》书评](https://www.tisonkun.org/2021/12/14/the-cathedral-and-the-bazaar/)
 * [《纳瓦尔宝典》书评](https://www.tisonkun.org/2022/06/09/the-almanack-of-naval-ravikant/)
 
-## 欢迎订阅同名知识星球
-
-<img alt="wechatpay.png" style="border-width:0" width="400" height="200" src="source/media/zsxq.png"/>
-
-## ...或直接支持我的创作
+## 欢迎支持我的创作
 
 <img alt="wechatpay.png" style="border-width:0" width="300" height="300" src="source/media/wechatpay.png"/>
