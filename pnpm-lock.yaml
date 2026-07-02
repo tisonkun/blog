@@ -53,8 +53,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       hexo-theme-next:
-        specifier: ^8.27.0
-        version: 8.27.0
+        specifier: ^8.28.0
+        version: 8.28.0
       hexo-word-counter:
         specifier: ^0.2.2
         version: 0.2.2
@@ -939,8 +939,8 @@ packages:
     resolution: {integrity: sha512-u4s0ty9Aew6jV+a9oMrXBwhrRpUQ0U8PWM/88a5aHgDru58VY81mVrxOFxs788NAsWQ8OvsJtF5m7mnXoRnSIA==}
     engines: {node: '>=12.13.0'}
 
-  hexo-theme-next@8.27.0:
-    resolution: {integrity: sha512-5rD5njY+u3ThgD3jwz/4tQhgCJPxWJ5tBshOl+IHv04UlY76/UjUn8fEamJUVcznbmPqEVQ/fv5ED+6Y6v5B2Q==}
+  hexo-theme-next@8.28.0:
+    resolution: {integrity: sha512-KqXcP2NI0hxhTf2SntYKjf1VgurjnYi8IDMErOvAfbiMlO+0jRk+40cwt55lgqeJpRK61jxY3WYsgTuK0vR7KA==}
 
   hexo-util@2.5.0:
     resolution: {integrity: sha512-l0zkqcg2524KPO84HQe0JROpPlCM/dEnCJaJrZ1qsq+3+/YxhDa0zxiGtUVY1dtrWzOK/V11Zj+UEklhGP8Jeg==}
@@ -2310,7 +2310,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  hexo-theme-next@8.27.0:
+  hexo-theme-next@8.28.0:
     dependencies:
       hexo-util: 4.0.0
       js-yaml: 4.2.0
