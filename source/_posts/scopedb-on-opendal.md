@@ -5,7 +5,8 @@ tags:
     - Rust
     - 开源
     - Apache
-    - 对象存储
+    - OpenDAL
+    - ScopeDB
 categories:
     - 天工开物
 ---
