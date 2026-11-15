@@ -507,7 +507,7 @@ math:
   every_page: false
 
   mathjax:
-    enable: false
+    enable: true
     # Available values: none | ams | all
     tags: none
     # Available values: overflow | scroll | scale | truncate | linebreak
