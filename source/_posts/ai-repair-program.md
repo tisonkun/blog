@@ -11,43 +11,92 @@ categories:
     - 天工开物
 ---
 
-这事还得从我在 ScopeDB 做基数估计（`approx_count_distinct`）的选型演进讲起。最初，我们用的是 Cloudflare 开源的 `cardinality-estimator` crate，里面充斥着各种 `unsafe` 代码和手工位打包技巧；为了可控，我们不得不在 ScopeDB 里单独 Fork 并维护一份内部版本。今年年初，随着 `apache/datasketches-rust` 逐步完善，我们先切到了它的 **HyperLogLog (`HllSketch`)**，至少日常场景完全够用，也顺利卸掉了那份 `unsafe` 的历史包袱。
+事情是这样的。
 
-不过既然已经在用 DataSketches，我自然盯上了它里面更先进的 **CPC（Compressed Probabilistic Counting）Sketch**。做过流式去重的人大多熟悉 HyperLogLog（HLL），它把元素哈希后投进 $K$ 个桶，每个桶**只记录见过的最大前导零个数**（通常占 4 到 6 bit）——同一个桶里后来出现的更小计数，信息就直接丢掉了，而且进入稠密模式后每个桶都要维持固定位宽的寄存器。Yahoo! Research 的计算机科学家 **Kevin J. Lang** 在 2017 年的论文 *Back to the Future: an Even More Nearly Optimal Cardinality Estimation Algorithm* 里提出了一个「返璞归真」的方案：**直接保留经典 Flajolet–Martin（FM85）「优惠券收集」过程的 $K \times 64$ 位矩阵**（第 $r$ 行每遇到一个前导零数为 $c$ 的哈希，就把矩阵的 $(r, c)$ 位置 1）。保留完整的二维命中记录，让 CPC 能配合流式的 **HIP** 估计器和可合并的 **ICON** 估计器拿到比 HLL 更高的统计效率；序列化时，它又根据填充密度自适应切换格式（低基数用稀疏的「意外对」表，中高基数用滑动 8-bit 窗口 + 长度受限的 Huffman 编码 + 列置换），把体积压到接近信息熵。按 DataSketches 官方文档的说法，**同等精度下，序列化后的 CPC 比 HLL 小约 30%～40%**。
+我在开发 ScopeDB 的时候，很自然的遇到了要支持近似计数的需求，也就是 `approx_count_distinct` 的需求。
 
-于是今年 1 月底，我动手把 `CpcSketch` 移植到了 Rust（[`apache/datasketches-rust#75`](https://github.com/apache/datasketches-rust/pull/75)），随后在 ScopeDB 里也切到了 CPC，线上一直跑得很稳。
+这种需求典型的解法就是使用 HyperLogLog 数据结构。由于 Rust 生态 HLL 实现参差不齐，起初经过一番调研，我选择了Cloudflare 开源的 [cardinality-estimator](https://github.com/cloudflare/cardinality-estimator) 库。但是，这个库在实现的时候重度使用了 `unsafe` 代码，并且还有各种手工位打包的奇技淫巧。为了代码可控，我不得不在 ScopeDB 里单独 Fork 并维护一份内部版本。
 
-也是在移植 `CpcSketch`、对照 C / C++ / Java 上游源码的时候，我撞见了一堵「神秘常量墙」——源码里硬编码着四类规模惊人的静态数组和双精度常数：
+在调研期间，我了解到 Apache DataSketches 有一套久经考验的 HllSketch 实现，以及号称效果更好的 CpcSketch 方案。可惜，当时的 DataSketches 项目只有 Java 和 C++ 实现，而 ScopeDB 是用 Rust 写成的。
 
-- 23 张静态 Huffman 编码表，共 **5,697 个 16-bit 码字**；
-- 16 张滑动窗口列置换表，共 **896 个字节**；
-- 23 组 19 阶多项式修正系数（对应 `lg_k = 4..=26`，共 **460 个双精度浮点数**），以及三次项分母 `66.774757` 和渐近常数 `0.7940236163830469`；
-- 4 张置信区间经验分位数表，共 **132 个整数**（每张表 11 行 × 3 个标准差水平，各 33 项）。
+好在机缘巧合，我确认了 DataSketches 上游对维护一个 Rust 版本的兴趣。从去年底开始，我跟其他几位对草图算法颇有研究的 Rust 开发者一起开发发布了若干个 datasketches-rust 的版本，其中就包括 HllSketch 的第一版实现。随后，我把 ScopeDB 近似计数的实现切换到了 datasketches-rust 实现的 HllSketch 上。
 
-我在移植一些简单查表模块（比如 256 项的 [`kxp_byte_lookup.rs`](https://github.com/apache/datasketches-rust/blob/main/datasketches/src/cpc/kxp_byte_lookup.rs)）时，习惯在单元测试里从第一性原理直接算出整张表，再和静态数组逐项比对。可到了 `CompressionData`，上游注释里只留下了两行构建命令：
+(一张 https://github.com/apache/datasketches-rust/graphs/contributors?selectedMetric=commits&all=1 的截图)
 
-```text
+实现过流式不重复计数算法的开发这大多熟悉 HLL 的原理：它把元素哈希后投进 $K$ 个桶，每个桶**只记录见过的最大前导零个数**（通常占 4 到 6 bit）——同一个桶里后来出现的更小计数，信息就直接丢掉了，而且进入稠密模式后每个桶都要维持固定位宽的寄存器。
+
+Yahoo! Research 的计算机科学家 Kevin J. Lang 在 2017 年的论文 [Back to the Future: an Even More Nearly Optimal Cardinality Estimation Algorithm](https://arxiv.org/pdf/1708.06839) 里提出了一个返璞归真的方案：**直接保留经典 Flajolet–Martin（FM85）「优惠券收集」过程的 $K \times 64$ 位矩阵**（第 $r$ 行每遇到一个前导零数为 $c$ 的哈希，就把矩阵的 $(r, c)$ 位置 1）。保留完整的二维命中记录，让 CPC 能配合流式的 HIP 估计器和可合并的 ICON 估计器拿到比 HLL 更高的统计效率；序列化时，它又根据填充密度自适应切换格式（低基数用稀疏的「意外对」表，中高基数用滑动 8-bit 窗口 + 长度受限的 Huffman 编码 + 列置换），把体积压到接近信息熵。按 DataSketches 官方文档的说法，**同等精度下，序列化后的 CPC 比 HLL 体积缩小百分之三十到四十**。
+
+今年 1 月底，我动手把 CpcSketch 移植到了 datasketches-rust 项目里，随后将 ScopeDB 近似计数的实现也切到了 CPCSketch 上。半年多来，线上相关功能一直跑得很稳。
+
+(一张 https://github.com/apache/datasketches-rust/pull/75 的截图)
+
+Rust（[`apache/datasketches-rust#75`]()），
+
+不过，在对照上游 C++ 和 Java 源码移植 `CpcSketch` 的时候，我发现源码里存在着一系列硬编码的魔数表：
+
+1. 23 张静态 Huffman 编码表；
+2. 16 张滑动窗口列置换表；
+3. 23 组 19 阶多项式修正系数；
+4. 4 张置信区间经验分位数表。
+
+(对应魔数表的示意图或代码引用)
+
+我在移植一些简单查表模块时，习惯在单元测试里从第一性原理直接算出整张表，再和静态数组逐项比对。比如对于 `kxp_byte_lookup` 表，我通过测试保留了推导这个魔数表的逻辑：
+
+```rust
+for byte in 0u8..=255 {
+    // expected value
+    let expected = KXP_BYTE_TABLE[byte as usize];
+
+    // computed value
+    let mut computed = 0.0;
+    for col in 0..8 {
+        let bit = (byte >> col) & 1;
+        if bit == 0 {
+            // note the inverted logic
+            computed += inv_pow2(col + 1); //note the "+1"
+        }
+    }
+
+    assert_eq!(expected, computed);
+}
+```
+
+但是，CpcSketch 当中存在着 `CompressionData` 等几个完全没有推导逻辑的魔数矩阵。上游注释里只留下了两行构建命令：
+
+```shell
 ~/ocaml-4.03.0/bin/ocamlopt -o generateHuffmanCodes columnProbabilities.ml generateHuffmanCodes.ml
 ./generateHuffmanCodes > raw-encoding-tables.c
 ```
 
-翻遍所有 Apache DataSketches 仓库都找不到这些 `.ml` 文件。今年 1 月底，我在 Java 仓库提了个 Issue（[`apache/datasketches-java#720`](https://github.com/apache/datasketches-java/issues/720)）问生成源码在哪。社区负责人 Lee Rhodes（老李）回复道：
+我翻遍所有 Apache DataSketches 仓库都找不到这些 `.ml` 文件。于是，我到在 datasketches-java 仓库提了 [Issue-720](https://github.com/apache/datasketches-java/issues/720)）问生成源码在哪。社区负责人老李（Lee Rhodes）回复道：
 
-> *"Kevin did most of his math simulations and modeling in Ocaml. And his code was on his computer, which no longer exists. And his personal code died with him... even if they have a copy of his old computer it might be trying to find a needle in a haystack."*
+> Kevin did most of his math simulations and modeling in OCaml. And his code was on his computer, which no longer exists. And his personal code died with him … even if they have a copy of his old computer it might be trying to find a needle in a haystack.
 
-Kevin 已于 2019 年 4 月离世。我在 Issue 里提出：既然运行时解码表的构建逻辑还在，注释里也留有线索，也许我们能从注释和静态表反推出原来的生成程序。我顺便问老李，论文里有没有记载这套表的细节？老李的第二条回复是：
+Kevin 已于 2019 年 4 月离世，相关代码或许在他的个人电脑上，但是要在找到原始的代码，恐怕也无异于大海捞针了。
 
-> *"You should definitely read the paper. But it won't tell you any details on the Huffman codings. As I recall, in his paper he used a more standard compression scheme. He finished his work on the code after he had finished his paper -- and in the process came up with the modified Huffman coding idea, which is quite a bit more efficient than what he discussed in the paper."*
+我深表遗憾。但是转年一想，既然运行时解码表的构建逻辑还在，注释里也留有线索，也许我们能从注释和静态表反推出原来的生成程序。于是我继续问老李，论文里有没有记载推导出这些表的细节？对此，老李回复到：
 
-后来我对照论文原文核对了一下：论文第 9 节其实已经提出了「用预先构造好的 Huffman 码压缩 8 个熵最高的列，其余列里少量的『意外』位另行处理」这个思路，但论文实验用的原型是 zstd。**真正没有公开的，是生产代码里的具体方案——每张表的密度工作点、12 位码长上限、列置换规则、带 `66.774757` 预条件因子的多项式——以及生成它们的 OCaml 脚本。** 这些脚本随着 Kevin 的离世和他的电脑一起没了，留下来的只有代码库里这几千个静态数字和寥寥几行注释。
+> You should definitely read the paper. But it won't tell you any details on the Huffman codings. As I recall, in his paper he used a more standard compression scheme. He finished his work on the code after he had finished his paper -- and in the process came up with the modified Huffman coding idea, which is quite a bit more efficient than what he discussed in the paper.
 
-当时虽然有点遗憾，但移植本身已经能正确运行，这事也就暂时搁下了。直到最近完善 `datasketches-rust` 的测试（[`apache/datasketches-rust#355`](https://github.com/apache/datasketches-rust/pull/355)），我决定借着 AI 的能力把这套生成器还原出来。整个过程最后变成了三个模型的接力：
+这就不是我一下子能看懂的内容了。
 
-1. **Gemini（Gemini 4 Carbon）** 顺着静态表和源码注释从零反推，搭起了第一版生成器测试：逐位复现了全部码字和置换表，并以相近精度重建了 ICON 多项式拟合，提交了 PR #355；
-2. **Claude Opus** 对这个 PR 做数学 Review 与证伪：用消融实验推翻了初版的「左边界截断」假说，揪出了一处浮点舍入陷阱，划清了多项式拟合的可辨识边界，还重跑了百万次蒙特卡罗统计；
-3. **Codex** 又对 PR 和这篇文章的初稿做了一轮交叉审查：用变异测试找出了两处测试保护缺口，纠正了初稿里好几处数学错误和过度推断，还顺手给出了渐近常数最后几位数字的一个精确解释。
+由于即使不知道推出魔数表的逻辑，有正确的查找表，datasketches-rust 当中的 CpcSketch 就能正常运行，于是我也就暂时搁下了思考打表的源代码。
 
-下面按「表」逐个讲推理过程。为了不让正文太枯燥，几个解析推导放在了文末附录。
+直到最近正好赶上 Gemini 4 Carbon 发布，我也正打算发布 datasketches-rust 的下一个版本，这时我突然想到：现在的 LLM AI 应该有能力反推出这些魔数表的构造方法了，要不我试试？
+
+整个过程最后变成了三个模型的接力：
+
+1. **Gemini 4 Carbon** 顺着静态表和源码注释从零反推，搭起了第一版生成器测试：逐位复现了全部码字和置换表，并以相近精度重建了 ICON 多项式拟合；
+2. **Claude Opus 5.5** 对初步结论做数学 Review 与证伪：用消融实验推翻了初版的「左边界截断」假说，揪出了一处浮点舍入陷阱，划清了多项式拟合的可辨识边界，还重跑了百万次蒙特卡罗统计；
+3. **GPT 6 Astra** 对上面的结果做了一轮交叉审查：用变异测试找出了两处测试保护缺口，纠正了初稿里好几处数学错误和过度推断，还顺手给出了渐近常数最后几位数字的一个精确解释。
+
+当然，实际过程不止一轮，而是几个模型来回复核对齐的交叉合作。最终结果就是 PR-355 以跟上面记录 `kxp_byte_lookup` 表生成逻辑一样的方式，在 datasketches-rust 仓库中以测试的形式记录了逆向工程出来的原始 OCaml 文件的打表逻辑。
+
+(一张 https://github.com/apache/datasketches-rust/pull/355 的截图)
+
+以下是几个 LLM AI 输出的按「表」逐个讲的推理过程。为了不让正文太枯燥，几个解析推导放在了文末附录。同时，由于是 LLM AI 生成的内容，恐怕内容多少存在不正确的嫌疑，如果你发现了文中的纰漏，欢迎直接回复本文，或者到 datasketches-rust 仓库上 PR 修正。
 
 <!-- more -->
 
