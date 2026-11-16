@@ -21,7 +21,7 @@ categories:
 
 好在机缘巧合，我确认了 DataSketches 上游对维护一个 Rust 版本的兴趣。从去年底开始，我跟其他几位对草图算法颇有研究的 Rust 开发者一起开发发布了若干个 datasketches-rust 的版本，其中就包括 HllSketch 的第一版实现。随后，我把 ScopeDB 近似计数的实现切换到了 datasketches-rust 实现的 HllSketch 上。
 
-(一张 https://github.com/apache/datasketches-rust/graphs/contributors?selectedMetric=commits&all=1 的截图)
+![https://github.com/apache/datasketches-rust/graphs/contributors?selectedMetric=commits&all=1](datasketches-contributors.png)
 
 实现过流式不重复计数算法的开发者大多熟悉 HLL 的原理：它把元素哈希后投进 $K$ 个桶里，每个桶只记录见过的最大前导零个数，通常占 4 到 6 个比特。这样一来，同一个桶里后来出现的更小计数就会把之前的信息直接丢掉，而且进入稠密模式后每个桶都要维持固定位宽的寄存器。
 
@@ -125,7 +125,7 @@ Kevin 已于 2019 年 4 月离世，相关代码或许曾留在他的个人电�
 
 当然，实际过程不止一轮，而是几个模型来回复核对齐的交叉合作。最终结果就是通过 [PR-355](https://github.com/apache/datasketches-rust/pull/355) 以跟上面记录 `kxp_byte_lookup` 表生成逻辑一样的方式，在 datasketches-rust 仓库中以测试的形式记录了逆向工程出来的原始 OCaml 文件的打表逻辑。
 
-(一张 https://github.com/apache/datasketches-rust/pull/355 的截图)
+![https://github.com/apache/datasketches-rust/pull/355](cpc-sketch-pr-355.png)
 
 以下是收敛之后的完整推导报告，按「表」逐个拆解其中的数学结构，并保留了几处最有启发性的歧路与反例。为了不让正文太枯燥，几个解析推导放在了文末附录。同时，由于涉及 LLM AI 参与推导的内容，如果你发现了文中的纰漏，欢迎直接回复本文，或者到 datasketches-rust 仓库上提 PR 修正。
 
