@@ -1,5 +1,5 @@
 ---
-title: 用 Vercel 和 ScopeDB 给自己搭个 Hacker News 收件箱
+title: 基于 Vercel 和 ScopeDB 给自己搭个 Hacker News 收件箱
 date: 2026-11-23
 tags:
     - 工程实践
