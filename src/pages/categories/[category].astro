@@ -1,21 +1,24 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import _ from "lodash";
 import PageMeta from "@/components/PageMeta.astro";
 import PostList from "@/components/PostList.astro";
-import { getListedPosts } from "@/lib/post";
+import { getListedPosts, type PostEntry } from "@/lib/post";
 import { Site } from "@/config";
 
 interface Props {
-    posts: CollectionEntry<"posts">[];
+    posts: PostEntry[];
     category: string;
 }
 
 export async function getStaticPaths() {
     const posts = await getListedPosts();
-    const categories = _.groupBy(posts, (entry) => entry.data.category);
-    return _.entries(categories).map(([category, categoryPosts]) => ({
+    const grouped = new Map<string, PostEntry[]>();
+    for (const post of posts) {
+        const list = grouped.get(post.data.category) ?? [];
+        list.push(post);
+        grouped.set(post.data.category, list);
+    }
+    return [...grouped.entries()].map(([category, categoryPosts]) => ({
         params: { category },
         props: { posts: categoryPosts, category },
     }));

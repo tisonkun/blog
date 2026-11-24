@@ -1,14 +1,12 @@
-import _ from "lodash";
 import rss from "@astrojs/rss";
 import { Site } from "@/config";
-import { getListedPosts, getPostExcerpt } from "@/lib/post";
+import { getListedPosts, getPostExcerpt, sortPostsByDateDesc } from "@/lib/post";
 
 export async function buildRssResponse() {
-    const posts = await getListedPosts();
-    const sortedPosts = _.orderBy(posts, (post) => post.data.date, "desc");
+    const posts = sortPostsByDateDesc(await getListedPosts());
     const baseUrl = Site.url.toString().replace(/\/+$/g, "");
 
-    const items = sortedPosts.map((entry) => ({
+    const items = posts.map((entry) => ({
         title: entry.data.title,
         pubDate: entry.data.date,
         description: getPostExcerpt(entry, 200),

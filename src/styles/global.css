@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "./callout.css";
 
+@theme {
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 @layer base {
     :root {
         font-family: "Open Sans Variable", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
@@ -92,12 +96,8 @@
     }
 }
 
-.font-display {
-    font-family: "Newsreader Variable", Georgia, serif;
-}
-
 .font-brand {
-    font-family: "Kaiti SC", "STKaiti", "Songti SC", "Newsreader Variable", Georgia, serif;
+    font-family: "Kaiti SC", "STKaiti", "Songti SC", Georgia, serif;
 }
 
 .post-content {
@@ -106,14 +106,6 @@
 
 .post-content .expressive-code {
     @apply my-6;
-}
-
-.post-content .highlight {
-    @apply mb-8 block leading-relaxed rounded font-mono;
-}
-
-.post-content .highlight pre {
-    @apply p-4 overflow-auto;
 }
 
 .post-content code {
@@ -221,32 +213,17 @@
     overflow-y: hidden;
 }
 
-.pagination {
-    @apply m-4 p-0 text-left flex justify-between;
-}
-
-.pagination li {
-    @apply list-none inline-block m-0 p-0;
-}
-
-.pagination .page-prev {
-    @apply mr-4 pr-4;
-}
-
-.pagination .page-item.page-prev {
-    @apply text-left;
-}
-
-.pagination .page-item.page-next {
-    @apply text-right;
-}
-
 figcaption {
     @apply text-center text-sm text-gray-500;
 }
 
+.header-anchor {
+    @apply float-right text-gray-400 hover:text-gray-700 inline-flex items-center;
+}
+
 .header-link {
-    @apply float-right text-gray-500;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .post-content :is(h2, h3, h4) {

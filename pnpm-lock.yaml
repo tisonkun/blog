@@ -196,9 +196,6 @@ importers:
       '@expressive-code/plugin-line-numbers':
         specifier: ^0.44.4
         version: 0.44.4
-      '@fontsource-variable/newsreader':
-        specifier: ^5.3.0
-        version: 5.3.0
       '@fontsource-variable/open-sans':
         specifier: ^5.3.0
         version: 5.3.0
@@ -214,15 +211,9 @@ importers:
       astro-expressive-code:
         specifier: ^0.44.4
         version: 0.44.4(astro@7.4.13(@astrojs/markdown-remark@7.3.10(supports-color@10.2.2))(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(stylus@0.62.0(supports-color@10.2.2))(yaml@2.9.1))
-      hastscript:
-        specifier: ^9.0.3
-        version: 9.0.3
       katex:
         specifier: ^0.19.1
         version: 0.19.1
-      lodash:
-        specifier: ^4.18.1
-        version: 4.18.1
       rehype-autolink-headings:
         specifier: ^7.1.0
         version: 7.1.0
@@ -238,15 +229,9 @@ importers:
       remark-math:
         specifier: ^6.0.0
         version: 6.0.0(supports-color@10.2.2)
-      remark-toc:
-        specifier: ^9.0.0
-        version: 9.0.0
       sharp:
         specifier: ^0.35.5
         version: 0.35.5(@types/node@26.6.6)
-      shiki:
-        specifier: ^4.6.0
-        version: 4.6.0
       tailwindcss:
         specifier: ^4.3.5
         version: 4.3.5
@@ -254,18 +239,9 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
     devDependencies:
-      '@tailwindcss/postcss':
-        specifier: ^4.3.5
-        version: 4.3.5
       '@tailwindcss/vite':
         specifier: ^4.3.5
         version: 4.3.5(vite@8.3.8(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(stylus@0.62.0(supports-color@10.2.2))(yaml@2.9.1))
-      '@types/lodash':
-        specifier: ^4.17.27
-        version: 4.17.27
-      '@types/mdast':
-        specifier: ^4.0.4
-        version: 4.0.4
       '@types/node':
         specifier: ^26.6.6
         version: 26.6.6
@@ -277,10 +253,6 @@ packages:
 
   '@adobe/css-tools@4.3.3':
     resolution: {integrity: sha512-rE0Pygv0sEZ4vBWHlAgJLGDU7Pm8xoO6p3wsEceb7GYAjScrOHpEo8KK/eVkAcnSM+slAEtXjA2JpdjLp4fJQQ==}
-
-  '@alloc/quick-lru@5.3.0':
-    resolution: {integrity: sha512-U4+70Pc5ZS9osnCBCE5Jha/ciHM+Yp+CNMNC/7HvYbNRk1Ldd+f7qO65W5qfhu/TCv+/ozljlXXe9Nj8419DMA==}
-    engines: {node: '>=10'}
 
   '@astrojs/astro2tsx@0.1.4':
     resolution: {integrity: sha512-5dJqY4i1AlXxcsSFHkaegnrgdVs9J4U93y/YF0xmvmSOcNYVQnf4db3IhvqHZ5v8biLPlPlFmlYsqHj0c4/ZSA==}
@@ -830,9 +802,6 @@ packages:
 
   '@expressive-code/plugin-text-markers@0.44.4':
     resolution: {integrity: sha512-cfjqsNh4oYikxFeylXKhZ0BxvrwIIztu+g5JFFObYMO3YTmHwv66DrHCh91wTgTGz0q4+Tj/iTIYkngqCpX0Cg==}
-
-  '@fontsource-variable/newsreader@5.3.0':
-    resolution: {integrity: sha512-rrzYi43qMpbzwuFtf9OkWH8sxAPVPcQQQEwXpPtwaKYeJ8yVg5aLs5kawmo1f2Q1t1M38TLmEKCkGVDsYwgdFw==}
 
   '@fontsource-variable/open-sans@5.3.0':
     resolution: {integrity: sha512-VOfhZfLIOBVa6K/dTEu7scqQXYdGa4jBX8quFpQ0S6574B+W2EOBJf9PkqyVtMEI7WWIWNEbpvPc3vY1mN2mmQ==}
@@ -1400,9 +1369,6 @@ packages:
     resolution: {integrity: sha512-PynqGLZsZvwM9tqD/CUxkOIfyd6K5elZ2MooauzJryP/UqXYgi3yYbtt3N0Xe+MHV/eFKPFQCEfIKAqlAS1CBg==}
     engines: {node: '>= 20'}
 
-  '@tailwindcss/postcss@4.3.5':
-    resolution: {integrity: sha512-FAV37Tlx9wBiT/hkfgVD0Q6CWsP2oUX3lf28nrfjW8+ksILjnpuFulUqWDfNR4/ZiEHHDRBX8DUTzD1Rys687A==}
-
   '@tailwindcss/vite@4.3.5':
     resolution: {integrity: sha512-BCNiY0a1ZjdOHVqw7kyb7U72BwfMF3dfUuN+tQsLWky/J5JOI/r7abibglXfygrZhVO/3u3V+E25kkKTeMkXaQ==}
     peerDependencies:
@@ -1425,9 +1391,6 @@ packages:
 
   '@types/katex@0.16.8':
     resolution: {integrity: sha512-trgaNyfU+Xh2Tc+ABIb44a5AYUpicB3uwirOioeOkNPPbmgRNtcWyDeeFRzjPZENO9Vq8gvVqfhaaXWLlevVwg==}
-
-  '@types/lodash@4.17.27':
-    resolution: {integrity: sha512-VenMRv/eKNrspX9v3H4dbmjsrnCOYdYBG3kxXKk3dG6X+urBGcj2Prww3xw1U5K4FV/mE4h5GbWd0szEKf+9ew==}
 
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
@@ -1452,9 +1415,6 @@ packages:
 
   '@types/sax@1.2.7':
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
-
-  '@types/ungap__structured-clone@1.2.0':
-    resolution: {integrity: sha512-ZoaihZNLeZSxESbk9PUAPZOlSpcKx81I1+4emtULDVmBLkYutTcMlCj2K9VNlf9EWODxdO6gkAqEaLorXwZQVA==}
 
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
@@ -2204,9 +2164,6 @@ packages:
     resolution: {integrity: sha512-WkUDrojuJs0xkgGf2udWxa3yGBRxPtxUkB79i6aCZLRgc7PM8fZe9TosfPDcvEpQZbuFASnHYmRLBLUbmLOIIA==}
     engines: {node: '>= 12.0.0'}
 
-  lodash@4.18.1:
-    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
-
   longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
 
@@ -2287,9 +2244,6 @@ packages:
 
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
-
-  mdast-util-toc@7.2.0:
-    resolution: {integrity: sha512-9fyyMkuEh28CW7EtUTDzf0TgTXyfyKpD1tC17wWaBqsTWJ3JADfkwluUyhORpQoZGJBcoMvk3Wz4IHh9PSbYWA==}
 
   mdn-data@2.0.28:
     resolution: {integrity: sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==}
@@ -2665,9 +2619,6 @@ packages:
 
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
-
-  remark-toc@9.0.0:
-    resolution: {integrity: sha512-KJ9txbo33GjDAV1baHFze7ij4G8c7SGYoY8Kzsm2gzFpbhL/bSoVpMMzGa3vrNDSWASNd/3ppAqL7cP2zD6JIA==}
 
   request-light@0.5.8:
     resolution: {integrity: sha512-3Zjgh+8b5fhRJBQZoy+zbVKpAQGLyka0MPgW3zruTF4dFFJ8Fqcfu9YsAvi/rvdcaTeWG3MkbZv4WKxAn/84Lg==}
@@ -3273,8 +3224,6 @@ snapshots:
   '@adobe/css-tools@4.3.3':
     optional: true
 
-  '@alloc/quick-lru@5.3.0': {}
-
   '@astrojs/astro2tsx@0.1.4':
     dependencies:
       '@emnapi/core': 1.11.3
@@ -3803,8 +3752,6 @@ snapshots:
     dependencies:
       '@expressive-code/core': 0.44.4
 
-  '@fontsource-variable/newsreader@5.3.0': {}
-
   '@fontsource-variable/open-sans@5.3.0': {}
 
   '@fontsource/jetbrains-mono@5.3.0': {}
@@ -4236,14 +4183,6 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.3.5
       '@tailwindcss/oxide-win32-x64-msvc': 4.3.5
 
-  '@tailwindcss/postcss@4.3.5':
-    dependencies:
-      '@alloc/quick-lru': 5.3.0
-      '@tailwindcss/node': 4.3.5
-      '@tailwindcss/oxide': 4.3.5
-      postcss: 8.5.33
-      tailwindcss: 4.3.5
-
   '@tailwindcss/vite@4.3.5(vite@8.3.8(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(stylus@0.62.0(supports-color@10.2.2))(yaml@2.9.1))':
     dependencies:
       '@tailwindcss/node': 4.3.5
@@ -4270,8 +4209,6 @@ snapshots:
       '@types/unist': 3.0.3
 
   '@types/katex@0.16.8': {}
-
-  '@types/lodash@4.17.27': {}
 
   '@types/mdast@4.0.4':
     dependencies:
@@ -4301,8 +4238,6 @@ snapshots:
   '@types/sax@1.2.7':
     dependencies:
       '@types/node': 26.6.6
-
-  '@types/ungap__structured-clone@1.2.0': {}
 
   '@types/unist@2.0.11': {}
 
@@ -5230,8 +5165,6 @@ snapshots:
       lightningcss-win32-arm64-msvc: 1.33.0
       lightningcss-win32-x64-msvc: 1.33.0
 
-  lodash@4.18.1: {}
-
   longest-streak@3.1.0: {}
 
   lru-cache@11.5.3: {}
@@ -5450,16 +5383,6 @@ snapshots:
   mdast-util-to-string@4.0.0:
     dependencies:
       '@types/mdast': 4.0.4
-
-  mdast-util-toc@7.2.0:
-    dependencies:
-      '@types/mdast': 4.0.4
-      '@types/ungap__structured-clone': 1.2.0
-      '@ungap/structured-clone': 1.4.0
-      github-slugger: 2.0.0
-      mdast-util-to-string: 4.0.0
-      unist-util-is: 6.0.1
-      unist-util-visit: 5.2.0
 
   mdn-data@2.0.28: {}
 
@@ -6077,11 +6000,6 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-to-markdown: 2.2.4
       unified: 11.0.5
-
-  remark-toc@9.0.0:
-    dependencies:
-      '@types/mdast': 4.0.4
-      mdast-util-toc: 7.2.0
 
   request-light@0.5.8: {}
 

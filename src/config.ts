@@ -11,23 +11,6 @@ export const Site = {
             { name: "分类", url: "/categories" },
             { name: "标签", url: "/tags" },
         ],
-        icons: [
-            {
-                clz: "fas fa-rss",
-                url: "/rss.xml",
-                label: "RSS",
-            },
-            {
-                clz: "fab fa-github",
-                url: "https://github.com/tisonkun",
-                label: "GitHub",
-            },
-            {
-                clz: "fab fa-twitter",
-                url: "https://x.com/tison1096",
-                label: "X",
-            },
-        ],
     },
 };
 
