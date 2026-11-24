@@ -19,138 +19,100 @@ for (const entry of trails) {
     kindCounts.set(entry.data.kind, (kindCounts.get(entry.data.kind) ?? 0) + 1);
 }
 
-const title = "轨迹";
-const description = "中二少年的轨迹：听过的歌、记住的台词，以及驻足过的片段。";
+const title = "中二少年的轨迹";
 ---
 
 <BaseLayout title={`${title} | ${Site.title}`}>
-    <PageMeta title={title} description={description} slot="meta" />
+    <PageMeta title={title} slot="meta" />
 
     <section class="mt-8">
-        <header class="mb-6">
-            <h1 class="my-0 text-3xl font-bold text-gray-900">{title}</h1>
-            <p class="mt-2 mb-0 text-sm text-gray-500 leading-relaxed">
-                {description}
-            </p>
-        </header>
+        <h1 class="my-0 text-3xl font-bold text-gray-900">{title}</h1>
 
-        <div class="pb-3 border-b border-gray-900/10 flex flex-wrap items-center justify-between gap-3">
-            <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="按类型筛选">
-                <button
-                    type="button"
-                    data-kind-filter="all"
-                    aria-pressed="true"
-                    class="trail-pill trail-pill-active cursor-pointer rounded-full border px-3 py-1 text-xs font-medium transition-colors"
-                >
-                    全部 <span class="opacity-65 ml-0.5">{totalCount}</span>
-                </button>
+        <div
+            class="mt-6 pb-3.5 border-b border-gray-900/10 flex flex-wrap items-center justify-between gap-3"
+        >
+            <div class="flex flex-wrap items-center gap-2" role="group" aria-label="多条件筛选">
+                <label class="trail-select-wrap">
+                    <span class="sr-only">按类型筛选</span>
+                    <select id="trail-kind-select" class="trail-select">
+                        <option value="all">全部类型（{totalCount}）</option>
+                        {
+                            TRAIL_KIND_ORDER.filter(
+                                (kind) => (kindCounts.get(kind) ?? 0) > 0,
+                            ).map((kind) => (
+                                <option value={kind}>
+                                    {TRAIL_KIND_META[kind].label}（{kindCounts.get(kind)}）
+                                </option>
+                            ))
+                        }
+                    </select>
+                </label>
+
                 {
-                    TRAIL_KIND_ORDER.filter((kind) => (kindCounts.get(kind) ?? 0) > 0).map(
-                        (kind) => (
-                            <button
-                                type="button"
-                                data-kind-filter={kind}
-                                aria-pressed="false"
-                                class="trail-pill cursor-pointer rounded-full border px-3 py-1 text-xs font-medium transition-colors"
-                            >
-                                {TRAIL_KIND_META[kind].label}{" "}
-                                <span class="opacity-65 ml-0.5">{kindCounts.get(kind)}</span>
-                            </button>
-                        ),
+                    sortedTags.length > 0 && (
+                        <label class="trail-select-wrap">
+                            <span class="sr-only">按标签筛选</span>
+                            <select id="trail-tag-select" class="trail-select">
+                                <option value="">筛选标签…</option>
+                                {sortedTags.map(({ name, count }) => (
+                                    <option value={name}>
+                                        #{name}（{count}）
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
                     )
                 }
             </div>
 
-            <div class="flex items-center gap-1.5" role="group" aria-label="排序方式">
+            <div
+                class="inline-flex items-center rounded-lg border border-gray-900/12 bg-gray-50/80 p-0.5"
+                role="group"
+                aria-label="排序方式"
+            >
                 <button
                     type="button"
                     data-sort-mode="time"
                     aria-pressed="true"
-                    class="trail-sort-btn trail-sort-active inline-flex items-center gap-1 cursor-pointer rounded-md border px-2.5 py-1 text-xs font-medium transition-colors"
+                    class="trail-sort-btn trail-sort-active cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
                 >
-                    <svg
-                        class="w-3.5 h-3.5"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-                        <circle cx="12" cy="12" r="9" />
-                        <path d="M12 7v5l3 2" />
-                    </svg>
-                    <span>按时间</span>
+                    按时间
                 </button>
                 <button
                     type="button"
                     data-sort-mode="shuffle"
                     aria-pressed="false"
-                    class="trail-sort-btn inline-flex items-center gap-1 cursor-pointer rounded-md border px-2.5 py-1 text-xs font-medium transition-colors"
-                    title="随机打乱顺序，再次点击可重新洗牌"
+                    class="trail-sort-btn cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
                 >
-                    <svg
-                        class="w-3.5 h-3.5"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-                        <path d="M16 3h5v5" />
-                        <path d="M4 20 21 3" />
-                        <path d="M21 16v5h-5" />
-                        <path d="M15 15l6 6" />
-                        <path d="M4 4l5 5" />
-                    </svg>
-                    <span data-shuffle-label>乱序漫游</span>
+                    手气不错
                 </button>
             </div>
         </div>
 
-        {
-            sortedTags.length > 0 && (
-                <div class="mt-3 flex flex-wrap items-center gap-1.5" role="group" aria-label="按标签筛选">
-                    <span class="text-xs text-gray-400 mr-1 select-none">标签</span>
-                    {sortedTags.map(({ name, count }) => (
-                        <button
-                            type="button"
-                            data-tag-filter={name}
-                            aria-pressed="false"
-                            class="trail-tag-chip cursor-pointer rounded-md border px-2 py-0.5 text-xs transition-colors"
-                        >
-                            #{name}
-                            <span class="ml-0.5 text-[11px] opacity-60">{count}</span>
-                        </button>
-                    ))}
-                </div>
-            )
-        }
-
         <div
-            id="trail-status"
-            class="mt-3 hidden items-center justify-between text-xs text-gray-500"
+            id="trail-active-filters"
+            class="mt-3 hidden flex-wrap items-center justify-between gap-2 text-xs text-gray-500"
         >
-            <span id="trail-status-text"></span>
-            <button
-                type="button"
-                id="trail-reset-btn"
-                class="cursor-pointer border-0 bg-transparent p-0 text-xs text-blue-600 hover:text-gray-600"
-            >
-                重置筛选
-            </button>
+            <div id="trail-filter-chips" class="flex flex-wrap items-center gap-1.5"></div>
+            <div class="flex items-center gap-3 shrink-0">
+                <span id="trail-count-text"></span>
+                <button
+                    type="button"
+                    id="trail-reset-btn"
+                    class="cursor-pointer border-0 bg-transparent p-0 text-xs text-blue-600 hover:text-gray-600"
+                >
+                    清空筛选
+                </button>
+            </div>
         </div>
 
-        <div
-            id="trail-grid"
-            class="mt-6 columns-1 md:columns-2 gap-4"
+        <ul
+            id="trail-list"
+            class="mt-6 mb-0 p-0 space-y-6 list-none"
             data-total={totalCount}
         >
             {trails.map((entry, index) => <TrailCard entry={entry} index={index} />)}
-        </div>
+        </ul>
 
         <div
             id="trail-empty"
@@ -162,79 +124,69 @@ const description = "中二少年的轨迹：听过的歌、记住的台词，�
                 id="trail-empty-reset"
                 class="mt-3 cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-1 text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900"
             >
-                显示全部轨迹
+                查看全部
             </button>
         </div>
     </section>
 </BaseLayout>
 
 <style>
-    .trail-pill {
-        border-color: rgba(17, 24, 39, 0.12);
+    .trail-select-wrap {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .trail-select {
+        cursor: pointer;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(17, 24, 39, 0.14);
         background-color: #fff;
-        color: #4b5563;
+        padding: 0.35rem 0.65rem;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        color: #374151;
+        transition: border-color 0.15s ease, color 0.15s ease;
     }
 
-    .trail-pill:hover {
-        border-color: rgba(17, 24, 39, 0.25);
+    .trail-select:hover,
+    .trail-select:focus {
+        border-color: rgba(17, 24, 39, 0.3);
         color: #111827;
-    }
-
-    .trail-pill-active {
-        border-color: #111827;
-        background-color: #111827;
-        color: #fff;
-    }
-
-    .trail-pill-active:hover {
-        border-color: #111827;
-        color: #fff;
+        outline: none;
     }
 
     .trail-sort-btn {
-        border-color: rgba(17, 24, 39, 0.12);
-        background-color: #fff;
-        color: #4b5563;
+        background-color: transparent;
+        color: #6b7280;
     }
 
     .trail-sort-btn:hover {
-        border-color: rgba(17, 24, 39, 0.25);
         color: #111827;
     }
 
     .trail-sort-active {
-        border-color: #2563eb;
+        background-color: #fff;
+        color: #111827;
+        box-shadow: 0 1px 2px rgba(17, 24, 39, 0.08);
+    }
+
+    :global(.trail-active-chip) {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        cursor: pointer;
+        border-radius: 0.375rem;
+        border: 1px solid rgba(37, 99, 235, 0.25);
         background-color: #eff6ff;
+        padding: 0.15rem 0.5rem;
+        font-size: 0.75rem;
         color: #1d4ed8;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
     }
 
-    .trail-sort-active:hover {
-        border-color: #1d4ed8;
-        color: #1d4ed8;
-    }
-
-    .trail-tag-chip {
-        border-color: rgba(17, 24, 39, 0.1);
-        background-color: #f9fafb;
-        color: #4b5563;
-    }
-
-    .trail-tag-chip:hover {
-        border-color: #93c5fd;
-        background-color: #eff6ff;
-        color: #1d4ed8;
-    }
-
-    .trail-tag-active {
-        border-color: #2563eb;
-        background-color: #2563eb;
-        color: #fff;
-    }
-
-    .trail-tag-active:hover {
-        border-color: #1d4ed8;
-        background-color: #1d4ed8;
-        color: #fff;
+    :global(.trail-active-chip:hover) {
+        border-color: rgba(37, 99, 235, 0.45);
+        background-color: #dbeafe;
     }
 
     @keyframes trail-settle {
@@ -248,41 +200,56 @@ const description = "中二少年的轨迹：听过的歌、记住的台词，�
         }
     }
 
-    :global(#trail-grid.is-shuffling [data-trail-card]) {
-        animation: trail-settle 0.24s ease-out;
+    :global(#trail-list.is-shuffling [data-trail-card]) {
+        animation: trail-settle 0.22s ease-out;
     }
 
-    :global([data-trail-card][hidden]),
-    #trail-reset-btn[hidden] {
+    :global([data-trail-card][hidden]) {
         display: none !important;
     }
 </style>
 
 <script>
-    const grid = document.getElementById("trail-grid");
-    if (grid) {
-        const gridEl: HTMLElement = grid;
-        const cards = Array.from(gridEl.querySelectorAll<HTMLElement>("[data-trail-card]"));
-        const kindButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-kind-filter]"));
-        const tagButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-tag-filter]"));
-        const sortButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-sort-mode]"));
-        const shuffleLabel = document.querySelector<HTMLElement>("[data-shuffle-label]");
-        const statusBar = document.getElementById("trail-status");
-        const statusText = document.getElementById("trail-status-text");
+    const list = document.getElementById("trail-list");
+    if (list) {
+        const listEl: HTMLElement = list;
+        const cards = Array.from(listEl.querySelectorAll<HTMLElement>("[data-trail-card]"));
+        const kindSelect = document.getElementById("trail-kind-select") as HTMLSelectElement | null;
+        const tagSelect = document.getElementById("trail-tag-select") as HTMLSelectElement | null;
+        const sortButtons = Array.from(
+            document.querySelectorAll<HTMLButtonElement>("[data-sort-mode]"),
+        );
+        const activeFiltersBar = document.getElementById("trail-active-filters");
+        const filterChipsContainer = document.getElementById("trail-filter-chips");
+        const countText = document.getElementById("trail-count-text");
         const resetBtn = document.getElementById("trail-reset-btn");
         const emptyState = document.getElementById("trail-empty");
         const emptyResetBtn = document.getElementById("trail-empty-reset");
 
-        const validKinds = new Set(kindButtons.map((btn) => btn.dataset.kindFilter || "all"));
-        const validTags = new Set(tagButtons.map((btn) => btn.dataset.tagFilter || ""));
+        const kindLabels: Record<string, string> = {
+            song: "曲目",
+            quote: "台词",
+            reference: "拾遗",
+        };
+
+        const validKinds = new Set(
+            kindSelect ? Array.from(kindSelect.options).map((opt) => opt.value) : ["all"],
+        );
+        const validTags = new Set(
+            tagSelect
+                ? Array.from(tagSelect.options)
+                      .map((opt) => opt.value)
+                      .filter(Boolean)
+                : [],
+        );
 
         const params = new URLSearchParams(window.location.search);
         const initialKind = params.get("kind");
-        const initialTag = params.get("tag");
+        const initialTags = params.getAll("tag").filter((tag) => validTags.has(tag));
         const initialOrder = params.get("order");
 
         let activeKind = initialKind && validKinds.has(initialKind) ? initialKind : "all";
-        let activeTag = initialTag && validTags.has(initialTag) ? initialTag : null;
+        const activeTags = new Set<string>(initialTags);
         let sortMode: "time" | "shuffle" = initialOrder === "random" ? "shuffle" : "time";
         let currentOrder = cards.map((_, idx) => idx);
 
@@ -316,22 +283,60 @@ const description = "中二少年的轨迹：听过的歌、记住的台词，�
 
         function syncUrl() {
             const url = new URL(window.location.href);
+            url.searchParams.delete("kind");
+            url.searchParams.delete("tag");
+            url.searchParams.delete("order");
+
             if (activeKind !== "all") {
                 url.searchParams.set("kind", activeKind);
-            } else {
-                url.searchParams.delete("kind");
             }
-            if (activeTag) {
-                url.searchParams.set("tag", activeTag);
-            } else {
-                url.searchParams.delete("tag");
+            for (const tag of activeTags) {
+                url.searchParams.append("tag", tag);
             }
             if (sortMode === "shuffle") {
                 url.searchParams.set("order", "random");
-            } else {
-                url.searchParams.delete("order");
             }
             window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+        }
+
+        function renderFilterChips(visibleCount: number) {
+            if (!activeFiltersBar || !filterChipsContainer || !countText) return;
+            const hasFilter = activeKind !== "all" || activeTags.size > 0;
+
+            filterChipsContainer.replaceChildren();
+            if (!hasFilter) {
+                activeFiltersBar.classList.add("hidden");
+                activeFiltersBar.classList.remove("flex");
+                return;
+            }
+
+            if (activeKind !== "all") {
+                const chip = document.createElement("button");
+                chip.type = "button";
+                chip.className = "trail-active-chip";
+                chip.textContent = `类型：${kindLabels[activeKind] ?? activeKind} ×`;
+                chip.addEventListener("click", () => {
+                    activeKind = "all";
+                    render();
+                });
+                filterChipsContainer.appendChild(chip);
+            }
+
+            for (const tag of activeTags) {
+                const chip = document.createElement("button");
+                chip.type = "button";
+                chip.className = "trail-active-chip";
+                chip.textContent = `#${tag} ×`;
+                chip.addEventListener("click", () => {
+                    activeTags.delete(tag);
+                    render();
+                });
+                filterChipsContainer.appendChild(chip);
+            }
+
+            countText.textContent = `显示 ${visibleCount} / ${cards.length} 条`;
+            activeFiltersBar.classList.remove("hidden");
+            activeFiltersBar.classList.add("flex");
         }
 
         function render(animate = false) {
@@ -342,8 +347,14 @@ const description = "中二少年的轨迹：听过的歌、记住的台词，�
             for (const idx of order) {
                 const item = cardMeta[idx];
                 const matchKind = activeKind === "all" || item.kind === activeKind;
-                const matchTag = !activeTag || item.tags.includes(activeTag);
-                const visible = matchKind && matchTag;
+                let matchTags = true;
+                for (const tag of activeTags) {
+                    if (!item.tags.includes(tag)) {
+                        matchTags = false;
+                        break;
+                    }
+                }
+                const visible = matchKind && matchTags;
                 item.el.hidden = !visible;
                 if (visible) {
                     visibleCount += 1;
@@ -351,24 +362,29 @@ const description = "中二少年的轨迹：听过的歌、记住的台词，�
                 fragment.appendChild(item.el);
             }
 
-            gridEl.appendChild(fragment);
+            listEl.appendChild(fragment);
 
+            listEl.classList.remove("is-shuffling");
             if (animate) {
-                gridEl.classList.remove("is-shuffling");
-                void gridEl.offsetWidth;
-                gridEl.classList.add("is-shuffling");
+                void listEl.offsetWidth;
+                listEl.classList.add("is-shuffling");
+                listEl.addEventListener(
+                    "animationend",
+                    () => listEl.classList.remove("is-shuffling"),
+                    { once: true },
+                );
             }
 
-            for (const btn of kindButtons) {
-                const isActive = btn.dataset.kindFilter === activeKind;
-                btn.classList.toggle("trail-pill-active", isActive);
-                btn.setAttribute("aria-pressed", String(isActive));
+            if (kindSelect) {
+                kindSelect.value = activeKind;
             }
 
-            for (const btn of tagButtons) {
-                const isActive = btn.dataset.tagFilter === activeTag;
-                btn.classList.toggle("trail-tag-active", isActive);
-                btn.setAttribute("aria-pressed", String(isActive));
+            if (tagSelect) {
+                tagSelect.value = "";
+                for (const opt of Array.from(tagSelect.options)) {
+                    if (!opt.value) continue;
+                    opt.disabled = activeTags.has(opt.value);
+                }
             }
 
             for (const btn of sortButtons) {
@@ -377,34 +393,7 @@ const description = "中二少年的轨迹：听过的歌、记住的台词，�
                 btn.setAttribute("aria-pressed", String(isActive));
             }
 
-            if (shuffleLabel) {
-                shuffleLabel.textContent = sortMode === "shuffle" ? "再洗一次" : "乱序漫游";
-            }
-
-            const hasFilter = activeKind !== "all" || activeTag !== null;
-            if (statusBar && statusText) {
-                if (hasFilter || sortMode === "shuffle") {
-                    const parts: string[] = [];
-                    if (hasFilter) {
-                        parts.push(`显示 ${visibleCount} / ${cards.length} 条`);
-                    }
-                    if (activeTag) {
-                        parts.push(`标签 #${activeTag}`);
-                    }
-                    if (sortMode === "shuffle") {
-                        parts.push("当前为乱序漫游");
-                    }
-                    statusText.textContent = parts.join(" · ");
-                    statusBar.classList.remove("hidden");
-                    statusBar.classList.add("flex");
-                    if (resetBtn) {
-                        resetBtn.hidden = !hasFilter;
-                    }
-                } else {
-                    statusBar.classList.add("hidden");
-                    statusBar.classList.remove("flex");
-                }
-            }
+            renderFilterChips(visibleCount);
 
             if (emptyState) {
                 emptyState.classList.toggle("hidden", visibleCount > 0);
@@ -417,20 +406,18 @@ const description = "中二少年的轨迹：听过的歌、记住的台词，�
             currentOrder = shuffleOrder(currentOrder);
         }
 
-        for (const btn of kindButtons) {
-            btn.addEventListener("click", () => {
-                activeKind = btn.dataset.kindFilter || "all";
-                render();
-            });
-        }
+        kindSelect?.addEventListener("change", () => {
+            activeKind = kindSelect.value || "all";
+            render();
+        });
 
-        for (const btn of tagButtons) {
-            btn.addEventListener("click", () => {
-                const tag = btn.dataset.tagFilter || null;
-                activeTag = activeTag === tag ? null : tag;
+        tagSelect?.addEventListener("change", () => {
+            const tag = tagSelect.value;
+            if (tag && validTags.has(tag)) {
+                activeTags.add(tag);
                 render();
-            });
-        }
+            }
+        });
 
         for (const btn of sortButtons) {
             btn.addEventListener("click", () => {
@@ -446,20 +433,24 @@ const description = "中二少年的轨迹：听过的歌、记住的台词，�
             });
         }
 
-        grid.addEventListener("click", (event) => {
+        listEl.addEventListener("click", (event) => {
             const target = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>(
                 "[data-card-tag]",
             );
             if (!target) return;
-            const tag = target.dataset.cardTag || null;
+            const tag = target.dataset.cardTag;
             if (!tag) return;
-            activeTag = activeTag === tag ? null : tag;
+            if (activeTags.has(tag)) {
+                activeTags.delete(tag);
+            } else {
+                activeTags.add(tag);
+            }
             render();
         });
 
         const resetFilters = () => {
             activeKind = "all";
-            activeTag = null;
+            activeTags.clear();
             render();
         };
 

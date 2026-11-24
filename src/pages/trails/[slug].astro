@@ -8,9 +8,8 @@ import { Site } from "@/config";
 import {
     formatTrailDate,
     getAllTrails,
-    getTrailLinks,
     getTrailSummary,
-    hasTrailNote,
+    hasTrailBody,
     type TrailEntry,
 } from "@/lib/trail";
 
@@ -29,19 +28,18 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { slug } = Astro.params;
 
-const { title, date, kind, credit, source, quote, tags } = entry.data;
+const { title, date, kind, credit, source, tags } = entry.data;
 const formattedDate = formatTrailDate(date);
 const description = getTrailSummary(entry, 160);
-const links = getTrailLinks(entry);
-const hasNote = hasTrailNote(entry);
+const hasBody = hasTrailBody(entry);
 const subtitle = [credit, source].filter(Boolean).join(" · ");
 const ogImageAbsoluteUrl = `${Site.baseUrl}/media/yatennosyo.png`;
-const { Content } = hasNote ? await render(entry) : { Content: null };
+const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
 
-<BaseLayout title={`${title} | 轨迹 | ${Site.title}`}>
+<BaseLayout title={`${title} | 中二少年的轨迹 | ${Site.title}`}>
     <PostMeta
-        title={`${title} | 轨迹`}
+        title={`${title} | 中二少年的轨迹`}
         description={description}
         publishDate={date.toISOString()}
         pagePath={`/trails/${slug}`}
@@ -58,18 +56,7 @@ const { Content } = hasNote ? await render(entry) : { Content: null };
                 href="/trails"
                 class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 transition-colors"
             >
-                <svg
-                    class="w-4 h-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                >
-                    <path d="m15 18-6-6 6-6" />
-                </svg>
+                <span aria-hidden="true">←</span>
                 <span>返回轨迹</span>
             </a>
         </nav>
@@ -95,44 +82,6 @@ const { Content } = hasNote ? await render(entry) : { Content: null };
                 )
             }
         </header>
-
-        {
-            quote && (
-                <div class="mt-6 rounded-xl border border-[#e7e5e0] bg-[#f8f8f6] px-5 py-4 text-base leading-relaxed text-gray-800 whitespace-pre-line">
-                    {quote}
-                </div>
-            )
-        }
-
-        {
-            links.length > 0 && (
-                <div class="mt-6 flex flex-wrap gap-2">
-                    {links.map((link) => (
-                        <a
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-3.5 py-2 text-sm font-medium text-gray-800 hover:border-blue-300 hover:bg-blue-50/60 hover:text-blue-700 transition-colors"
-                        >
-                            <span>{link.label}</span>
-                            <svg
-                                class="w-3.5 h-3.5 opacity-70"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                aria-hidden="true"
-                            >
-                                <path d="M7 17 17 7" />
-                                <path d="M7 7h10v10" />
-                            </svg>
-                        </a>
-                    ))}
-                </div>
-            )
-        }
 
         {
             Content && (
