@@ -16,7 +16,7 @@ import { rehypeFigure } from "./src/plugins/rehype-figure.mjs";
 
 const port = 4000;
 const isBuild = process.env.npm_lifecycle_script?.includes("astro build");
-const baseUrl = isBuild ? 'https://tisonkun.org' : `http://localhost:${port}`;
+const baseUrl = isBuild ? 'https://www.tisonkun.org' : `http://localhost:${port}`;
 
 const headingLinkIcon = {
     type: 'element',
