@@ -3,7 +3,6 @@ import { render } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Giscus from "@/components/Giscus.astro";
 import PostMeta from "@/components/PostMeta.astro";
-import TrailKindBadge from "@/components/TrailKindBadge.astro";
 import { Site } from "@/config";
 import {
     formatTrailDate,
@@ -28,11 +27,10 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { slug } = Astro.params;
 
-const { title, date, kind, credit, source, tags } = entry.data;
+const { title, date, work, credit } = entry.data;
 const formattedDate = formatTrailDate(date);
 const description = getTrailSummary(entry, 160);
 const hasBody = hasTrailBody(entry);
-const subtitle = [credit, source].filter(Boolean).join(" · ");
 const ogImageAbsoluteUrl = `${Site.baseUrl}/media/yatennosyo.png`;
 const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
@@ -62,22 +60,28 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
         </nav>
 
         <header class="pb-5 border-b border-gray-900/10">
-            <div class="flex items-center gap-3">
-                <TrailKindBadge kind={kind} />
-                <time
-                    datetime={date.toISOString()}
-                    class="font-mono text-xs text-gray-500 tabular-nums"
-                >
-                    {formattedDate}
-                </time>
-            </div>
-            <h1 class="mt-3 mb-0 text-3xl font-bold text-gray-900 leading-tight">
+            <time
+                datetime={date.toISOString()}
+                class="font-mono text-xs text-gray-500 tabular-nums"
+            >
+                {formattedDate}
+            </time>
+            <h1 class="mt-2 mb-0 text-3xl font-bold text-gray-900 leading-tight">
                 {title}
             </h1>
             {
-                subtitle && (
+                (work || credit) && (
                     <p class="mt-2 mb-0 text-sm text-gray-500 leading-relaxed">
-                        {subtitle}
+                        {work && (
+                            <a
+                                href={`/trails?work=${encodeURIComponent(work)}`}
+                                class="text-gray-600 hover:text-blue-600 transition-colors"
+                            >
+                                《{work}》
+                            </a>
+                        )}
+                        {work && credit && <span class="mx-1.5 text-gray-300">·</span>}
+                        {credit && <span>{credit}</span>}
                     </p>
                 )
             }
@@ -87,22 +91,6 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
             Content && (
                 <div class="post-content mt-6">
                     <Content />
-                </div>
-            )
-        }
-
-        {
-            tags.length > 0 && (
-                <div class="mt-8 flex flex-wrap items-center gap-2">
-                    <span class="text-sm text-gray-500 mr-1">标签</span>
-                    {tags.map((tag) => (
-                        <a
-                            href={`/trails?tag=${encodeURIComponent(tag)}`}
-                            class="inline-block rounded-md border border-blue-600/80 px-2.5 py-0.5 text-sm text-blue-600 hover:bg-blue-50 transition-colors"
-                        >
-                            #{tag}
-                        </a>
-                    ))}
                 </div>
             )
         }

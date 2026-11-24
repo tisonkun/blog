@@ -1,7 +1,6 @@
 ---
 import { render } from "astro:content";
 import DateTile from "@/components/DateTile.astro";
-import TrailKindBadge from "@/components/TrailKindBadge.astro";
 import { hasTrailBody, type TrailEntry } from "@/lib/trail";
 
 interface Props {
@@ -10,9 +9,8 @@ interface Props {
 }
 
 const { entry, index } = Astro.props;
-const { title, date, kind, credit, source, tags } = entry.data;
+const { title, date, work, credit } = entry.data;
 const hasBody = hasTrailBody(entry);
-const subtitle = [credit, source].filter(Boolean).join(" · ");
 const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
 
@@ -20,14 +18,13 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
     class="trail-item grid grid-cols-12 gap-3 sm:gap-4 items-start list-none"
     data-trail-card
     data-index={index}
-    data-kind={kind}
-    data-tags={JSON.stringify(tags)}
+    data-work={work ?? ""}
 >
     <DateTile date={date} />
     <article
         class="col-span-10 rounded-xl border border-gray-900/10 bg-white px-5 py-4 transition-all duration-150 hover:border-gray-900/20 hover:shadow-[0_4px_16px_rgba(17,24,39,0.06)]"
     >
-        <div class="flex items-start justify-between gap-3">
+        <div class="flex items-baseline justify-between gap-3">
             <h2 class="my-0 text-xl font-semibold leading-snug">
                 <a
                     href={`/trails/${entry.id}`}
@@ -36,13 +33,30 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
                     {title}
                 </a>
             </h2>
-            <TrailKindBadge kind={kind} />
+            <a
+                href={`/trails/${entry.id}#comments`}
+                class="shrink-0 text-xs text-gray-400 hover:text-blue-600 transition-colors"
+                title="进入讨论串"
+            >
+                讨论
+            </a>
         </div>
 
         {
-            subtitle && (
+            (work || credit) && (
                 <p class="mt-1 mb-0 text-sm text-gray-500 leading-relaxed">
-                    {subtitle}
+                    {work && (
+                        <button
+                            type="button"
+                            data-card-work={work}
+                            class="cursor-pointer border-0 bg-transparent p-0 text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                            title={`按作品《${work}》筛选`}
+                        >
+                            《{work}》
+                        </button>
+                    )}
+                    {work && credit && <span class="mx-1.5 text-gray-300">·</span>}
+                    {credit && <span>{credit}</span>}
                 </p>
             )
         }
@@ -54,31 +68,6 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
                 </div>
             )
         }
-
-        <div
-            class="mt-3.5 pt-3 border-t border-gray-900/6 flex items-center justify-between gap-3"
-        >
-            <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 min-w-0">
-                {
-                    tags.map((tag) => (
-                        <button
-                            type="button"
-                            data-card-tag={tag}
-                            class="cursor-pointer border-0 bg-transparent p-0 text-xs text-gray-500 hover:text-blue-600 transition-colors"
-                        >
-                            #{tag}
-                        </button>
-                    ))
-                }
-            </div>
-            <a
-                href={`/trails/${entry.id}#comments`}
-                class="shrink-0 text-xs text-gray-400 hover:text-blue-600 transition-colors"
-                title="进入讨论串"
-            >
-                讨论
-            </a>
-        </div>
     </article>
 </li>
 

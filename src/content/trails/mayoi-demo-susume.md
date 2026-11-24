@@ -1,12 +1,8 @@
 ---
 title: 哪怕迷茫也要前进
 date: 2026-11-12
-kind: quote
+work: BanG Dream! It's MyGO!!!!!
 credit: 高松灯
-source: BanG Dream! It's MyGO!!!!!
-tags:
-  - MyGO!!!!!
-  - 台词
 ---
 
 > 迷子でもいい、迷子でも進め。

@@ -20,10 +20,8 @@ const trailCollection = defineCollection({
     schema: z.object({
         title: z.string(),
         date: z.coerce.date(),
-        kind: z.enum(['song', 'quote', 'reference']).default('reference'),
+        work: z.string().optional(),
         credit: z.string().optional(),
-        source: z.string().optional(),
-        tags: z.array(z.string()).default([]),
         draft: z.boolean().optional(),
     }),
 });

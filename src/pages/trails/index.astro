@@ -4,20 +4,15 @@ import PageMeta from "@/components/PageMeta.astro";
 import TrailCard from "@/components/TrailCard.astro";
 import { Site } from "@/config";
 import { countTerms } from "@/lib/post";
-import {
-    getAllTrails,
-    sortTrailsByDateDesc,
-    TRAIL_KIND_META,
-    TRAIL_KIND_ORDER,
-} from "@/lib/trail";
+import { getAllTrails, sortTrailsByDateDesc } from "@/lib/trail";
 
 const trails = sortTrailsByDateDesc(await getAllTrails());
 const totalCount = trails.length;
-const sortedTags = countTerms(trails.flatMap((entry) => entry.data.tags));
-const kindCounts = new Map<string, number>();
-for (const entry of trails) {
-    kindCounts.set(entry.data.kind, (kindCounts.get(entry.data.kind) ?? 0) + 1);
-}
+const sortedWorks = countTerms(
+    trails
+        .map((entry) => entry.data.work?.trim())
+        .filter((work): work is string => Boolean(work)),
+);
 
 const title = "中二少年的轨迹";
 ---
@@ -31,38 +26,80 @@ const title = "中二少年的轨迹";
         <div
             class="mt-6 pb-3.5 border-b border-gray-900/10 flex flex-wrap items-center justify-between gap-3"
         >
-            <div class="flex flex-wrap items-center gap-2" role="group" aria-label="多条件筛选">
-                <label class="trail-select-wrap">
-                    <span class="sr-only">按类型筛选</span>
-                    <select id="trail-kind-select" class="trail-select">
-                        <option value="all">全部类型（{totalCount}）</option>
-                        {
-                            TRAIL_KIND_ORDER.filter(
-                                (kind) => (kindCounts.get(kind) ?? 0) > 0,
-                            ).map((kind) => (
-                                <option value={kind}>
-                                    {TRAIL_KIND_META[kind].label}（{kindCounts.get(kind)}）
-                                </option>
-                            ))
-                        }
-                    </select>
-                </label>
-
+            <div class="flex flex-wrap items-center gap-2">
                 {
-                    sortedTags.length > 0 && (
-                        <label class="trail-select-wrap">
-                            <span class="sr-only">按标签筛选</span>
-                            <select id="trail-tag-select" class="trail-select">
-                                <option value="">筛选标签…</option>
-                                {sortedTags.map(({ name, count }) => (
-                                    <option value={name}>
-                                        #{name}（{count}）
-                                    </option>
+                    sortedWorks.length > 0 && (
+                        <div class="relative" id="trail-work-dropdown">
+                            <button
+                                type="button"
+                                id="trail-work-trigger"
+                                aria-haspopup="listbox"
+                                aria-expanded="false"
+                                class="trail-work-btn inline-flex items-center gap-2 cursor-pointer rounded-lg border border-gray-900/14 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:border-gray-900/30 hover:text-gray-900 transition-colors"
+                            >
+                                <span id="trail-work-label">全部作品</span>
+                                <svg
+                                    id="trail-work-chevron"
+                                    class="w-3.5 h-3.5 text-gray-400 transition-transform duration-150"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="m6 9 6 6 6-6" />
+                                </svg>
+                            </button>
+
+                            <div
+                                id="trail-work-menu"
+                                role="listbox"
+                                aria-label="按作品筛选"
+                                hidden
+                                class="absolute left-0 top-full z-20 mt-1.5 min-w-[14rem] max-w-[20rem] max-h-72 overflow-y-auto rounded-lg border border-gray-900/12 bg-white py-1 shadow-[0_8px_24px_rgba(17,24,39,0.1)]"
+                            >
+                                <button
+                                    type="button"
+                                    role="option"
+                                    aria-selected="true"
+                                    data-work-option=""
+                                    class="trail-work-option trail-work-option-active w-full flex items-center justify-between gap-3 cursor-pointer border-0 bg-transparent px-3 py-1.5 text-left text-xs transition-colors"
+                                >
+                                    <span class="truncate">全部作品</span>
+                                    <span class="font-mono text-[11px] text-gray-400 tabular-nums shrink-0">
+                                        {totalCount}
+                                    </span>
+                                </button>
+                                <div class="my-1 border-t border-gray-900/8" />
+                                {sortedWorks.map(({ name, count }) => (
+                                    <button
+                                        type="button"
+                                        role="option"
+                                        aria-selected="false"
+                                        data-work-option={name}
+                                        class="trail-work-option w-full flex items-center justify-between gap-3 cursor-pointer border-0 bg-transparent px-3 py-1.5 text-left text-xs transition-colors"
+                                    >
+                                        <span class="truncate">{name}</span>
+                                        <span class="font-mono text-[11px] text-gray-400 tabular-nums shrink-0">
+                                            {count}
+                                        </span>
+                                    </button>
                                 ))}
-                            </select>
-                        </label>
+                            </div>
+                        </div>
                     )
                 }
+
+                <button
+                    type="button"
+                    id="trail-work-clear"
+                    hidden
+                    class="cursor-pointer border-0 bg-transparent px-1 py-1 text-xs text-gray-400 hover:text-blue-600 transition-colors"
+                >
+                    清除筛选
+                </button>
             </div>
 
             <div
@@ -72,36 +109,42 @@ const title = "中二少年的轨迹";
             >
                 <button
                     type="button"
-                    data-sort-mode="time"
+                    data-sort-mode="newest"
                     aria-pressed="true"
                     class="trail-sort-btn trail-sort-active cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
                 >
-                    按时间
+                    最新
                 </button>
                 <button
                     type="button"
-                    data-sort-mode="shuffle"
+                    data-sort-mode="oldest"
                     aria-pressed="false"
                     class="trail-sort-btn cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
                 >
-                    手气不错
+                    最早
                 </button>
-            </div>
-        </div>
-
-        <div
-            id="trail-active-filters"
-            class="mt-3 hidden flex-wrap items-center justify-between gap-2 text-xs text-gray-500"
-        >
-            <div id="trail-filter-chips" class="flex flex-wrap items-center gap-1.5"></div>
-            <div class="flex items-center gap-3 shrink-0">
-                <span id="trail-count-text"></span>
                 <button
                     type="button"
-                    id="trail-reset-btn"
-                    class="cursor-pointer border-0 bg-transparent p-0 text-xs text-blue-600 hover:text-gray-600"
+                    data-sort-mode="random"
+                    aria-pressed="false"
+                    title="随机排序，再次点击可重新随机"
+                    class="trail-sort-btn inline-flex items-center gap-1 cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
                 >
-                    清空筛选
+                    <span>随机</span>
+                    <svg
+                        id="trail-reshuffle-icon"
+                        class="hidden w-3 h-3 text-gray-400"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+                        <path d="M21 3v6h-6" />
+                    </svg>
                 </button>
             </div>
         </div>
@@ -116,9 +159,10 @@ const title = "中二少年的轨迹";
 
         <div
             id="trail-empty"
-            class="hidden mt-8 rounded-xl border border-dashed border-gray-300 px-6 py-10 text-center"
+            hidden
+            class="mt-8 rounded-xl border border-dashed border-gray-300 px-6 py-10 text-center"
         >
-            <p class="my-0 text-sm text-gray-500">当前筛选条件下暂无记录。</p>
+            <p class="my-0 text-sm text-gray-500">该作品下暂无记录。</p>
             <button
                 type="button"
                 id="trail-empty-reset"
@@ -131,28 +175,35 @@ const title = "中二少年的轨迹";
 </BaseLayout>
 
 <style>
-    .trail-select-wrap {
-        display: inline-flex;
-        align-items: center;
+    .trail-work-btn-active {
+        border-color: rgba(37, 99, 235, 0.35);
+        background-color: #eff6ff;
+        color: #1d4ed8;
     }
 
-    .trail-select {
-        cursor: pointer;
-        border-radius: 0.5rem;
-        border: 1px solid rgba(17, 24, 39, 0.14);
-        background-color: #fff;
-        padding: 0.35rem 0.65rem;
-        font-size: 0.8rem;
-        line-height: 1.4;
+    .trail-work-btn-active:hover {
+        border-color: rgba(37, 99, 235, 0.5);
+        color: #1d4ed8;
+    }
+
+    .trail-work-option {
         color: #374151;
-        transition: border-color 0.15s ease, color 0.15s ease;
     }
 
-    .trail-select:hover,
-    .trail-select:focus {
-        border-color: rgba(17, 24, 39, 0.3);
+    .trail-work-option:hover {
+        background-color: #f3f4f6;
         color: #111827;
-        outline: none;
+    }
+
+    .trail-work-option-active {
+        background-color: #eff6ff;
+        color: #1d4ed8;
+        font-weight: 500;
+    }
+
+    .trail-work-option-active:hover {
+        background-color: #dbeafe;
+        color: #1d4ed8;
     }
 
     .trail-sort-btn {
@@ -170,25 +221,6 @@ const title = "中二少年的轨迹";
         box-shadow: 0 1px 2px rgba(17, 24, 39, 0.08);
     }
 
-    :global(.trail-active-chip) {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-        cursor: pointer;
-        border-radius: 0.375rem;
-        border: 1px solid rgba(37, 99, 235, 0.25);
-        background-color: #eff6ff;
-        padding: 0.15rem 0.5rem;
-        font-size: 0.75rem;
-        color: #1d4ed8;
-        transition: background-color 0.15s ease, border-color 0.15s ease;
-    }
-
-    :global(.trail-active-chip:hover) {
-        border-color: rgba(37, 99, 235, 0.45);
-        background-color: #dbeafe;
-    }
-
     @keyframes trail-settle {
         from {
             opacity: 0.45;
@@ -200,11 +232,27 @@ const title = "中二少年的轨迹";
         }
     }
 
+    @keyframes trail-spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
     :global(#trail-list.is-shuffling [data-trail-card]) {
         animation: trail-settle 0.22s ease-out;
     }
 
-    :global([data-trail-card][hidden]) {
+    #trail-reshuffle-icon.is-spinning {
+        animation: trail-spin 0.32s ease-out;
+    }
+
+    :global([data-trail-card][hidden]),
+    #trail-work-menu[hidden],
+    #trail-work-clear[hidden],
+    #trail-empty[hidden] {
         display: none !important;
     }
 </style>
@@ -214,60 +262,49 @@ const title = "中二少年的轨迹";
     if (list) {
         const listEl: HTMLElement = list;
         const cards = Array.from(listEl.querySelectorAll<HTMLElement>("[data-trail-card]"));
-        const kindSelect = document.getElementById("trail-kind-select") as HTMLSelectElement | null;
-        const tagSelect = document.getElementById("trail-tag-select") as HTMLSelectElement | null;
+        const dropdown = document.getElementById("trail-work-dropdown");
+        const trigger = document.getElementById("trail-work-trigger") as HTMLButtonElement | null;
+        const triggerLabel = document.getElementById("trail-work-label");
+        const chevron = document.getElementById("trail-work-chevron");
+        const menu = document.getElementById("trail-work-menu");
+        const workOptions = Array.from(
+            document.querySelectorAll<HTMLButtonElement>("[data-work-option]"),
+        );
+        const clearBtn = document.getElementById("trail-work-clear") as HTMLButtonElement | null;
         const sortButtons = Array.from(
             document.querySelectorAll<HTMLButtonElement>("[data-sort-mode]"),
         );
-        const activeFiltersBar = document.getElementById("trail-active-filters");
-        const filterChipsContainer = document.getElementById("trail-filter-chips");
-        const countText = document.getElementById("trail-count-text");
-        const resetBtn = document.getElementById("trail-reset-btn");
+        const reshuffleIcon = document.getElementById("trail-reshuffle-icon");
         const emptyState = document.getElementById("trail-empty");
         const emptyResetBtn = document.getElementById("trail-empty-reset");
 
-        const kindLabels: Record<string, string> = {
-            song: "曲目",
-            quote: "台词",
-            reference: "拾遗",
-        };
-
-        const validKinds = new Set(
-            kindSelect ? Array.from(kindSelect.options).map((opt) => opt.value) : ["all"],
-        );
-        const validTags = new Set(
-            tagSelect
-                ? Array.from(tagSelect.options)
-                      .map((opt) => opt.value)
-                      .filter(Boolean)
-                : [],
+        const validWorks = new Set(
+            workOptions.map((opt) => opt.dataset.workOption ?? "").filter(Boolean),
         );
 
         const params = new URLSearchParams(window.location.search);
-        const initialKind = params.get("kind");
-        const initialTags = params.getAll("tag").filter((tag) => validTags.has(tag));
+        const initialWork = params.get("work");
         const initialOrder = params.get("order");
 
-        let activeKind = initialKind && validKinds.has(initialKind) ? initialKind : "all";
-        const activeTags = new Set<string>(initialTags);
-        let sortMode: "time" | "shuffle" = initialOrder === "random" ? "shuffle" : "time";
-        let currentOrder = cards.map((_, idx) => idx);
-
-        function parseTags(card: HTMLElement): string[] {
-            try {
-                const raw = card.dataset.tags;
-                return raw ? JSON.parse(raw) : [];
-            } catch {
-                return [];
-            }
-        }
+        let activeWork = initialWork && validWorks.has(initialWork) ? initialWork : "";
+        let sortMode: "newest" | "oldest" | "random" =
+            initialOrder === "oldest" || initialOrder === "random" ? initialOrder : "newest";
+        let randomOrder = cards.map((_, idx) => idx);
 
         const cardMeta = cards.map((el, index) => ({
             el,
             index,
-            kind: el.dataset.kind || "reference",
-            tags: parseTags(el),
+            work: el.dataset.work || "",
         }));
+
+        function setMenuOpen(open: boolean) {
+            if (!menu || !trigger) return;
+            menu.hidden = !open;
+            trigger.setAttribute("aria-expanded", String(open));
+            if (chevron) {
+                chevron.style.transform = open ? "rotate(180deg)" : "";
+            }
+        }
 
         function shuffleOrder(prev: number[]): number[] {
             const next = [...prev];
@@ -283,78 +320,36 @@ const title = "中二少年的轨迹";
 
         function syncUrl() {
             const url = new URL(window.location.href);
-            url.searchParams.delete("kind");
-            url.searchParams.delete("tag");
+            url.searchParams.delete("work");
             url.searchParams.delete("order");
 
-            if (activeKind !== "all") {
-                url.searchParams.set("kind", activeKind);
+            if (activeWork) {
+                url.searchParams.set("work", activeWork);
             }
-            for (const tag of activeTags) {
-                url.searchParams.append("tag", tag);
-            }
-            if (sortMode === "shuffle") {
-                url.searchParams.set("order", "random");
+            if (sortMode !== "newest") {
+                url.searchParams.set("order", sortMode);
             }
             window.history.replaceState({}, "", url.pathname + url.search + url.hash);
         }
 
-        function renderFilterChips(visibleCount: number) {
-            if (!activeFiltersBar || !filterChipsContainer || !countText) return;
-            const hasFilter = activeKind !== "all" || activeTags.size > 0;
-
-            filterChipsContainer.replaceChildren();
-            if (!hasFilter) {
-                activeFiltersBar.classList.add("hidden");
-                activeFiltersBar.classList.remove("flex");
-                return;
+        function getOrderedIndices(): number[] {
+            if (sortMode === "oldest") {
+                return cardMeta.map((c) => c.index).reverse();
             }
-
-            if (activeKind !== "all") {
-                const chip = document.createElement("button");
-                chip.type = "button";
-                chip.className = "trail-active-chip";
-                chip.textContent = `类型：${kindLabels[activeKind] ?? activeKind} ×`;
-                chip.addEventListener("click", () => {
-                    activeKind = "all";
-                    render();
-                });
-                filterChipsContainer.appendChild(chip);
+            if (sortMode === "random") {
+                return randomOrder;
             }
-
-            for (const tag of activeTags) {
-                const chip = document.createElement("button");
-                chip.type = "button";
-                chip.className = "trail-active-chip";
-                chip.textContent = `#${tag} ×`;
-                chip.addEventListener("click", () => {
-                    activeTags.delete(tag);
-                    render();
-                });
-                filterChipsContainer.appendChild(chip);
-            }
-
-            countText.textContent = `显示 ${visibleCount} / ${cards.length} 条`;
-            activeFiltersBar.classList.remove("hidden");
-            activeFiltersBar.classList.add("flex");
+            return cardMeta.map((c) => c.index);
         }
 
         function render(animate = false) {
-            const order = sortMode === "shuffle" ? currentOrder : cardMeta.map((c) => c.index);
+            const order = getOrderedIndices();
             const fragment = document.createDocumentFragment();
             let visibleCount = 0;
 
             for (const idx of order) {
                 const item = cardMeta[idx];
-                const matchKind = activeKind === "all" || item.kind === activeKind;
-                let matchTags = true;
-                for (const tag of activeTags) {
-                    if (!item.tags.includes(tag)) {
-                        matchTags = false;
-                        break;
-                    }
-                }
-                const visible = matchKind && matchTags;
+                const visible = !activeWork || item.work === activeWork;
                 item.el.hidden = !visible;
                 if (visible) {
                     visibleCount += 1;
@@ -375,16 +370,19 @@ const title = "中二少年的轨迹";
                 );
             }
 
-            if (kindSelect) {
-                kindSelect.value = activeKind;
+            if (trigger && triggerLabel) {
+                triggerLabel.textContent = activeWork ? `《${activeWork}》` : "全部作品";
+                trigger.classList.toggle("trail-work-btn-active", Boolean(activeWork));
             }
 
-            if (tagSelect) {
-                tagSelect.value = "";
-                for (const opt of Array.from(tagSelect.options)) {
-                    if (!opt.value) continue;
-                    opt.disabled = activeTags.has(opt.value);
-                }
+            if (clearBtn) {
+                clearBtn.hidden = !activeWork;
+            }
+
+            for (const opt of workOptions) {
+                const isActive = (opt.dataset.workOption ?? "") === activeWork;
+                opt.classList.toggle("trail-work-option-active", isActive);
+                opt.setAttribute("aria-selected", String(isActive));
             }
 
             for (const btn of sortButtons) {
@@ -393,41 +391,64 @@ const title = "中二少年的轨迹";
                 btn.setAttribute("aria-pressed", String(isActive));
             }
 
-            renderFilterChips(visibleCount);
+            if (reshuffleIcon) {
+                reshuffleIcon.classList.toggle("hidden", sortMode !== "random");
+                if (animate && sortMode === "random") {
+                    reshuffleIcon.classList.remove("is-spinning");
+                    void reshuffleIcon.getBoundingClientRect();
+                    reshuffleIcon.classList.add("is-spinning");
+                }
+            }
 
             if (emptyState) {
-                emptyState.classList.toggle("hidden", visibleCount > 0);
+                emptyState.hidden = visibleCount > 0;
             }
 
             syncUrl();
         }
 
-        if (sortMode === "shuffle") {
-            currentOrder = shuffleOrder(currentOrder);
+        if (sortMode === "random") {
+            randomOrder = shuffleOrder(randomOrder);
         }
 
-        kindSelect?.addEventListener("change", () => {
-            activeKind = kindSelect.value || "all";
-            render();
+        trigger?.addEventListener("click", (event) => {
+            event.stopPropagation();
+            setMenuOpen(Boolean(menu?.hidden));
         });
 
-        tagSelect?.addEventListener("change", () => {
-            const tag = tagSelect.value;
-            if (tag && validTags.has(tag)) {
-                activeTags.add(tag);
+        for (const opt of workOptions) {
+            opt.addEventListener("click", () => {
+                activeWork = opt.dataset.workOption ?? "";
+                setMenuOpen(false);
                 render();
+            });
+        }
+
+        document.addEventListener("click", (event) => {
+            if (!dropdown || menu?.hidden) return;
+            if (!dropdown.contains(event.target as Node)) {
+                setMenuOpen(false);
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && !menu?.hidden) {
+                setMenuOpen(false);
             }
         });
 
         for (const btn of sortButtons) {
             btn.addEventListener("click", () => {
-                const mode = btn.dataset.sortMode === "shuffle" ? "shuffle" : "time";
-                if (mode === "shuffle") {
-                    sortMode = "shuffle";
-                    currentOrder = shuffleOrder(currentOrder);
+                const mode = btn.dataset.sortMode;
+                if (mode === "random") {
+                    sortMode = "random";
+                    randomOrder = shuffleOrder(randomOrder);
+                    render(true);
+                } else if (mode === "oldest") {
+                    sortMode = "oldest";
                     render(true);
                 } else {
-                    sortMode = "time";
+                    sortMode = "newest";
                     render(true);
                 }
             });
@@ -435,27 +456,22 @@ const title = "中二少年的轨迹";
 
         listEl.addEventListener("click", (event) => {
             const target = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>(
-                "[data-card-tag]",
+                "[data-card-work]",
             );
             if (!target) return;
-            const tag = target.dataset.cardTag;
-            if (!tag) return;
-            if (activeTags.has(tag)) {
-                activeTags.delete(tag);
-            } else {
-                activeTags.add(tag);
-            }
+            const work = target.dataset.cardWork ?? "";
+            if (!work) return;
+            activeWork = activeWork === work ? "" : work;
             render();
         });
 
-        const resetFilters = () => {
-            activeKind = "all";
-            activeTags.clear();
+        const clearWork = () => {
+            activeWork = "";
             render();
         };
 
-        resetBtn?.addEventListener("click", resetFilters);
-        emptyResetBtn?.addEventListener("click", resetFilters);
+        clearBtn?.addEventListener("click", clearWork);
+        emptyResetBtn?.addEventListener("click", clearWork);
 
         render(false);
     }

@@ -1,12 +1,8 @@
 ---
 title: 星の在り処（星之所在）
 date: 2026-11-21
-kind: song
-credit: う〜み / Falcom Sound Team jdk
-source: 英雄传说：空之轨迹 FC ED
-tags:
-  - 轨迹系列
-  - OST
+work: 英雄传说：空之轨迹 FC
+credit: う〜み / Falcom Sound Team jdk · ED
 ---
 
 > あの日見た星空を 忘れないように  
