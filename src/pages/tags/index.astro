@@ -1,0 +1,36 @@
+---
+import { getListedPosts } from "@/lib/post";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import _ from "lodash";
+import PageMeta from "@/components/PageMeta.astro";
+import { Site } from "@/config";
+
+const posts = await getListedPosts();
+const tags = posts.flatMap((entry) => entry.data.tags);
+const tagCounts = _.countBy(tags);
+const sortedTags = _.chain(tagCounts)
+    .map((count, tag) => ({ tag, count }))
+    .orderBy(["count", "tag"], ["desc", "asc"])
+    .value();
+const title = "标签";
+---
+
+<BaseLayout title={`${title} | ${Site.title}`}>
+    <PageMeta title={title} slot="meta" />
+    <div class="mx-auto my-8">
+        <h1 class="text-center text-4xl font-bold">{title}</h1>
+        <div class="mt-8 flex flex-wrap justify-center gap-x-4 gap-y-2">
+            {
+                sortedTags.map(({ tag, count }) => (
+                    <a
+                        class="px-2 py-1 rounded text-lg hover:bg-gray-100"
+                        href={`/tags/${tag}`}
+                    >
+                        {tag}
+                        <sup class="ml-0.5 text-xs text-gray-500">{count}</sup>
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Site } from "@/config";
+---
+
+<BaseLayout title={`404 | ${Site.title}`}>
+    <div class="my-16 text-center">
+        <h2 class="text-3xl font-bold">404: 页面未找到</h2>
+        <p class="mt-4 text-gray-600">路径：{Astro.url.pathname}</p>
+        <p class="mt-6">
+            <a href="/" class="text-blue-600 hover:underline">返回首页</a>
+        </p>
+    </div>
+</BaseLayout>

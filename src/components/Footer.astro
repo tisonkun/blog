@@ -1,0 +1,31 @@
+---
+const thisYear = new Date().getFullYear();
+---
+
+<footer>
+    <div>
+        <p class="text-sm leading-5 mt-4">
+            Copyright © 2020-{thisYear} tison &lt;wander4096@gmail.com&gt;
+        </p>
+        <p class="text-sm leading-5 mt-2">
+            Code is licensed under <a
+                href="https://www.apache.org/licenses/LICENSE-2.0"
+                target="_blank">Apache-2.0</a
+            >. Words and images are licensed under <a
+                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                target="_blank">CC BY-NC-SA 4.0</a
+            >.
+        </p>
+    </div>
+</footer>
+
+<style>
+    footer {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+</style>

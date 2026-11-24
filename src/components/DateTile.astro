@@ -1,0 +1,15 @@
+---
+interface Props {
+    date: Date;
+}
+
+const { date } = Astro.props;
+const year = date.getUTCFullYear();
+const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+const day = String(date.getUTCDate()).padStart(2, "0");
+---
+
+<div class="col-span-2 text-center">
+    <span class="block text-5xl font-semibold leading-none">{day}</span>
+    <span class="block text-sm text-gray-500 mt-1">{year}-{month}</span>
+</div>

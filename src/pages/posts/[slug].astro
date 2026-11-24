@@ -1,0 +1,104 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Giscus from "@/components/Giscus.astro";
+import PostMeta from "@/components/PostMeta.astro";
+import PostSidebar from "@/components/PostSidebar.astro";
+import { Site } from "@/config";
+import { getAllPosts, getPostExcerpt } from "@/lib/post";
+
+interface Props {
+    entry: CollectionEntry<"posts">;
+}
+
+export async function getStaticPaths() {
+    const posts = await getAllPosts();
+    return posts.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { slug } = Astro.params;
+
+const title = entry.data.title;
+const description = getPostExcerpt(entry, 160);
+const category = entry.data.category;
+const tags = entry.data.tags;
+const publishDate = entry.data.date;
+const formattedDate = `${publishDate.getUTCFullYear()}-${String(publishDate.getUTCMonth() + 1).padStart(2, "0")}-${String(publishDate.getUTCDate()).padStart(2, "0")}`;
+const ogImageAbsoluteUrl = `${Site.baseUrl}/media/yatennosyo.png`;
+const { Content, headings } = await render(entry);
+---
+
+<BaseLayout title={`${title} | ${Site.title}`}>
+    <PostMeta
+        title={title}
+        description={description}
+        publishDate={publishDate.toISOString()}
+        pagePath={`/posts/${slug}`}
+        ogImageAbsoluteUrl={ogImageAbsoluteUrl}
+        ogImageAltText={title}
+        ogImageWidth={1600}
+        ogImageHeight={1200}
+        slot="meta"
+    />
+    <article class="pt-8">
+        <header class="pb-4 mb-8 border-b border-gray-900/10">
+            <h1 class="my-2 text-black leading-tight">{title}</h1>
+            <p class="my-0 text-sm text-gray-500">
+                <time datetime={publishDate.toISOString()}>{formattedDate}</time>
+                <span class="mx-2">·</span>
+                <a class="text-gray-600 hover:text-blue-600" href={`/categories/${category}`}>
+                    {category}
+                </a>
+            </p>
+        </header>
+        <div class="post-body-wrap">
+            <div class="post-content">
+                <Content />
+            </div>
+            <PostSidebar headings={headings} />
+        </div>
+        <div class="flex flex-row items-baseline mt-8">
+            <p class="basis-1/12 min-w-[3.5rem] shrink-0 text-gray-600">分类</p>
+            <p class="grow">
+                <a
+                    class="ml-2 inline-block border border-blue-600 px-2 py-0.5 rounded text-sm"
+                    href={`/categories/${category}`}
+                >
+                    {category}
+                </a>
+            </p>
+        </div>
+        {
+            tags.length > 0 && (
+                <div class="flex flex-row items-baseline">
+                    <p class="basis-1/12 min-w-[3.5rem] shrink-0 text-gray-600">标签</p>
+                    <p class="grow">
+                        {tags.map((tag) => (
+                            <a
+                                class="mt-1 ml-2 inline-block border border-blue-600 px-2 py-0.5 rounded text-sm"
+                                href={`/tags/${tag}`}
+                            >
+                                {tag}
+                            </a>
+                        ))}
+                    </p>
+                </div>
+            )
+        }
+        <div class="mt-10 mb-6 flex justify-center">
+            <img
+                src="/media/wemp.png"
+                alt="关注微信公众号：夜天之书"
+                class="w-full max-w-md rounded"
+                loading="lazy"
+            />
+        </div>
+    </article>
+    <hr class="border-gray-200 mt-8 mb-6" />
+    <Giscus />
+</BaseLayout>
