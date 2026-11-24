@@ -1,17 +1,11 @@
 ---
-import { getListedPosts } from "@/lib/post";
+import { countTerms, getListedPosts } from "@/lib/post";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import _ from "lodash";
 import PageMeta from "@/components/PageMeta.astro";
 import { Site } from "@/config";
 
 const posts = await getListedPosts();
-const categories = posts.map((entry) => entry.data.category);
-const categoryCounts = _.countBy(categories);
-const sortedCategories = _.chain(categoryCounts)
-    .map((count, category) => ({ category, count }))
-    .orderBy(["count", "category"], ["desc", "asc"])
-    .value();
+const sortedCategories = countTerms(posts.map((entry) => entry.data.category));
 const title = "分类";
 ---
 
@@ -21,12 +15,12 @@ const title = "分类";
         <h1 class="text-center text-4xl font-bold">{title}</h1>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
             {
-                sortedCategories.map(({ category, count }) => (
+                sortedCategories.map(({ name, count }) => (
                     <a
                         class="px-3 py-1.5 rounded text-xl hover:bg-gray-100"
-                        href={`/categories/${category}`}
+                        href={`/categories/${name}`}
                     >
-                        {category}
+                        {name}
                         <sup class="ml-1 text-sm text-gray-500">{count}</sup>
                     </a>
                 ))
