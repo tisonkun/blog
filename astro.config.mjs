@@ -1,6 +1,11 @@
 import { defineConfig } from 'astro/config';
 import sitemap from "@astrojs/sitemap";
+import mdx from "@astrojs/mdx";
 import { unified } from "@astrojs/markdown-remark";
+import remarkDirective from "remark-directive";
+import remarkCalloutDirectives from '@microflash/remark-callout-directives';
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import expressiveCode from "astro-expressive-code";
@@ -57,9 +62,28 @@ export default defineConfig({
 
     markdown: {
         processor: unified({
+            remarkPlugins: [
+                remarkDirective,
+                [remarkCalloutDirectives, {
+                    aliases: {
+                        info: "assert",
+                        commend: "tip",
+                    },
+                    callouts: {
+                        commend: {
+                            title: "提示",
+                        },
+                        assert: {
+                            title: "说明",
+                        },
+                    },
+                }],
+                remarkMath,
+            ],
             rehypePlugins: [
                 rehypeSlug,
                 rehypeFigure,
+                [rehypeKatex, { strict: "warn" }],
                 [rehypeAutolinkHeadings, {
                     behavior: 'append',
                     properties: {
@@ -100,6 +124,7 @@ export default defineConfig({
                 },
             },
         }),
+        mdx(),
     ],
 
     vite: {

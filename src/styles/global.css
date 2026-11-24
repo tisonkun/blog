@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./callout.css";
 
 @theme {
     --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -199,6 +200,17 @@
 
 .post-content blockquote p:last-child {
     margin-bottom: 0;
+}
+
+.post-content .katex {
+    font-size: 1.08em;
+}
+
+.post-content .katex-display {
+    margin: 1.5rem 0;
+    padding: 0.4rem 0;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 figcaption {
