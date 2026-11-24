@@ -1,5 +1,9 @@
 ---
 import { Site } from "@/config";
+
+const pathname = Astro.url.pathname;
+const isNavActive = (url: string) =>
+    url === "/" ? pathname === "/" : pathname === url || pathname.startsWith(`${url}/`);
 ---
 
 <header class="mt-8">
@@ -81,11 +85,20 @@ import { Site } from "@/config";
     <nav class="text-center border-t border-b border-gray-900/10 px-1 mt-4">
         <ul class="list-disc list-inside">
             {
-                Site.menu.navs.map(({ name, url }) => (
-                    <li class="inline-block list-none mx-4">
-                        <a href={url}>{name}</a>
-                    </li>
-                ))
+                Site.menu.navs.map(({ name, url }) => {
+                    const active = isNavActive(url);
+                    return (
+                        <li class="inline-block list-none mx-4">
+                            <a
+                                href={url}
+                                aria-current={active ? "page" : undefined}
+                                class={active ? "text-gray-900 font-semibold" : undefined}
+                            >
+                                {name}
+                            </a>
+                        </li>
+                    );
+                })
             }
         </ul>
     </nav>

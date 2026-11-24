@@ -10,6 +10,7 @@ export const Site = {
             { name: "首页", url: "/" },
             { name: "分类", url: "/categories" },
             { name: "标签", url: "/tags" },
+            { name: "轨迹", url: "/trails" },
         ],
     },
 };
