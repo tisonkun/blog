@@ -3,17 +3,9 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageMeta from "@/components/PageMeta.astro";
 import TrailCard from "@/components/TrailCard.astro";
 import { Site } from "@/config";
-import { countTerms } from "@/lib/post";
 import { getAllTrails, sortTrailsByDateDesc } from "@/lib/trail";
 
 const trails = sortTrailsByDateDesc(await getAllTrails());
-const totalCount = trails.length;
-const sortedWorks = countTerms(
-    trails
-        .map((entry) => entry.data.work?.trim())
-        .filter((work): work is string => Boolean(work)),
-);
-
 const title = "中二少年的轨迹";
 ---
 
@@ -21,86 +13,10 @@ const title = "中二少年的轨迹";
     <PageMeta title={title} slot="meta" />
 
     <section class="mt-8">
-        <h1 class="my-0 text-3xl font-bold text-gray-900">{title}</h1>
-
         <div
-            class="mt-6 pb-3.5 border-b border-gray-900/10 flex flex-wrap items-center justify-between gap-3"
+            class="pb-4 border-b border-gray-900/10 flex flex-wrap items-center justify-between gap-3"
         >
-            <div class="flex flex-wrap items-center gap-2">
-                {
-                    sortedWorks.length > 0 && (
-                        <div class="relative" id="trail-work-dropdown">
-                            <button
-                                type="button"
-                                id="trail-work-trigger"
-                                aria-haspopup="listbox"
-                                aria-expanded="false"
-                                class="trail-work-btn inline-flex items-center gap-2 cursor-pointer rounded-lg border border-gray-900/14 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:border-gray-900/30 hover:text-gray-900 transition-colors"
-                            >
-                                <span id="trail-work-label">全部作品</span>
-                                <svg
-                                    id="trail-work-chevron"
-                                    class="w-3.5 h-3.5 text-gray-400 transition-transform duration-150"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    aria-hidden="true"
-                                >
-                                    <path d="m6 9 6 6 6-6" />
-                                </svg>
-                            </button>
-
-                            <div
-                                id="trail-work-menu"
-                                role="listbox"
-                                aria-label="按作品筛选"
-                                hidden
-                                class="absolute left-0 top-full z-20 mt-1.5 min-w-[14rem] max-w-[20rem] max-h-72 overflow-y-auto rounded-lg border border-gray-900/12 bg-white py-1 shadow-[0_8px_24px_rgba(17,24,39,0.1)]"
-                            >
-                                <button
-                                    type="button"
-                                    role="option"
-                                    aria-selected="true"
-                                    data-work-option=""
-                                    class="trail-work-option trail-work-option-active w-full flex items-center justify-between gap-3 cursor-pointer border-0 bg-transparent px-3 py-1.5 text-left text-xs transition-colors"
-                                >
-                                    <span class="truncate">全部作品</span>
-                                    <span class="font-mono text-[11px] text-gray-400 tabular-nums shrink-0">
-                                        {totalCount}
-                                    </span>
-                                </button>
-                                <div class="my-1 border-t border-gray-900/8" />
-                                {sortedWorks.map(({ name, count }) => (
-                                    <button
-                                        type="button"
-                                        role="option"
-                                        aria-selected="false"
-                                        data-work-option={name}
-                                        class="trail-work-option w-full flex items-center justify-between gap-3 cursor-pointer border-0 bg-transparent px-3 py-1.5 text-left text-xs transition-colors"
-                                    >
-                                        <span class="truncate">{name}</span>
-                                        <span class="font-mono text-[11px] text-gray-400 tabular-nums shrink-0">
-                                            {count}
-                                        </span>
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    )
-                }
-
-                <button
-                    type="button"
-                    id="trail-work-clear"
-                    hidden
-                    class="cursor-pointer border-0 bg-transparent px-1 py-1 text-xs text-gray-400 hover:text-blue-600 transition-colors"
-                >
-                    清除筛选
-                </button>
-            </div>
+            <h1 class="my-0 text-3xl font-bold text-gray-900">{title}</h1>
 
             <div
                 class="inline-flex items-center rounded-lg border border-gray-900/12 bg-gray-50/80 p-0.5"
@@ -149,63 +65,13 @@ const title = "中二少年的轨迹";
             </div>
         </div>
 
-        <ul
-            id="trail-list"
-            class="mt-6 mb-0 p-0 space-y-6 list-none"
-            data-total={totalCount}
-        >
+        <ul id="trail-list" class="mt-6 mb-0 p-0 space-y-6 list-none">
             {trails.map((entry, index) => <TrailCard entry={entry} index={index} />)}
         </ul>
-
-        <div
-            id="trail-empty"
-            hidden
-            class="mt-8 rounded-xl border border-dashed border-gray-300 px-6 py-10 text-center"
-        >
-            <p class="my-0 text-sm text-gray-500">该作品下暂无记录。</p>
-            <button
-                type="button"
-                id="trail-empty-reset"
-                class="mt-3 cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-1 text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900"
-            >
-                查看全部
-            </button>
-        </div>
     </section>
 </BaseLayout>
 
 <style>
-    .trail-work-btn-active {
-        border-color: rgba(37, 99, 235, 0.35);
-        background-color: #eff6ff;
-        color: #1d4ed8;
-    }
-
-    .trail-work-btn-active:hover {
-        border-color: rgba(37, 99, 235, 0.5);
-        color: #1d4ed8;
-    }
-
-    .trail-work-option {
-        color: #374151;
-    }
-
-    .trail-work-option:hover {
-        background-color: #f3f4f6;
-        color: #111827;
-    }
-
-    .trail-work-option-active {
-        background-color: #eff6ff;
-        color: #1d4ed8;
-        font-weight: 500;
-    }
-
-    .trail-work-option-active:hover {
-        background-color: #dbeafe;
-        color: #1d4ed8;
-    }
-
     .trail-sort-btn {
         background-color: transparent;
         color: #6b7280;
@@ -248,13 +114,6 @@ const title = "中二少年的轨迹";
     #trail-reshuffle-icon.is-spinning {
         animation: trail-spin 0.32s ease-out;
     }
-
-    :global([data-trail-card][hidden]),
-    #trail-work-menu[hidden],
-    #trail-work-clear[hidden],
-    #trail-empty[hidden] {
-        display: none !important;
-    }
 </style>
 
 <script>
@@ -262,49 +121,17 @@ const title = "中二少年的轨迹";
     if (list) {
         const listEl: HTMLElement = list;
         const cards = Array.from(listEl.querySelectorAll<HTMLElement>("[data-trail-card]"));
-        const dropdown = document.getElementById("trail-work-dropdown");
-        const trigger = document.getElementById("trail-work-trigger") as HTMLButtonElement | null;
-        const triggerLabel = document.getElementById("trail-work-label");
-        const chevron = document.getElementById("trail-work-chevron");
-        const menu = document.getElementById("trail-work-menu");
-        const workOptions = Array.from(
-            document.querySelectorAll<HTMLButtonElement>("[data-work-option]"),
-        );
-        const clearBtn = document.getElementById("trail-work-clear") as HTMLButtonElement | null;
         const sortButtons = Array.from(
             document.querySelectorAll<HTMLButtonElement>("[data-sort-mode]"),
         );
         const reshuffleIcon = document.getElementById("trail-reshuffle-icon");
-        const emptyState = document.getElementById("trail-empty");
-        const emptyResetBtn = document.getElementById("trail-empty-reset");
-
-        const validWorks = new Set(
-            workOptions.map((opt) => opt.dataset.workOption ?? "").filter(Boolean),
-        );
 
         const params = new URLSearchParams(window.location.search);
-        const initialWork = params.get("work");
         const initialOrder = params.get("order");
 
-        let activeWork = initialWork && validWorks.has(initialWork) ? initialWork : "";
         let sortMode: "newest" | "oldest" | "random" =
             initialOrder === "oldest" || initialOrder === "random" ? initialOrder : "newest";
         let randomOrder = cards.map((_, idx) => idx);
-
-        const cardMeta = cards.map((el, index) => ({
-            el,
-            index,
-            work: el.dataset.work || "",
-        }));
-
-        function setMenuOpen(open: boolean) {
-            if (!menu || !trigger) return;
-            menu.hidden = !open;
-            trigger.setAttribute("aria-expanded", String(open));
-            if (chevron) {
-                chevron.style.transform = open ? "rotate(180deg)" : "";
-            }
-        }
 
         function shuffleOrder(prev: number[]): number[] {
             const next = [...prev];
@@ -320,12 +147,7 @@ const title = "中二少年的轨迹";
 
         function syncUrl() {
             const url = new URL(window.location.href);
-            url.searchParams.delete("work");
             url.searchParams.delete("order");
-
-            if (activeWork) {
-                url.searchParams.set("work", activeWork);
-            }
             if (sortMode !== "newest") {
                 url.searchParams.set("order", sortMode);
             }
@@ -334,27 +156,20 @@ const title = "中二少年的轨迹";
 
         function getOrderedIndices(): number[] {
             if (sortMode === "oldest") {
-                return cardMeta.map((c) => c.index).reverse();
+                return cards.map((_, idx) => idx).reverse();
             }
             if (sortMode === "random") {
                 return randomOrder;
             }
-            return cardMeta.map((c) => c.index);
+            return cards.map((_, idx) => idx);
         }
 
         function render(animate = false) {
             const order = getOrderedIndices();
             const fragment = document.createDocumentFragment();
-            let visibleCount = 0;
 
             for (const idx of order) {
-                const item = cardMeta[idx];
-                const visible = !activeWork || item.work === activeWork;
-                item.el.hidden = !visible;
-                if (visible) {
-                    visibleCount += 1;
-                }
-                fragment.appendChild(item.el);
+                fragment.appendChild(cards[idx]);
             }
 
             listEl.appendChild(fragment);
@@ -368,21 +183,6 @@ const title = "中二少年的轨迹";
                     () => listEl.classList.remove("is-shuffling"),
                     { once: true },
                 );
-            }
-
-            if (trigger && triggerLabel) {
-                triggerLabel.textContent = activeWork ? `《${activeWork}》` : "全部作品";
-                trigger.classList.toggle("trail-work-btn-active", Boolean(activeWork));
-            }
-
-            if (clearBtn) {
-                clearBtn.hidden = !activeWork;
-            }
-
-            for (const opt of workOptions) {
-                const isActive = (opt.dataset.workOption ?? "") === activeWork;
-                opt.classList.toggle("trail-work-option-active", isActive);
-                opt.setAttribute("aria-selected", String(isActive));
             }
 
             for (const btn of sortButtons) {
@@ -400,42 +200,12 @@ const title = "中二少年的轨迹";
                 }
             }
 
-            if (emptyState) {
-                emptyState.hidden = visibleCount > 0;
-            }
-
             syncUrl();
         }
 
         if (sortMode === "random") {
             randomOrder = shuffleOrder(randomOrder);
         }
-
-        trigger?.addEventListener("click", (event) => {
-            event.stopPropagation();
-            setMenuOpen(Boolean(menu?.hidden));
-        });
-
-        for (const opt of workOptions) {
-            opt.addEventListener("click", () => {
-                activeWork = opt.dataset.workOption ?? "";
-                setMenuOpen(false);
-                render();
-            });
-        }
-
-        document.addEventListener("click", (event) => {
-            if (!dropdown || menu?.hidden) return;
-            if (!dropdown.contains(event.target as Node)) {
-                setMenuOpen(false);
-            }
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape" && !menu?.hidden) {
-                setMenuOpen(false);
-            }
-        });
 
         for (const btn of sortButtons) {
             btn.addEventListener("click", () => {
@@ -453,25 +223,6 @@ const title = "中二少年的轨迹";
                 }
             });
         }
-
-        listEl.addEventListener("click", (event) => {
-            const target = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>(
-                "[data-card-work]",
-            );
-            if (!target) return;
-            const work = target.dataset.cardWork ?? "";
-            if (!work) return;
-            activeWork = activeWork === work ? "" : work;
-            render();
-        });
-
-        const clearWork = () => {
-            activeWork = "";
-            render();
-        };
-
-        clearBtn?.addEventListener("click", clearWork);
-        emptyResetBtn?.addEventListener("click", clearWork);
 
         render(false);
     }

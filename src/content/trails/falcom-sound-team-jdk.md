@@ -1,7 +1,8 @@
 ---
-title: Falcom Sound Team jdk
 date: 2026-11-01
+title: Falcom Sound Team jdk
 credit: 日本 Falcom 专属乐团
+wiki: https://zh.wikipedia.org/wiki/Falcom_Sound_Team_jdk
 ---
 
-多年以后写代码时循环最多的背景音乐来源之一，吉他与小提琴编曲辨识度极高。参考 [Falcom 官网](https://www.falcom.co.jp/) 与 [Wikipedia](https://zh.wikipedia.org/wiki/Falcom_Sound_Team_jdk)。
+多年以后写代码时循环最多的背景音乐来源之一，吉他与小提琴编曲辨识度极高。参考 [Falcom 官网](https://www.falcom.co.jp/)。

@@ -3,12 +3,16 @@ import { render } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Giscus from "@/components/Giscus.astro";
 import PostMeta from "@/components/PostMeta.astro";
+import TrailListenBar from "@/components/TrailListenBar.astro";
 import { Site } from "@/config";
 import {
     formatTrailDate,
     getAllTrails,
+    getTrailListenLinks,
+    getTrailPageTitle,
     getTrailSummary,
     hasTrailBody,
+    inferPlatformLabel,
     type TrailEntry,
 } from "@/lib/trail";
 
@@ -27,22 +31,26 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { slug } = Astro.params;
 
-const { title, date, work, credit } = entry.data;
+const { title, date, work, credit, wiki } = entry.data;
+const pageTitle = getTrailPageTitle(entry);
 const formattedDate = formatTrailDate(date);
 const description = getTrailSummary(entry, 160);
 const hasBody = hasTrailBody(entry);
+const listenLinks = getTrailListenLinks(entry);
+const hasMeta = Boolean(work || credit || wiki);
+const wikiLabel = wiki ? inferPlatformLabel(wiki) : "";
 const ogImageAbsoluteUrl = `${Site.baseUrl}/media/yatennosyo.png`;
 const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
 
-<BaseLayout title={`${title} | 中二少年的轨迹 | ${Site.title}`}>
+<BaseLayout title={`${pageTitle} | 中二少年的轨迹 | ${Site.title}`}>
     <PostMeta
-        title={`${title} | 中二少年的轨迹`}
+        title={`${pageTitle} | 中二少年的轨迹`}
         description={description}
         publishDate={date.toISOString()}
         pagePath={`/trails/${slug}`}
         ogImageAbsoluteUrl={ogImageAbsoluteUrl}
-        ogImageAltText={title}
+        ogImageAltText={pageTitle}
         ogImageWidth={1600}
         ogImageHeight={1200}
         slot="meta"
@@ -66,22 +74,32 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
             >
                 {formattedDate}
             </time>
-            <h1 class="mt-2 mb-0 text-3xl font-bold text-gray-900 leading-tight">
-                {title}
-            </h1>
+
             {
-                (work || credit) && (
-                    <p class="mt-2 mb-0 text-sm text-gray-500 leading-relaxed">
-                        {work && (
+                title && (
+                    <h1 class="mt-2 mb-0 text-3xl font-bold text-gray-900 leading-tight">
+                        {title}
+                    </h1>
+                )
+            }
+
+            {
+                hasMeta && (
+                    <p class="mt-2 mb-0 text-sm text-gray-500 leading-relaxed flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                        {work && <span>《{work}》</span>}
+                        {work && credit && <span class="text-gray-300">·</span>}
+                        {credit && <span>{credit}</span>}
+                        {(work || credit) && wiki && <span class="text-gray-300">·</span>}
+                        {wiki && (
                             <a
-                                href={`/trails?work=${encodeURIComponent(work)}`}
-                                class="text-gray-600 hover:text-blue-600 transition-colors"
+                                href={wiki}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-gray-500 hover:text-blue-600 transition-colors"
                             >
-                                《{work}》
+                                {wikiLabel} ↗
                             </a>
                         )}
-                        {work && credit && <span class="mx-1.5 text-gray-300">·</span>}
-                        {credit && <span>{credit}</span>}
                     </p>
                 )
             }
@@ -94,6 +112,10 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
                 </div>
             )
         }
+
+        <div class="mt-6">
+            <TrailListenBar links={listenLinks} />
+        </div>
     </article>
 
     <hr class="border-gray-200 mt-8 mb-6" />

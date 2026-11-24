@@ -1,0 +1,139 @@
+---
+import type { TrailListenLink } from "@/lib/trail";
+
+interface Props {
+    links: TrailListenLink[];
+}
+
+const { links } = Astro.props;
+const primaryEmbed = links.find((item) => item.embed)?.embed;
+---
+
+{
+    links.length > 0 && (
+        <div class="trail-listen mt-3.5" data-listen-block>
+            <div class="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-gray-900/8 bg-gray-50/75 px-3 py-2 text-xs">
+                <div class="flex items-center gap-2">
+                    {primaryEmbed ? (
+                        <button
+                            type="button"
+                            data-embed-toggle
+                            data-embed-src={primaryEmbed.src}
+                            data-embed-aspect={primaryEmbed.aspect}
+                            data-embed-height={primaryEmbed.height ?? ""}
+                            aria-expanded="false"
+                            class="inline-flex items-center gap-1.5 cursor-pointer rounded-md border border-gray-900/12 bg-white px-2.5 py-1 text-xs font-medium text-gray-800 hover:border-blue-400 hover:text-blue-600 transition-colors"
+                        >
+                            <svg
+                                data-play-icon
+                                class="w-3 h-3 fill-current"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <path d="M8 5.14v14l11-7-11-7z" />
+                            </svg>
+                            <span data-toggle-label>页内试听</span>
+                        </button>
+                    ) : (
+                        <span class="inline-flex items-center gap-1.5 text-gray-500">
+                            <svg
+                                class="w-3.5 h-3.5"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M9 18V5l12-2v13" />
+                                <circle cx="6" cy="18" r="3" />
+                                <circle cx="18" cy="16" r="3" />
+                            </svg>
+                            <span>收听</span>
+                        </span>
+                    )}
+                </div>
+
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    {links.map((link) => (
+                        <a
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-0.5 text-xs text-gray-600 hover:text-blue-600 transition-colors"
+                        >
+                            <span>{link.label}</span>
+                            <span aria-hidden="true" class="text-[11px] opacity-70">
+                                ↗
+                            </span>
+                        </a>
+                    ))}
+                </div>
+            </div>
+
+            {primaryEmbed && (
+                <div
+                    data-embed-slot
+                    hidden
+                    class="mt-2.5 overflow-hidden rounded-lg border border-gray-900/10 bg-black/5"
+                />
+            )}
+        </div>
+    )
+}
+
+<style>
+    [data-embed-slot][hidden] {
+        display: none !important;
+    }
+</style>
+
+<script>
+    if (!(window as unknown as Record<string, boolean>).__trailEmbedBound) {
+        (window as unknown as Record<string, boolean>).__trailEmbedBound = true;
+        document.addEventListener("click", (event) => {
+            const btn = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>(
+                "[data-embed-toggle]",
+            );
+            if (!btn) return;
+
+            const block = btn.closest<HTMLElement>("[data-listen-block]");
+            const slot = block?.querySelector<HTMLElement>("[data-embed-slot]");
+            const label = btn.querySelector<HTMLElement>("[data-toggle-label]");
+            if (!slot) return;
+
+            const isOpen = !slot.hidden;
+            if (isOpen) {
+                slot.hidden = true;
+                slot.replaceChildren();
+                btn.setAttribute("aria-expanded", "false");
+                if (label) label.textContent = "页内试听";
+                return;
+            }
+
+            const src = btn.dataset.embedSrc;
+            if (!src) return;
+            const aspect = btn.dataset.embedAspect || "video";
+            const height = Number(btn.dataset.embedHeight) || 152;
+
+            const iframe = document.createElement("iframe");
+            iframe.src = src;
+            iframe.loading = "lazy";
+            iframe.allow =
+                "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+            iframe.referrerPolicy = "strict-origin-when-cross-origin";
+            iframe.className = "block w-full border-0";
+            if (aspect === "video") {
+                iframe.style.aspectRatio = "16 / 9";
+            } else {
+                iframe.style.height = `${height}px`;
+            }
+
+            slot.replaceChildren(iframe);
+            slot.hidden = false;
+            btn.setAttribute("aria-expanded", "true");
+            if (label) label.textContent = "收起播放器";
+        });
+    }
+</script>
