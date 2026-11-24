@@ -1,0 +1,14 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageMeta from "@/components/PageMeta.astro";
+import PostList from "@/components/PostList.astro";
+import { getListedPosts } from "@/lib/post";
+import { Site } from "@/config";
+
+const posts = await getListedPosts();
+---
+
+<BaseLayout title={Site.title}>
+    <PageMeta title={Site.title} slot="meta" />
+    <PostList posts={posts} />
+</BaseLayout>

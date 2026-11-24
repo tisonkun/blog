@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import _ from "lodash";
+import PageMeta from "@/components/PageMeta.astro";
+import PostList from "@/components/PostList.astro";
+import { getListedPosts } from "@/lib/post";
+import { Site } from "@/config";
+
+interface Props {
+    posts: CollectionEntry<"posts">[];
+    category: string;
+}
+
+export async function getStaticPaths() {
+    const posts = await getListedPosts();
+    const categories = _.groupBy(posts, (entry) => entry.data.category);
+    return _.entries(categories).map(([category, categoryPosts]) => ({
+        params: { category },
+        props: { posts: categoryPosts, category },
+    }));
+}
+
+const { posts, category } = Astro.props;
+---
+
+<BaseLayout title={`${category} | ${Site.title}`}>
+    <PageMeta title={category} slot="meta" />
+    <h1 class="text-center text-4xl font-bold mt-8">{category}</h1>
+    <PostList posts={posts} />
+</BaseLayout>

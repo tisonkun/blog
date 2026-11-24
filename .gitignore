@@ -1,22 +1,23 @@
-## Misc ##
-.DS_Store
-.idea
-*.iml
+# build output
+dist/
 
-## Hexo.js ##
-Thumbs.db
-db.json
+# generated files
+.astro/
+.wrangler/
 
-## Dependency ##
-node_modules
-.yarn
+# dependencies
+node_modules/
 
-## Build ##
-public
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# wrangler files
-.wrangler
+# environment variables
+.env
+.env.production
 .dev.vars*
-!.dev.vars.example
-.env*
-!.env.example
+
+# macOS-specific files
+.DS_Store

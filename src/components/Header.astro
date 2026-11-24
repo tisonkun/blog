@@ -1,0 +1,67 @@
+---
+import { Site } from "@/config";
+---
+
+<header class="mt-8">
+    <h1 class="text-center lg:text-left text-4xl text-gray-900 font-medium m-0">
+        <a
+            class="inline-flex items-center gap-3 text-gray-900 hover:text-gray-700 font-brand tracking-[0.06em]"
+            href={Site.url}
+        >
+            <svg
+                class="w-9 h-9 shrink-0"
+                viewBox="0 0 64 64"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+            >
+                <rect x="2" y="2" width="60" height="60" rx="14" fill="#19191F" />
+                <rect x="16" y="15" width="7" height="34" rx="2" fill="#FAFAFC" />
+                <path
+                    d="M27 15H43C45.8 15 48 17.2 48 20V44C48 46.8 45.8 49 43 49H27V15Z"
+                    fill="#FAFAFC"
+                    fill-opacity="0.92"
+                />
+                <rect x="31.5" y="23" width="11" height="2.8" rx="1.4" fill="#19191F" />
+                <rect
+                    x="31.5"
+                    y="29"
+                    width="7.5"
+                    height="2.8"
+                    rx="1.4"
+                    fill="#19191F"
+                    fill-opacity="0.55"
+                />
+                <circle cx="42.5" cy="41.5" r="3.6" fill="#3B82F6" />
+            </svg>
+            <span>{Site.title}</span>
+        </a>
+    </h1>
+    <div class="lg:flex text-center justify-between">
+        <p class="text-lg text-gray-600">{Site.description}</p>
+        <nav class="my-0">
+            <ul class="my-0 justify-center flex flex-wrap list-disc list-inside">
+                {
+                    Site.menu.icons.map(({ clz, url, label }) => (
+                        <li class="list-none mx-2">
+                            <a class="text-gray-600" href={url} aria-label={label}>
+                                <i class:list={["text-2xl", clz]} />
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </nav>
+    </div>
+    <nav class="text-center border-t border-b border-gray-900/10 px-1 mt-4">
+        <ul class="list-disc list-inside">
+            {
+                Site.menu.navs.map(({ name, url }) => (
+                    <li class="inline-block list-none mx-4">
+                        <a href={url}>{name}</a>
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
+</header>

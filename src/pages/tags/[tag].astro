@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getListedPosts } from "@/lib/post";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import _ from "lodash";
+import PageMeta from "@/components/PageMeta.astro";
+import PostList from "@/components/PostList.astro";
+import { Site } from "@/config";
+
+interface Props {
+    posts: CollectionEntry<"posts">[];
+    tag: string;
+}
+
+export async function getStaticPaths() {
+    const posts = await getListedPosts();
+    const tags: Record<string, CollectionEntry<"posts">[]> = {};
+    for (const post of posts) {
+        for (const tag of post.data.tags) {
+            if (!tags[tag]) {
+                tags[tag] = [];
+            }
+            tags[tag].push(post);
+        }
+    }
+    return _.entries(tags).map(([tag, tagPosts]) => ({
+        params: { tag },
+        props: { posts: tagPosts, tag },
+    }));
+}
+
+const { posts, tag } = Astro.props;
+---
+
+<BaseLayout title={`${tag} | ${Site.title}`}>
+    <PageMeta title={tag} slot="meta" />
+    <h1 class="text-center text-4xl font-bold mt-8">{tag}</h1>
+    <PostList posts={posts} />
+</BaseLayout>

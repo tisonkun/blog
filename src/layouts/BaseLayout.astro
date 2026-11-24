@@ -1,0 +1,40 @@
+---
+import "@/styles/global.css";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import ImageZoom from "@/components/ImageZoom.astro";
+import HeaderMeta from "./HeaderMeta.astro";
+import "@fontsource-variable/open-sans";
+import "@fontsource-variable/newsreader";
+import "@fontsource/jetbrains-mono/400.css";
+import "@fontsource/jetbrains-mono/500.css";
+import "katex/dist/katex.min.css";
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="generator" content={Astro.generator} />
+        <HeaderMeta />
+        <title>{title}</title>
+        <slot name="meta" />
+    </head>
+    <body
+        class="flex flex-col min-h-screen w-full max-w-[47rem] px-4 mx-auto font-sans leading-normal"
+    >
+        <Header />
+        <main class="flex-1 text-gray-900">
+            <slot />
+        </main>
+        <Footer />
+        <ImageZoom />
+    </body>
+</html>
