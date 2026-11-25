@@ -18,7 +18,6 @@ const { entry, index } = Astro.props;
 const { title, date, work, credit, wiki } = entry.data;
 const hasBody = hasTrailBody(entry);
 const listenLinks = getTrailListenLinks(entry);
-const hasMeta = Boolean(work || credit || wiki);
 const wikiLabel = wiki ? inferPlatformLabel(wiki) : "";
 const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
@@ -33,91 +32,70 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
         class="col-span-10 rounded-xl border border-gray-900/10 bg-white px-5 py-4 transition-all duration-150 hover:border-gray-900/20 hover:shadow-[0_4px_16px_rgba(17,24,39,0.06)]"
     >
         {
-            title ? (
-                <>
-                    <div class="flex items-baseline justify-between gap-3">
-                        <h2 class="my-0 text-xl font-semibold leading-snug">
-                            <a
-                                href={`/trails/${entry.id}`}
-                                class="text-gray-900 hover:text-blue-600 transition-colors"
-                            >
-                                {title}
-                            </a>
-                        </h2>
-                        <a
-                            href={`/trails/${entry.id}#comments`}
-                            class="shrink-0 text-xs text-gray-400 hover:text-blue-600 transition-colors"
-                            title="进入讨论串"
-                        >
-                            讨论
-                        </a>
-                    </div>
-
-                    {hasMeta && (
-                        <p class="mt-1 mb-0 text-xs text-gray-500 leading-relaxed flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
-                            {work && <span>《{work}》</span>}
-                            {work && credit && <span class="text-gray-300">·</span>}
-                            {credit && <span>{credit}</span>}
-                            {(work || credit) && wiki && <span class="text-gray-300">·</span>}
-                            {wiki && (
-                                <a
-                                    href={wiki}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-gray-500 hover:text-blue-600 transition-colors"
-                                >
-                                    {wikiLabel} ↗
-                                </a>
-                            )}
-                        </p>
-                    )}
-
-                    {Content && (
-                        <div class="trail-card-body mt-3 text-[0.95rem] leading-relaxed text-gray-700">
-                            <Content />
-                        </div>
-                    )}
-
-                    <TrailListenBar links={listenLinks} />
-                </>
-            ) : (
-                <>
-                    {Content && (
-                        <div class="trail-card-body text-[0.95rem] leading-relaxed text-gray-800">
-                            <Content />
-                        </div>
-                    )}
-
-                    <TrailListenBar links={listenLinks} />
-
-                    <div class="mt-3.5 pt-2.5 border-t border-gray-900/6 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500">
-                        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 min-w-0">
-                            {work && <span>《{work}》</span>}
-                            {work && credit && <span class="text-gray-300">·</span>}
-                            {credit && <span>{credit}</span>}
-                            {(work || credit) && wiki && <span class="text-gray-300">·</span>}
-                            {wiki && (
-                                <a
-                                    href={wiki}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-gray-500 hover:text-blue-600 transition-colors"
-                                >
-                                    {wikiLabel} ↗
-                                </a>
-                            )}
-                        </div>
-                        <a
-                            href={`/trails/${entry.id}#comments`}
-                            class="ml-auto shrink-0 text-xs text-gray-400 hover:text-blue-600 transition-colors"
-                            title="进入讨论串"
-                        >
-                            讨论
-                        </a>
-                    </div>
-                </>
+            title && (
+                <h2 class="my-0 text-xl font-semibold text-gray-900 leading-snug">
+                    {title}
+                </h2>
             )
         }
+
+        {
+            Content && (
+                <div
+                    class={`trail-card-body text-[0.95rem] leading-relaxed text-gray-800 ${title ? "mt-3" : ""}`}
+                >
+                    <Content />
+                </div>
+            )
+        }
+
+        <TrailListenBar links={listenLinks} />
+
+        <div
+            class="mt-3.5 pt-2.5 border-t border-gray-900/6 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500"
+        >
+            <div class="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 min-w-0">
+                {work && <span>《{work}》</span>}
+                {work && credit && <span class="text-gray-300">·</span>}
+                {credit && <span>{credit}</span>}
+                {(work || credit) && wiki && <span class="text-gray-300">·</span>}
+                {
+                    wiki && (
+                        <a
+                            href={wiki}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-gray-500 hover:text-blue-600 transition-colors"
+                        >
+                            {wikiLabel} ↗
+                        </a>
+                    )
+                }
+            </div>
+
+            <a
+                href={`/trails/${entry.id}`}
+                aria-label="打开讨论串"
+                title="打开讨论串"
+                class="ml-auto inline-flex items-center gap-1 shrink-0 rounded-md px-1.5 py-0.5 text-xs text-gray-500 hover:bg-gray-100 hover:text-blue-600 transition-colors"
+            >
+                <svg
+                    class="w-3.5 h-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    />
+                </svg>
+                <span>讨论</span>
+            </a>
+        </div>
     </article>
 </li>
 

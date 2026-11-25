@@ -2,17 +2,9 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 export type TrailEntry = CollectionEntry<"trails">;
 
-export interface TrailEmbed {
-    src: string;
-    platform: string;
-    aspect: "video" | "compact";
-    height?: number;
-}
-
 export interface TrailListenLink {
     url: string;
     label: string;
-    embed?: TrailEmbed;
 }
 
 export async function getAllTrails(): Promise<TrailEntry[]> {
@@ -114,92 +106,6 @@ export function inferPlatformLabel(urlString: string): string {
     }
 }
 
-export function parseTrailEmbed(urlString: string): TrailEmbed | undefined {
-    try {
-        const url = new URL(urlString);
-        const hostname = url.hostname.replace(/^www\./, "").toLowerCase();
-
-        // YouTube / YouTube Music
-        if (
-            hostname === "youtube.com" ||
-            hostname === "m.youtube.com" ||
-            hostname === "music.youtube.com"
-        ) {
-            const videoId = url.searchParams.get("v");
-            if (videoId && /^[\w-]{11}$/.test(videoId)) {
-                return {
-                    src: `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`,
-                    platform: "YouTube",
-                    aspect: "video",
-                };
-            }
-        }
-        if (hostname === "youtu.be") {
-            const videoId = url.pathname.replace(/^\/+/, "").split("/")[0];
-            if (videoId && /^[\w-]{11}$/.test(videoId)) {
-                return {
-                    src: `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`,
-                    platform: "YouTube",
-                    aspect: "video",
-                };
-            }
-        }
-
-        // Bilibili
-        if (hostname === "bilibili.com" || hostname === "m.bilibili.com") {
-            const match = url.pathname.match(/\/video\/(BV[\w]+)/i);
-            if (match?.[1]) {
-                return {
-                    src: `https://player.bilibili.com/player.html?bvid=${match[1]}&autoplay=1`,
-                    platform: "Bilibili",
-                    aspect: "video",
-                };
-            }
-        }
-
-        // Spotify
-        if (hostname === "open.spotify.com") {
-            const match = url.pathname.match(/\/(track|album|playlist)\/([A-Za-z0-9]+)/);
-            if (match?.[1] && match?.[2]) {
-                return {
-                    src: `https://open.spotify.com/embed/${match[1]}/${match[2]}`,
-                    platform: "Spotify",
-                    aspect: "compact",
-                    height: 152,
-                };
-            }
-        }
-
-        // Apple Music
-        if (hostname === "music.apple.com") {
-            return {
-                src: `https://embed.music.apple.com${url.pathname}${url.search}`,
-                platform: "Apple Music",
-                aspect: "compact",
-                height: 175,
-            };
-        }
-
-        // NetEase Cloud Music
-        if (hostname === "music.163.com") {
-            const songId =
-                url.searchParams.get("id") ||
-                url.hash.match(/[?&]id=(\d+)/)?.[1];
-            if (songId && /^\d+$/.test(songId)) {
-                return {
-                    src: `https://music.163.com/outchain/player?type=2&id=${songId}&auto=1&height=66`,
-                    platform: "网易云音乐",
-                    aspect: "compact",
-                    height: 86,
-                };
-            }
-        }
-    } catch {
-        return undefined;
-    }
-    return undefined;
-}
-
 export function getTrailListenLinks(entry: TrailEntry): TrailListenLink[] {
     const raw = entry.data.listen;
     if (!raw) return [];
@@ -207,10 +113,6 @@ export function getTrailListenLinks(entry: TrailEntry): TrailListenLink[] {
     return items.map((item) => {
         const url = typeof item === "string" ? item : item.url;
         const label = typeof item === "string" ? inferPlatformLabel(url) : item.label;
-        return {
-            url,
-            label,
-            embed: parseTrailEmbed(url),
-        };
+        return { url, label };
     });
 }
