@@ -1,0 +1,168 @@
+---
+import { render } from "astro:content";
+import DateTile from "@/components/DateTile.astro";
+import TrailMediaBar from "@/components/TrailMediaBar.astro";
+import {
+    getTrailMediaLinks,
+    getTrailRefLinks,
+    hasTrailBody,
+    type TrailEntry,
+} from "@/lib/trail";
+
+interface Props {
+    entry: TrailEntry;
+    index: number;
+}
+
+const { entry, index } = Astro.props;
+const { title, date, work, tags } = entry.data;
+const hasBody = hasTrailBody(entry);
+const mediaLinks = getTrailMediaLinks(entry);
+const refLinks = getTrailRefLinks(entry);
+const { Content } = hasBody ? await render(entry) : { Content: null };
+---
+
+<li
+    class="trail-item grid grid-cols-12 gap-3 sm:gap-4 items-start list-none"
+    data-trail-card
+    data-index={index}
+>
+    <DateTile date={date} />
+    <article
+        class="col-span-10 rounded-xl border border-gray-900/10 bg-white px-5 py-4 transition-all duration-150 hover:border-gray-900/20 hover:shadow-[0_4px_16px_rgba(17,24,39,0.06)]"
+    >
+        {
+            title && (
+                <h2 class="my-0 text-xl font-semibold text-gray-900 leading-snug">
+                    {title}
+                </h2>
+            )
+        }
+
+        {
+            Content && (
+                <div
+                    class={`trail-card-body text-[0.95rem] leading-relaxed text-gray-800 ${title ? "mt-3" : ""}`}
+                >
+                    <Content />
+                </div>
+            )
+        }
+
+        <TrailMediaBar links={mediaLinks} />
+
+        <div
+            class="mt-3.5 pt-2.5 border-t border-gray-900/6 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500"
+        >
+            <div class="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 min-w-0">
+                {work && <span>《{work}》</span>}
+                {work && refLinks.length > 0 && <span class="text-gray-300">·</span>}
+                {
+                    refLinks.map((link, idx) => (
+                        <>
+                            {idx > 0 && <span class="text-gray-300">·</span>}
+                            <a
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-gray-500 hover:text-blue-600 transition-colors"
+                            >
+                                {link.label} ↗
+                            </a>
+                        </>
+                    ))
+                }
+                {(work || refLinks.length > 0) && tags.length > 0 && (
+                    <span class="text-gray-300">·</span>
+                )}
+                {
+                    tags.length > 0 && (
+                        <span class="inline-flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                            {tags.map((tag) => (
+                                <span>#{tag}</span>
+                            ))}
+                        </span>
+                    )
+                }
+            </div>
+
+            <a
+                href={`/trails/${entry.id}`}
+                aria-label="打开讨论串"
+                title="打开讨论串"
+                class="ml-auto inline-flex items-center gap-1 shrink-0 rounded-md px-1.5 py-0.5 text-xs text-gray-500 hover:bg-gray-100 hover:text-blue-600 transition-colors"
+            >
+                <svg
+                    class="w-3.5 h-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    />
+                </svg>
+                <span>讨论</span>
+            </a>
+        </div>
+    </article>
+</li>
+
+<style>
+    .trail-card-body :global(p) {
+        margin: 0.6rem 0;
+        font-size: 0.94rem;
+        line-height: 1.7;
+    }
+
+    .trail-card-body :global(p:first-child) {
+        margin-top: 0;
+    }
+
+    .trail-card-body :global(p:last-child) {
+        margin-bottom: 0;
+    }
+
+    .trail-card-body :global(blockquote) {
+        margin: 0.75rem 0;
+        padding: 0.8rem 1.1rem;
+        font-size: 0.94rem;
+        line-height: 1.72;
+    }
+
+    .trail-card-body :global(blockquote:first-child) {
+        margin-top: 0;
+    }
+
+    .trail-card-body :global(blockquote:last-child),
+    .trail-card-body :global(.book-quote:last-child) {
+        margin-bottom: 0;
+    }
+
+    .trail-card-body :global(.book-quote:first-child) {
+        margin-top: 0;
+    }
+
+    .trail-card-body :global(.book-quote .book-quote-body) {
+        margin: 0;
+        padding: 0;
+        font-size: 0.98rem;
+        line-height: 1.88;
+    }
+
+    .trail-card-body :global(blockquote p) {
+        margin: 0.4rem 0;
+    }
+
+    .trail-card-body :global(blockquote p:first-child) {
+        margin-top: 0;
+    }
+
+    .trail-card-body :global(blockquote p:last-child) {
+        margin-bottom: 0;
+    }
+</style>

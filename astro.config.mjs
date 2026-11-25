@@ -13,6 +13,7 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import { rehypeFigure } from "./src/plugins/rehype-figure.mjs";
+import { remarkQuote } from "./src/plugins/remark-quote.mjs";
 
 const port = 4000;
 const isBuild = process.env.npm_lifecycle_script?.includes("astro build");
@@ -64,6 +65,7 @@ export default defineConfig({
         processor: unified({
             remarkPlugins: [
                 remarkDirective,
+                remarkQuote,
                 [remarkCalloutDirectives, {
                     aliases: {
                         info: "assert",

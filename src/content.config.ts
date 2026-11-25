@@ -15,6 +15,28 @@ const postCollection = defineCollection({
     }),
 });
 
+const trailLinkItemSchema = z.union([
+    z.url(),
+    z.object({
+        label: z.string(),
+        url: z.url(),
+    }),
+]);
+
+const trailCollection = defineCollection({
+    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/trails' }),
+    schema: z.object({
+        date: z.coerce.date(),
+        title: z.string().optional(),
+        work: z.string().optional(),
+        media: z.union([trailLinkItemSchema, z.array(trailLinkItemSchema)]).optional(),
+        links: z.union([trailLinkItemSchema, z.array(trailLinkItemSchema)]).optional(),
+        tags: z.array(z.string()).default([]),
+        draft: z.boolean().optional(),
+    }),
+});
+
 export const collections = {
     posts: postCollection,
+    trails: trailCollection,
 };

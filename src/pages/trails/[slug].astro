@@ -1,0 +1,136 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Giscus from "@/components/Giscus.astro";
+import PostMeta from "@/components/PostMeta.astro";
+import TrailMediaBar from "@/components/TrailMediaBar.astro";
+import { Site } from "@/config";
+import {
+    formatTrailDate,
+    getAllTrails,
+    getTrailMediaLinks,
+    getTrailPageTitle,
+    getTrailRefLinks,
+    getTrailSummary,
+    hasTrailBody,
+    type TrailEntry,
+} from "@/lib/trail";
+
+interface Props {
+    entry: TrailEntry;
+}
+
+export async function getStaticPaths() {
+    const trails = await getAllTrails();
+    return trails.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { slug } = Astro.params;
+
+const { title, date, work, tags } = entry.data;
+const pageTitle = getTrailPageTitle(entry);
+const formattedDate = formatTrailDate(date);
+const description = getTrailSummary(entry, 160);
+const hasBody = hasTrailBody(entry);
+const mediaLinks = getTrailMediaLinks(entry);
+const refLinks = getTrailRefLinks(entry);
+const hasMeta = Boolean(work || refLinks.length > 0 || tags.length > 0);
+const ogImageAbsoluteUrl = `${Site.baseUrl}/media/yatennosyo.png`;
+const { Content } = hasBody ? await render(entry) : { Content: null };
+---
+
+<BaseLayout title={`${pageTitle} | 中二少年的轨迹 | ${Site.title}`}>
+    <PostMeta
+        title={`${pageTitle} | 中二少年的轨迹`}
+        description={description}
+        publishDate={date.toISOString()}
+        pagePath={`/trails/${slug}`}
+        ogImageAbsoluteUrl={ogImageAbsoluteUrl}
+        ogImageAltText={pageTitle}
+        ogImageWidth={1600}
+        ogImageHeight={1200}
+        slot="meta"
+    />
+
+    <article class="pt-8">
+        <nav aria-label="返回导航" class="mb-6">
+            <a
+                href="/trails"
+                class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 transition-colors"
+            >
+                <span aria-hidden="true">←</span>
+                <span>返回轨迹</span>
+            </a>
+        </nav>
+
+        <header class="pb-5 border-b border-gray-900/10">
+            <time
+                datetime={date.toISOString()}
+                class="font-mono text-xs text-gray-500 tabular-nums"
+            >
+                {formattedDate}
+            </time>
+
+            {
+                title && (
+                    <h1 class="mt-2 mb-0 text-3xl font-bold text-gray-900 leading-tight">
+                        {title}
+                    </h1>
+                )
+            }
+
+            {
+                hasMeta && (
+                    <p class="mt-2 mb-0 text-sm text-gray-500 leading-relaxed flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                        {work && <span>《{work}》</span>}
+                        {work && refLinks.length > 0 && <span class="text-gray-300">·</span>}
+                        {refLinks.map((link, idx) => (
+                            <>
+                                {idx > 0 && <span class="text-gray-300">·</span>}
+                                <a
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="text-gray-500 hover:text-blue-600 transition-colors"
+                                >
+                                    {link.label} ↗
+                                </a>
+                            </>
+                        ))}
+                        {(work || refLinks.length > 0) && tags.length > 0 && (
+                            <span class="text-gray-300">·</span>
+                        )}
+                        {tags.length > 0 && (
+                            <span class="inline-flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                                {tags.map((tag) => (
+                                    <span>#{tag}</span>
+                                ))}
+                            </span>
+                        )}
+                    </p>
+                )
+            }
+        </header>
+
+        {
+            Content && (
+                <div class="post-content mt-6">
+                    <Content />
+                </div>
+            )
+        }
+
+        <div class="mt-6">
+            <TrailMediaBar links={mediaLinks} />
+        </div>
+    </article>
+
+    <hr class="border-gray-200 mt-8 mb-6" />
+    <section id="comments" aria-label="讨论串">
+        <Giscus />
+    </section>
+</BaseLayout>

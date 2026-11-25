@@ -1,0 +1,241 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageMeta from "@/components/PageMeta.astro";
+import TrailCard from "@/components/TrailCard.astro";
+import { Site } from "@/config";
+import { getAllTrails, sortTrailsByDateDesc } from "@/lib/trail";
+
+const trails = sortTrailsByDateDesc(await getAllTrails());
+const title = "中二少年的轨迹";
+---
+
+<BaseLayout title={`${title} | ${Site.title}`}>
+    <PageMeta title={title} slot="meta" />
+
+    <section class="mt-8">
+        <div
+            class="pb-4 border-b border-gray-900/10 flex flex-wrap items-center justify-between gap-3"
+        >
+            <h1 class="my-0 text-3xl font-bold text-gray-900">{title}</h1>
+
+            {
+                trails.length > 0 && (
+                    <div
+                        class="inline-flex items-center rounded-lg border border-gray-900/12 bg-gray-50/80 p-0.5"
+                        role="group"
+                        aria-label="排序方式"
+                    >
+                        <button
+                            type="button"
+                            data-sort-mode="newest"
+                            aria-pressed="true"
+                            class="trail-sort-btn trail-sort-active cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
+                        >
+                            最新
+                        </button>
+                        <button
+                            type="button"
+                            data-sort-mode="oldest"
+                            aria-pressed="false"
+                            class="trail-sort-btn cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
+                        >
+                            最早
+                        </button>
+                        <button
+                            type="button"
+                            data-sort-mode="random"
+                            aria-pressed="false"
+                            title="随机排序，再次点击可重新随机"
+                            class="trail-sort-btn inline-flex items-center gap-1 cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
+                        >
+                            <span>随机</span>
+                            <svg
+                                id="trail-reshuffle-icon"
+                                class="hidden w-3 h-3 text-gray-400"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+                                <path d="M21 3v6h-6" />
+                            </svg>
+                        </button>
+                    </div>
+                )
+            }
+        </div>
+
+        {
+            trails.length > 0 ? (
+                <ul id="trail-list" class="mt-6 mb-0 p-0 space-y-6 list-none">
+                    {trails.map((entry, index) => (
+                        <TrailCard entry={entry} index={index} />
+                    ))}
+                </ul>
+            ) : (
+                <p class="mt-8 text-sm text-gray-500">暂未收录轨迹。</p>
+            )
+        }
+    </section>
+</BaseLayout>
+
+<style>
+    .trail-sort-btn {
+        background-color: transparent;
+        color: #6b7280;
+    }
+
+    .trail-sort-btn:hover {
+        color: #111827;
+    }
+
+    .trail-sort-active {
+        background-color: #fff;
+        color: #111827;
+        box-shadow: 0 1px 2px rgba(17, 24, 39, 0.08);
+    }
+
+    @keyframes trail-settle {
+        from {
+            opacity: 0.45;
+            transform: translateY(4px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes trail-spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    :global(#trail-list.is-shuffling [data-trail-card]) {
+        animation: trail-settle 0.22s ease-out;
+    }
+
+    #trail-reshuffle-icon.is-spinning {
+        animation: trail-spin 0.32s ease-out;
+    }
+</style>
+
+<script>
+    const list = document.getElementById("trail-list");
+    if (list) {
+        const listEl: HTMLElement = list;
+        const cards = Array.from(listEl.querySelectorAll<HTMLElement>("[data-trail-card]"));
+        const sortButtons = Array.from(
+            document.querySelectorAll<HTMLButtonElement>("[data-sort-mode]"),
+        );
+        const reshuffleIcon = document.getElementById("trail-reshuffle-icon");
+
+        const params = new URLSearchParams(window.location.search);
+        const initialOrder = params.get("order");
+
+        let sortMode: "newest" | "oldest" | "random" =
+            initialOrder === "oldest" || initialOrder === "random" ? initialOrder : "newest";
+        let randomOrder = cards.map((_, idx) => idx);
+
+        function shuffleOrder(prev: number[]): number[] {
+            const next = [...prev];
+            for (let i = next.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [next[i], next[j]] = [next[j], next[i]];
+            }
+            if (next.length > 1 && next.every((v, idx) => v === prev[idx])) {
+                [next[0], next[1]] = [next[1], next[0]];
+            }
+            return next;
+        }
+
+        function syncUrl() {
+            const url = new URL(window.location.href);
+            url.searchParams.delete("order");
+            if (sortMode !== "newest") {
+                url.searchParams.set("order", sortMode);
+            }
+            window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+        }
+
+        function getOrderedIndices(): number[] {
+            if (sortMode === "oldest") {
+                return cards.map((_, idx) => idx).reverse();
+            }
+            if (sortMode === "random") {
+                return randomOrder;
+            }
+            return cards.map((_, idx) => idx);
+        }
+
+        function render(animate = false) {
+            const order = getOrderedIndices();
+            const fragment = document.createDocumentFragment();
+
+            for (const idx of order) {
+                fragment.appendChild(cards[idx]);
+            }
+
+            listEl.appendChild(fragment);
+
+            listEl.classList.remove("is-shuffling");
+            if (animate) {
+                void listEl.offsetWidth;
+                listEl.classList.add("is-shuffling");
+                listEl.addEventListener(
+                    "animationend",
+                    () => listEl.classList.remove("is-shuffling"),
+                    { once: true },
+                );
+            }
+
+            for (const btn of sortButtons) {
+                const isActive = btn.dataset.sortMode === sortMode;
+                btn.classList.toggle("trail-sort-active", isActive);
+                btn.setAttribute("aria-pressed", String(isActive));
+            }
+
+            if (reshuffleIcon) {
+                reshuffleIcon.classList.toggle("hidden", sortMode !== "random");
+                if (animate && sortMode === "random") {
+                    reshuffleIcon.classList.remove("is-spinning");
+                    void reshuffleIcon.getBoundingClientRect();
+                    reshuffleIcon.classList.add("is-spinning");
+                }
+            }
+
+            syncUrl();
+        }
+
+        if (sortMode === "random") {
+            randomOrder = shuffleOrder(randomOrder);
+        }
+
+        for (const btn of sortButtons) {
+            btn.addEventListener("click", () => {
+                const mode = btn.dataset.sortMode;
+                if (mode === "random") {
+                    sortMode = "random";
+                    randomOrder = shuffleOrder(randomOrder);
+                    render(true);
+                } else if (mode === "oldest") {
+                    sortMode = "oldest";
+                    render(true);
+                } else {
+                    sortMode = "newest";
+                    render(true);
+                }
+            });
+        }
+
+        render(false);
+    }
+</script>

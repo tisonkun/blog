@@ -100,6 +100,80 @@
     font-family: "Kaiti SC", "STKaiti", "Songti SC", Georgia, serif;
 }
 
+.book-quote {
+    position: relative;
+    margin: 1.5rem 0;
+    padding: 1.35rem 1.55rem 1.15rem 2.25rem;
+    background-color: #faf9f5;
+    border: 1px solid #ece9e0;
+    border-radius: 10px;
+}
+
+.book-quote::before {
+    content: "\201C";
+    position: absolute;
+    top: 0.45rem;
+    left: 0.72rem;
+    font-family: Georgia, "Songti SC", "STSong", serif;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: rgba(17, 24, 39, 0.14);
+    pointer-events: none;
+    user-select: none;
+}
+
+.book-quote .book-quote-body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    font-family: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    font-size: 1.02rem;
+    line-height: 1.9;
+    letter-spacing: 0.015em;
+    color: #1f2328;
+}
+
+.book-quote .book-quote-body p {
+    margin: 0.65rem 0;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.book-quote .book-quote-body p:first-child {
+    margin-top: 0;
+}
+
+.book-quote .book-quote-body p:last-child {
+    margin-bottom: 0;
+}
+
+.book-quote .book-quote-cite {
+    margin-top: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.45rem;
+    text-align: right;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #6b7280;
+}
+
+.book-quote .book-quote-cite::before {
+    content: "";
+    display: inline-block;
+    width: 1.35rem;
+    height: 1px;
+    background-color: #cbd5e1;
+    flex-shrink: 0;
+}
+
+.book-quote .book-quote-cite cite {
+    font-style: normal;
+}
+
 .post-content {
     @apply leading-relaxed;
 }
