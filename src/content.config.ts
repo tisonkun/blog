@@ -15,7 +15,7 @@ const postCollection = defineCollection({
     }),
 });
 
-const trailMediaItemSchema = z.union([
+const trailLinkItemSchema = z.union([
     z.url(),
     z.object({
         label: z.string(),
@@ -29,8 +29,8 @@ const trailCollection = defineCollection({
         date: z.coerce.date(),
         title: z.string().optional(),
         work: z.string().optional(),
-        wiki: z.url().optional(),
-        media: z.union([trailMediaItemSchema, z.array(trailMediaItemSchema)]).optional(),
+        media: z.union([trailLinkItemSchema, z.array(trailLinkItemSchema)]).optional(),
+        links: z.union([trailLinkItemSchema, z.array(trailLinkItemSchema)]).optional(),
         tags: z.array(z.string()).default([]),
         draft: z.boolean().optional(),
     }),

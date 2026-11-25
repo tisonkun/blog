@@ -10,9 +10,9 @@ import {
     getAllTrails,
     getTrailMediaLinks,
     getTrailPageTitle,
+    getTrailRefLinks,
     getTrailSummary,
     hasTrailBody,
-    inferPlatformLabel,
     type TrailEntry,
 } from "@/lib/trail";
 
@@ -31,14 +31,14 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { slug } = Astro.params;
 
-const { title, date, work, wiki, tags } = entry.data;
+const { title, date, work, tags } = entry.data;
 const pageTitle = getTrailPageTitle(entry);
 const formattedDate = formatTrailDate(date);
 const description = getTrailSummary(entry, 160);
 const hasBody = hasTrailBody(entry);
 const mediaLinks = getTrailMediaLinks(entry);
-const hasMeta = Boolean(work || wiki || tags.length > 0);
-const wikiLabel = wiki ? inferPlatformLabel(wiki) : "";
+const refLinks = getTrailRefLinks(entry);
+const hasMeta = Boolean(work || refLinks.length > 0 || tags.length > 0);
 const ogImageAbsoluteUrl = `${Site.baseUrl}/media/yatennosyo.png`;
 const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
@@ -87,18 +87,21 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
                 hasMeta && (
                     <p class="mt-2 mb-0 text-sm text-gray-500 leading-relaxed flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
                         {work && <span>《{work}》</span>}
-                        {work && wiki && <span class="text-gray-300">·</span>}
-                        {wiki && (
-                            <a
-                                href={wiki}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="text-gray-500 hover:text-blue-600 transition-colors"
-                            >
-                                {wikiLabel} ↗
-                            </a>
-                        )}
-                        {(work || wiki) && tags.length > 0 && (
+                        {work && refLinks.length > 0 && <span class="text-gray-300">·</span>}
+                        {refLinks.map((link, idx) => (
+                            <>
+                                {idx > 0 && <span class="text-gray-300">·</span>}
+                                <a
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="text-gray-500 hover:text-blue-600 transition-colors"
+                                >
+                                    {link.label} ↗
+                                </a>
+                            </>
+                        ))}
+                        {(work || refLinks.length > 0) && tags.length > 0 && (
                             <span class="text-gray-300">·</span>
                         )}
                         {tags.length > 0 && (

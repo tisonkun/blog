@@ -2,10 +2,12 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 export type TrailEntry = CollectionEntry<"trails">;
 
-export interface TrailMediaLink {
+export interface TrailLink {
     url: string;
     label: string;
 }
+
+type RawLinkInput = string | { label: string; url: string };
 
 export async function getAllTrails(): Promise<TrailEntry[]> {
     const entries = await getCollection("trails");
@@ -103,8 +105,7 @@ export function inferPlatformLabel(urlString: string): string {
     }
 }
 
-export function getTrailMediaLinks(entry: TrailEntry): TrailMediaLink[] {
-    const raw = entry.data.media;
+function normalizeTrailLinks(raw?: RawLinkInput | RawLinkInput[]): TrailLink[] {
     if (!raw) return [];
     const items = Array.isArray(raw) ? raw : [raw];
     return items.map((item) => {
@@ -112,4 +113,12 @@ export function getTrailMediaLinks(entry: TrailEntry): TrailMediaLink[] {
         const label = typeof item === "string" ? inferPlatformLabel(url) : item.label;
         return { url, label };
     });
+}
+
+export function getTrailMediaLinks(entry: TrailEntry): TrailLink[] {
+    return normalizeTrailLinks(entry.data.media);
+}
+
+export function getTrailRefLinks(entry: TrailEntry): TrailLink[] {
+    return normalizeTrailLinks(entry.data.links);
 }
