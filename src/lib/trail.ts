@@ -36,6 +36,7 @@ export function formatTrailDate(date: Date): string {
 export function getPlainBodyText(entry: TrailEntry): string {
     return (entry.body ?? "")
         .replace(/```[\s\S]*?```/g, "")
+        .replace(/^:::+.*$/gm, "")
         .replace(/!\[[^\]]*\]\([^)]+\)/g, "")
         .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
         .replace(/^>\s?/gm, "")
