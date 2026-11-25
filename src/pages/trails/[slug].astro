@@ -3,12 +3,12 @@ import { render } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Giscus from "@/components/Giscus.astro";
 import PostMeta from "@/components/PostMeta.astro";
-import TrailListenBar from "@/components/TrailListenBar.astro";
+import TrailMediaBar from "@/components/TrailMediaBar.astro";
 import { Site } from "@/config";
 import {
     formatTrailDate,
     getAllTrails,
-    getTrailListenLinks,
+    getTrailMediaLinks,
     getTrailPageTitle,
     getTrailSummary,
     hasTrailBody,
@@ -31,13 +31,13 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { slug } = Astro.params;
 
-const { title, date, work, credit, wiki } = entry.data;
+const { title, date, work, wiki, tags } = entry.data;
 const pageTitle = getTrailPageTitle(entry);
 const formattedDate = formatTrailDate(date);
 const description = getTrailSummary(entry, 160);
 const hasBody = hasTrailBody(entry);
-const listenLinks = getTrailListenLinks(entry);
-const hasMeta = Boolean(work || credit || wiki);
+const mediaLinks = getTrailMediaLinks(entry);
+const hasMeta = Boolean(work || wiki || tags.length > 0);
 const wikiLabel = wiki ? inferPlatformLabel(wiki) : "";
 const ogImageAbsoluteUrl = `${Site.baseUrl}/media/yatennosyo.png`;
 const { Content } = hasBody ? await render(entry) : { Content: null };
@@ -87,9 +87,7 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
                 hasMeta && (
                     <p class="mt-2 mb-0 text-sm text-gray-500 leading-relaxed flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
                         {work && <span>《{work}》</span>}
-                        {work && credit && <span class="text-gray-300">·</span>}
-                        {credit && <span>{credit}</span>}
-                        {(work || credit) && wiki && <span class="text-gray-300">·</span>}
+                        {work && wiki && <span class="text-gray-300">·</span>}
                         {wiki && (
                             <a
                                 href={wiki}
@@ -99,6 +97,16 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
                             >
                                 {wikiLabel} ↗
                             </a>
+                        )}
+                        {(work || wiki) && tags.length > 0 && (
+                            <span class="text-gray-300">·</span>
+                        )}
+                        {tags.length > 0 && (
+                            <span class="inline-flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                                {tags.map((tag) => (
+                                    <span>#{tag}</span>
+                                ))}
+                            </span>
                         )}
                     </p>
                 )
@@ -114,7 +122,7 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
         }
 
         <div class="mt-6">
-            <TrailListenBar links={listenLinks} />
+            <TrailMediaBar links={mediaLinks} />
         </div>
     </article>
 

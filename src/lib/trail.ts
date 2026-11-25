@@ -2,7 +2,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 export type TrailEntry = CollectionEntry<"trails">;
 
-export interface TrailListenLink {
+export interface TrailMediaLink {
     url: string;
     label: string;
 }
@@ -64,9 +64,6 @@ export function getTrailSummary(entry: TrailEntry, maxLength = 140): string {
     if (entry.data.work?.trim()) {
         parts.push(`《${entry.data.work.trim()}》`);
     }
-    if (entry.data.credit?.trim()) {
-        parts.push(entry.data.credit.trim());
-    }
     const bodyText = getPlainBodyText(entry);
     if (bodyText) {
         parts.push(bodyText);
@@ -106,8 +103,8 @@ export function inferPlatformLabel(urlString: string): string {
     }
 }
 
-export function getTrailListenLinks(entry: TrailEntry): TrailListenLink[] {
-    const raw = entry.data.listen;
+export function getTrailMediaLinks(entry: TrailEntry): TrailMediaLink[] {
+    const raw = entry.data.media;
     if (!raw) return [];
     const items = Array.isArray(raw) ? raw : [raw];
     return items.map((item) => {

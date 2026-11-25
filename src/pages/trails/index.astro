@@ -18,56 +18,68 @@ const title = "中二少年的轨迹";
         >
             <h1 class="my-0 text-3xl font-bold text-gray-900">{title}</h1>
 
-            <div
-                class="inline-flex items-center rounded-lg border border-gray-900/12 bg-gray-50/80 p-0.5"
-                role="group"
-                aria-label="排序方式"
-            >
-                <button
-                    type="button"
-                    data-sort-mode="newest"
-                    aria-pressed="true"
-                    class="trail-sort-btn trail-sort-active cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
-                >
-                    最新
-                </button>
-                <button
-                    type="button"
-                    data-sort-mode="oldest"
-                    aria-pressed="false"
-                    class="trail-sort-btn cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
-                >
-                    最早
-                </button>
-                <button
-                    type="button"
-                    data-sort-mode="random"
-                    aria-pressed="false"
-                    title="随机排序，再次点击可重新随机"
-                    class="trail-sort-btn inline-flex items-center gap-1 cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
-                >
-                    <span>随机</span>
-                    <svg
-                        id="trail-reshuffle-icon"
-                        class="hidden w-3 h-3 text-gray-400"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
+            {
+                trails.length > 0 && (
+                    <div
+                        class="inline-flex items-center rounded-lg border border-gray-900/12 bg-gray-50/80 p-0.5"
+                        role="group"
+                        aria-label="排序方式"
                     >
-                        <path d="M21 12a9 9 0 1 1-2.64-6.36" />
-                        <path d="M21 3v6h-6" />
-                    </svg>
-                </button>
-            </div>
+                        <button
+                            type="button"
+                            data-sort-mode="newest"
+                            aria-pressed="true"
+                            class="trail-sort-btn trail-sort-active cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
+                        >
+                            最新
+                        </button>
+                        <button
+                            type="button"
+                            data-sort-mode="oldest"
+                            aria-pressed="false"
+                            class="trail-sort-btn cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
+                        >
+                            最早
+                        </button>
+                        <button
+                            type="button"
+                            data-sort-mode="random"
+                            aria-pressed="false"
+                            title="随机排序，再次点击可重新随机"
+                            class="trail-sort-btn inline-flex items-center gap-1 cursor-pointer rounded-md border-0 px-3 py-1 text-xs font-medium transition-colors"
+                        >
+                            <span>随机</span>
+                            <svg
+                                id="trail-reshuffle-icon"
+                                class="hidden w-3 h-3 text-gray-400"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+                                <path d="M21 3v6h-6" />
+                            </svg>
+                        </button>
+                    </div>
+                )
+            }
         </div>
 
-        <ul id="trail-list" class="mt-6 mb-0 p-0 space-y-6 list-none">
-            {trails.map((entry, index) => <TrailCard entry={entry} index={index} />)}
-        </ul>
+        {
+            trails.length > 0 ? (
+                <ul id="trail-list" class="mt-6 mb-0 p-0 space-y-6 list-none">
+                    {trails.map((entry, index) => (
+                        <TrailCard entry={entry} index={index} />
+                    ))}
+                </ul>
+            ) : (
+                <p class="mt-8 text-sm text-gray-500">暂未收录轨迹。</p>
+            )
+        }
     </section>
 </BaseLayout>
 
