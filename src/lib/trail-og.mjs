@@ -43,19 +43,28 @@ function stripInlineMarkdown(text) {
         .trim();
 }
 
-function splitParagraphs(raw) {
+function splitQuoteParagraphs(raw, { stripMarkdown = false } = {}) {
     return raw
         .split(/\r?\n\s*\r?\n/)
-        .map((block) =>
-            stripInlineMarkdown(
-                block
-                    .split(/\r?\n/)
-                    .map((line) => line.trim())
-                    .filter(Boolean)
-                    .join(" "),
-            ),
-        )
+        .map((block) => {
+            const joined = block
+                .split(/\r?\n/)
+                .map((line) => line.trim())
+                .filter(Boolean)
+                .join(" ");
+            return stripMarkdown ? stripInlineMarkdown(joined) : joined.trim();
+        })
         .filter(Boolean);
+}
+
+function normalizeOgQuote(raw) {
+    if (typeof raw === "string") {
+        return splitQuoteParagraphs(raw);
+    }
+    if (Array.isArray(raw)) {
+        return raw.map((item) => String(item).trim()).filter(Boolean);
+    }
+    return [];
 }
 
 function parseQuoteAttrs(attrStr) {
@@ -71,53 +80,29 @@ function parseQuoteAttrs(attrStr) {
     return author || source;
 }
 
-export function extractTrailBody(rawBody) {
+/**
+ * Extracts only the explicit `:::quote` directive block (matching remark-quote.mjs).
+ * Plain prose and standard blockquotes are intentionally ignored to avoid fragile heuristics.
+ */
+export function extractQuoteDirective(rawBody) {
     const body = (rawBody ?? "").trim();
-    if (!body) {
-        return { kind: "empty", paragraphs: [], cite: "" };
-    }
+    if (!body) return null;
 
-    const quoteMatch = body.match(
+    const match = body.match(
         /^(:{3,})quote(?:\[([^\]]*)\]|\{([^}]*)\})?[ \t]*\r?\n([\s\S]*?)\r?\n\1[ \t]*$/m,
     );
-    if (quoteMatch) {
-        const [, , labelCite, attrStr, inner] = quoteMatch;
-        const cite = labelCite
-            ? stripInlineMarkdown(labelCite)
-            : attrStr
-              ? parseQuoteAttrs(attrStr)
-              : "";
-        const paragraphs = splitParagraphs(inner);
-        if (paragraphs.length > 0) {
-            return { kind: "quote", paragraphs, cite };
-        }
-    }
+    if (!match) return null;
 
-    const cleaned = body
-        .replace(/```[\s\S]*?```/g, "")
-        .replace(/^:::+.*$/gm, "")
-        .trim();
+    const [, , labelCite, attrStr, inner] = match;
+    const cite = labelCite
+        ? stripInlineMarkdown(labelCite)
+        : attrStr
+          ? parseQuoteAttrs(attrStr)
+          : "";
+    const paragraphs = splitQuoteParagraphs(inner, { stripMarkdown: true });
+    if (paragraphs.length === 0) return null;
 
-    if (!cleaned) {
-        return { kind: "empty", paragraphs: [], cite: "" };
-    }
-
-    const lines = cleaned.split(/\r?\n/);
-    const nonEmptyLines = lines.filter((line) => line.trim().length > 0);
-    if (nonEmptyLines.length > 0 && nonEmptyLines.every((line) => /^\s*>/.test(line))) {
-        const unquoted = lines.map((line) => line.replace(/^\s*>\s?/, "")).join("\n");
-        const paragraphs = splitParagraphs(unquoted);
-        if (paragraphs.length > 0) {
-            return { kind: "quote", paragraphs, cite: "" };
-        }
-    }
-
-    const paragraphs = splitParagraphs(cleaned.replace(/^>\s?/gm, ""));
-    if (paragraphs.length > 0) {
-        return { kind: "note", paragraphs, cite: "" };
-    }
-
-    return { kind: "empty", paragraphs: [], cite: "" };
+    return { paragraphs, cite };
 }
 
 export function parseTrailFile(raw, slug) {
@@ -129,19 +114,19 @@ export function parseTrailFile(raw, slug) {
 
     const title = typeof data.title === "string" ? data.title.trim() : "";
     const work = typeof data.work === "string" ? data.work.trim() : "";
-    const hasMedia = Array.isArray(data.media) ? data.media.length > 0 : Boolean(data.media);
-    const tags = Array.isArray(data.tags) ? data.tags.map((t) => String(t).trim()).filter(Boolean) : [];
+    const ogQuote = normalizeOgQuote(data.ogQuote);
+    const ogImage = typeof data.ogImage === "string" ? data.ogImage.trim() : "";
     const date = normalizeDate(data.date);
-    const body = extractTrailBody(match[2] ?? "");
+    const quoteDirective = extractQuoteDirective(match[2] ?? "");
 
     return {
         slug,
         date,
         title,
         work,
-        hasMedia,
-        tags,
-        body,
+        ogQuote,
+        ogImage,
+        quoteDirective,
     };
 }
 
@@ -190,28 +175,11 @@ export function truncateAtBoundary(text, maxWeight) {
     return `${sliced}…`;
 }
 
-function containsJapaneseKana(text) {
-    return /[\u3040-\u30ff]/.test(text);
-}
-
-function isBilingualPair(paragraphs) {
-    if (paragraphs.length !== 2) return false;
-    const [first, second] = paragraphs;
-    const firstKana = containsJapaneseKana(first);
-    const secondKana = containsJapaneseKana(second);
-    if (firstKana !== secondKana) return true;
-
-    const firstLatin = /^[\x00-\x7f\u2000-\u206f\s]+$/.test(first);
-    const secondLatin = /^[\x00-\x7f\u2000-\u206f\s]+$/.test(second);
-    return firstLatin !== secondLatin;
-}
-
 function fitParagraphs(paragraphs, maxTotalWeight) {
     const fitted = [];
     let remaining = maxTotalWeight;
 
-    for (let i = 0; i < paragraphs.length; i++) {
-        const para = paragraphs[i];
+    for (const para of paragraphs) {
         const len = visualLength(para);
         if (len <= remaining) {
             fitted.push(para);
@@ -244,36 +212,38 @@ function resolveQuoteCite(rawCite, work) {
     return cite;
 }
 
+/**
+ * Deterministic card selection order:
+ * 1. Explicit `ogQuote` in frontmatter -> quote card
+ * 2. Explicit `title` in frontmatter -> titled card (`title` + optional `《work》`)
+ * 3. Explicit `:::quote` directive block -> quote card
+ * 4. Explicit `work` in frontmatter (or section fallback) -> work-only hero card
+ */
 export function selectTrailCardModel(trail) {
+    if (trail.ogQuote.length > 0) {
+        return {
+            mode: "quote",
+            paragraphs: fitParagraphs(trail.ogQuote.slice(0, 3), 165),
+            cite: resolveQuoteCite(trail.quoteDirective?.cite ?? "", trail.work),
+            work: trail.work,
+            date: trail.date,
+        };
+    }
+
     if (trail.title) {
-        const joinedBody = trail.body.paragraphs.join(" ");
         return {
             mode: "titled",
             title: trail.title,
             work: trail.work,
-            excerpt: joinedBody ? truncateAtBoundary(joinedBody, 56) : "",
             date: trail.date,
-            hasMedia: trail.hasMedia,
         };
     }
 
-    if (trail.body.kind === "quote" && trail.body.paragraphs.length > 0) {
-        const paragraphs = fitParagraphs(trail.body.paragraphs.slice(0, 3), 165);
+    if (trail.quoteDirective) {
         return {
             mode: "quote",
-            paragraphs,
-            cite: resolveQuoteCite(trail.body.cite, trail.work),
-            work: trail.work,
-            date: trail.date,
-            bilingual: isBilingualPair(paragraphs),
-        };
-    }
-
-    if (trail.body.kind === "note" && trail.body.paragraphs.length > 0) {
-        const paragraphs = fitParagraphs(trail.body.paragraphs.slice(0, 3), 150);
-        return {
-            mode: "note",
-            paragraphs,
+            paragraphs: fitParagraphs(trail.quoteDirective.paragraphs.slice(0, 3), 165),
+            cite: resolveQuoteCite(trail.quoteDirective.cite, trail.work),
             work: trail.work,
             date: trail.date,
         };
@@ -426,7 +396,7 @@ function buildBrandSignature(fonts, { includeSection = false, iconSize = 28 } = 
     };
 }
 
-function buildTopBar(leftLabel, date, fonts, { emphasizeLeft = false } = {}) {
+function buildTopBar(leftLabel, date, fonts) {
     return {
         type: "div",
         props: {
@@ -463,10 +433,10 @@ function buildTopBar(leftLabel, date, fonts, { emphasizeLeft = false } = {}) {
                                 props: {
                                     style: {
                                         fontFamily: fonts.sans,
-                                        fontSize: emphasizeLeft ? "26px" : "22px",
-                                        fontWeight: emphasizeLeft ? 600 : 500,
-                                        color: emphasizeLeft ? "#19191F" : "#696974",
-                                        letterSpacing: emphasizeLeft ? "0.02em" : "0.08em",
+                                        fontSize: "22px",
+                                        fontWeight: 500,
+                                        color: "#696974",
+                                        letterSpacing: "0.08em",
                                     },
                                     children: leftLabel,
                                 },
@@ -580,25 +550,6 @@ function buildTitledNode(model, fonts) {
         });
     }
 
-    if (model.excerpt) {
-        centerChildren.push({
-            type: "div",
-            props: {
-                style: {
-                    fontFamily: fonts.sans,
-                    fontSize: "22px",
-                    fontWeight: 400,
-                    lineHeight: 1.65,
-                    color: "#696974",
-                    textAlign: "center",
-                    maxWidth: "860px",
-                    marginTop: "6px",
-                },
-                children: model.excerpt,
-            },
-        });
-    }
-
     return {
         type: "div",
         props: {
@@ -652,7 +603,7 @@ function buildTitledNode(model, fonts) {
 function pickQuoteTypography(paragraphs) {
     const totalWeight = paragraphs.reduce((acc, p) => acc + visualLength(p), 0);
     const maxParaWeight = Math.max(...paragraphs.map((p) => visualLength(p)));
-    // Keep short 1-2 line quotes (e.g. bilingual epigrams) on clean unbroken lines without 1-char orphans.
+    // Keep short 1-2 line quotes on clean unbroken lines without 1-char orphans.
     if (paragraphs.length <= 2 && maxParaWeight <= 30 && totalWeight <= 64) {
         const innerWidth = 948;
         const singleLineFit = Math.floor(innerWidth / (maxParaWeight * 1.03));
@@ -701,7 +652,7 @@ function buildQuoteNode(model, fonts) {
                     justifyContent: "center",
                     gap: `${gap}px`,
                 },
-                children: model.paragraphs.map((text, idx) => ({
+                children: model.paragraphs.map((text) => ({
                     type: "div",
                     props: {
                         style: {
@@ -710,7 +661,7 @@ function buildQuoteNode(model, fonts) {
                             fontWeight: 400,
                             lineHeight,
                             letterSpacing: "0.02em",
-                            color: model.bilingual && idx === 1 ? "#4B5563" : "#1F2328",
+                            color: "#1F2328",
                         },
                         children: text,
                     },
@@ -811,78 +762,6 @@ function buildQuoteNode(model, fonts) {
     };
 }
 
-function buildNoteNode(model, fonts) {
-    const totalWeight = model.paragraphs.reduce((acc, p) => acc + visualLength(p), 0);
-    const fontSize = totalWeight <= 70 ? 34 : totalWeight <= 120 ? 30 : 26;
-    const topLabel = model.work ? `《${model.work}》` : TRAILS_TITLE;
-
-    return {
-        type: "div",
-        props: {
-            style: {
-                width: "100%",
-                height: "100%",
-                boxSizing: "border-box",
-                backgroundColor: "#FAFAFC",
-                color: "#19191F",
-                padding: "56px 80px 46px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-            },
-            children: [
-                buildTopBar(topLabel, model.date, fonts, { emphasizeLeft: Boolean(model.work) }),
-                {
-                    type: "div",
-                    props: {
-                        style: {
-                            flex: 1,
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            gap: "18px",
-                            paddingBottom: "12px",
-                            maxWidth: "1020px",
-                        },
-                        children: model.paragraphs.map((text) => ({
-                            type: "div",
-                            props: {
-                                style: {
-                                    fontFamily: fonts.sans,
-                                    fontSize: `${fontSize}px`,
-                                    fontWeight: 400,
-                                    lineHeight: 1.76,
-                                    color: "#1F2328",
-                                },
-                                children: text,
-                            },
-                        })),
-                    },
-                },
-                {
-                    type: "div",
-                    props: {
-                        style: {
-                            width: "100%",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "flex-end",
-                            paddingTop: "22px",
-                            borderTop: "1px solid #E6E6EC",
-                        },
-                        children: [
-                            buildBrandSignature(fonts, {
-                                includeSection: Boolean(model.work),
-                                iconSize: 28,
-                            }),
-                        ],
-                    },
-                },
-            ],
-        },
-    };
-}
-
 function buildWorkOnlyNode(model, fonts) {
     const titleSize = pickHeroTitleSize(model.heading);
     return {
@@ -957,8 +836,6 @@ export function buildTrailOgNode(trail, fonts) {
             return buildTitledNode(model, fonts);
         case "quote":
             return buildQuoteNode(model, fonts);
-        case "note":
-            return buildNoteNode(model, fonts);
         case "work-only":
             return buildWorkOnlyNode(model, fonts);
     }

@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { slug } = Astro.params;
 
-const { title, date, work, tags } = entry.data;
+const { title, date, work, tags, ogImage } = entry.data;
 const pageTitle = getTrailPageTitle(entry);
 const ogTitle = getTrailOgTitle(entry);
 const ogImageAltText = getTrailOgImageAlt(entry);
@@ -43,7 +43,12 @@ const hasBody = hasTrailBody(entry);
 const mediaLinks = getTrailMediaLinks(entry);
 const refLinks = getTrailRefLinks(entry);
 const hasMeta = Boolean(work || refLinks.length > 0 || tags.length > 0);
-const ogImageAbsoluteUrl = `${Site.baseUrl}/og/trails/${slug}.png`;
+const customOgImage = ogImage?.trim();
+const ogImageAbsoluteUrl = customOgImage
+    ? new URL(customOgImage, Site.url).toString()
+    : `${Site.baseUrl}/og/trails/${slug}.png`;
+const ogImageWidth = customOgImage ? undefined : 1200;
+const ogImageHeight = customOgImage ? undefined : 630;
 const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
 
@@ -55,8 +60,8 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
         pagePath={`/trails/${slug}`}
         ogImageAbsoluteUrl={ogImageAbsoluteUrl}
         ogImageAltText={ogImageAltText}
-        ogImageWidth={1200}
-        ogImageHeight={630}
+        ogImageWidth={ogImageWidth}
+        ogImageHeight={ogImageHeight}
         slot="meta"
     />
 

@@ -194,7 +194,7 @@ function collectTrails(rootDir) {
     const trails = [];
     for (const { slug, filePath } of walkTrailFiles(trailsDir)) {
         const parsed = parseTrailFile(fs.readFileSync(filePath, "utf8"), slug);
-        if (parsed) trails.push(parsed);
+        if (parsed && !parsed.ogImage) trails.push(parsed);
     }
     return trails;
 }
