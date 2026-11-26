@@ -10,7 +10,15 @@ const title = "中二少年的轨迹";
 ---
 
 <BaseLayout title={`${title} | ${Site.title}`}>
-    <PageMeta title={title} slot="meta" />
+    <PageMeta
+        title={title}
+        pagePath="/trails"
+        ogImageAbsoluteUrl={`${Site.baseUrl}/og/trails.png`}
+        ogImageAltText={title}
+        ogImageWidth={1200}
+        ogImageHeight={630}
+        slot="meta"
+    />
 
     <section class="mt-8">
         <div

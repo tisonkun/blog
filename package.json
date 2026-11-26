@@ -22,6 +22,8 @@
     "@expressive-code/plugin-line-numbers": "^0.44.4",
     "@fontsource-variable/open-sans": "^5.3.0",
     "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/noto-sans-sc": "^5.3.1",
+    "@fontsource/noto-serif-sc": "^5.3.1",
     "@microflash/remark-callout-directives": "^5.0.1",
     "astro": "^7.4.13",
     "astro-expressive-code": "^0.44.4",
@@ -31,9 +33,11 @@
     "rehype-slug": "^6.0.0",
     "remark-directive": "^4.0.0",
     "remark-math": "^6.0.0",
+    "satori": "^0.63.2",
     "sharp": "^0.35.5",
     "tailwindcss": "^4.3.5",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.5",

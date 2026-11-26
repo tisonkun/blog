@@ -29,6 +29,8 @@ const trailCollection = defineCollection({
         date: z.coerce.date(),
         title: z.string().optional(),
         work: z.string().optional(),
+        ogQuote: z.union([z.string(), z.array(z.string())]).optional(),
+        ogImage: z.string().optional(),
         media: z.union([trailLinkItemSchema, z.array(trailLinkItemSchema)]).optional(),
         links: z.union([trailLinkItemSchema, z.array(trailLinkItemSchema)]).optional(),
         tags: z.array(z.string()).default([]),

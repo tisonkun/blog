@@ -14,6 +14,7 @@ import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import { rehypeFigure } from "./src/plugins/rehype-figure.mjs";
 import { remarkQuote } from "./src/plugins/remark-quote.mjs";
+import { ogImagesIntegration } from "./src/plugins/og-images.mjs";
 
 const port = 4000;
 const isBuild = process.env.npm_lifecycle_script?.includes("astro build");
@@ -127,6 +128,7 @@ export default defineConfig({
             },
         }),
         mdx(),
+        ogImagesIntegration(),
     ],
 
     vite: {
