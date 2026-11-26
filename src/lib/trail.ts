@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from "astro:content";
+import { formatSiteDate } from "@/lib/date";
 
 export type TrailEntry = CollectionEntry<"trails">;
 
@@ -27,10 +28,7 @@ export function hasTrailBody(entry: TrailEntry): boolean {
 }
 
 export function formatTrailDate(date: Date): string {
-    const year = date.getUTCFullYear();
-    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-    const day = String(date.getUTCDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    return formatSiteDate(date);
 }
 
 export function getPlainBodyText(entry: TrailEntry): string {
