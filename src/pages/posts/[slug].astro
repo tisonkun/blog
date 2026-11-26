@@ -6,6 +6,7 @@ import Giscus from "@/components/Giscus.astro";
 import PostMeta from "@/components/PostMeta.astro";
 import PostSidebar from "@/components/PostSidebar.astro";
 import { Site } from "@/config";
+import { formatSiteDate } from "@/lib/date";
 import { getAllPosts, getPostExcerpt } from "@/lib/post";
 
 interface Props {
@@ -28,7 +29,7 @@ const description = getPostExcerpt(entry, 160);
 const category = entry.data.category;
 const tags = entry.data.tags;
 const publishDate = entry.data.date;
-const formattedDate = `${publishDate.getUTCFullYear()}-${String(publishDate.getUTCMonth() + 1).padStart(2, "0")}-${String(publishDate.getUTCDate()).padStart(2, "0")}`;
+const formattedDate = formatSiteDate(publishDate);
 const ogImageAbsoluteUrl = `${Site.baseUrl}/media/yatennosyo.png`;
 const { Content, headings } = await render(entry);
 ---
