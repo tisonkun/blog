@@ -5,17 +5,30 @@ import { Site, Social } from "@/config";
 interface Props {
     title?: string;
     description?: string;
+    pagePath?: string;
+    ogImageAbsoluteUrl?: string;
+    ogImageAltText?: string;
+    ogImageWidth?: number;
+    ogImageHeight?: number;
 }
 
-const { title, description } = Astro.props;
+const {
+    title,
+    description,
+    pagePath,
+    ogImageAbsoluteUrl = `${Site.baseUrl}/media/yatennosyo.png`,
+    ogImageAltText = `${Site.title} — ${Site.description}`,
+    ogImageWidth = 1600,
+    ogImageHeight = 1200,
+} = Astro.props;
 const { meta, og, twitter } = getPageMeta({
     title: title || Site.title,
     description: description || Site.description,
-    baseUrl: Site.baseUrl,
-    ogImageAbsoluteUrl: `${Site.baseUrl}/media/yatennosyo.png`,
-    ogImageAltText: `${Site.title} — ${Site.description}`,
-    ogImageWidth: 1600,
-    ogImageHeight: 1200,
+    baseUrl: pagePath ? new URL(pagePath, Site.url).toString() : Site.baseUrl,
+    ogImageAbsoluteUrl,
+    ogImageAltText,
+    ogImageWidth,
+    ogImageHeight,
     siteOwnerTwitterHandle: Social.twitterId,
     contentAuthorTwitterHandle: Social.twitterId,
 });

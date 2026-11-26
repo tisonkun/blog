@@ -9,6 +9,8 @@ import {
     formatTrailDate,
     getAllTrails,
     getTrailMediaLinks,
+    getTrailOgImageAlt,
+    getTrailOgTitle,
     getTrailPageTitle,
     getTrailRefLinks,
     getTrailSummary,
@@ -33,26 +35,28 @@ const { slug } = Astro.params;
 
 const { title, date, work, tags } = entry.data;
 const pageTitle = getTrailPageTitle(entry);
+const ogTitle = getTrailOgTitle(entry);
+const ogImageAltText = getTrailOgImageAlt(entry);
 const formattedDate = formatTrailDate(date);
 const description = getTrailSummary(entry, 160);
 const hasBody = hasTrailBody(entry);
 const mediaLinks = getTrailMediaLinks(entry);
 const refLinks = getTrailRefLinks(entry);
 const hasMeta = Boolean(work || refLinks.length > 0 || tags.length > 0);
-const ogImageAbsoluteUrl = `${Site.baseUrl}/media/yatennosyo.png`;
+const ogImageAbsoluteUrl = `${Site.baseUrl}/og/trails/${slug}.png`;
 const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
 
 <BaseLayout title={`${pageTitle} | 中二少年的轨迹 | ${Site.title}`}>
     <PostMeta
-        title={`${pageTitle} | 中二少年的轨迹`}
+        title={ogTitle}
         description={description}
         publishDate={date.toISOString()}
         pagePath={`/trails/${slug}`}
         ogImageAbsoluteUrl={ogImageAbsoluteUrl}
-        ogImageAltText={pageTitle}
-        ogImageWidth={1600}
-        ogImageHeight={1200}
+        ogImageAltText={ogImageAltText}
+        ogImageWidth={1200}
+        ogImageHeight={630}
         slot="meta"
     />
 

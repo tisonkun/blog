@@ -57,6 +57,36 @@ export function getTrailPageTitle(entry: TrailEntry): string {
     return formatTrailDate(entry.data.date);
 }
 
+export function getTrailOgTitle(entry: TrailEntry): string {
+    const title = entry.data.title?.trim();
+    const work = entry.data.work?.trim();
+    if (title && work) {
+        return `${title} · 《${work}》 | 中二少年的轨迹`;
+    }
+    if (title) {
+        return `${title} | 中二少年的轨迹`;
+    }
+    if (work) {
+        return `《${work}》 | 中二少年的轨迹`;
+    }
+    return `${getTrailPageTitle(entry)} | 中二少年的轨迹`;
+}
+
+export function getTrailOgImageAlt(entry: TrailEntry): string {
+    const title = entry.data.title?.trim();
+    const work = entry.data.work?.trim();
+    if (title && work) {
+        return `${title} · 《${work}》`;
+    }
+    if (title) {
+        return title;
+    }
+    if (work) {
+        return `《${work}》`;
+    }
+    return getTrailPageTitle(entry);
+}
+
 export function getTrailSummary(entry: TrailEntry, maxLength = 140): string {
     const parts: string[] = [];
     if (entry.data.title?.trim()) {
