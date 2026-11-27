@@ -42,7 +42,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.5",
     "@types/node": "^26.6.6",
-    "wrangler": "^4.166.0"
+    "wrangler": "^4.167.0"
   },
   "engines": {
     "node": ">=22.13"
